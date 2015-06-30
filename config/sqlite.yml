@@ -1,0 +1,20 @@
+Default: &defaults
+  database: Brass.sqlite3
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: Brass_test.sqlite3
+  <<: *defaults
+
+Staging:
+  database: Brass_staging.sqlite3
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: Brass_production.sqlite3
+  poolsize: 100
+  <<: *defaults

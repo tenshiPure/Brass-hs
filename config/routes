@@ -5,3 +5,4 @@
 /robots.txt RobotsR GET
 
 / HomeR GET POST
+/person/#PersonId PersonR GET POST UPDATE DELETE

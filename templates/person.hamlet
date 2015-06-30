@@ -1,0 +1,8 @@
+<h1>Person
+$if null persons
+    <p>No Persons.
+$else
+    <ul>
+        $forall Entity personId person <- persons
+            <li>
+                <a href=@{PersonR personId}>#{personName person}

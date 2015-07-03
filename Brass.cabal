@@ -23,6 +23,8 @@ library
                      Handler.Common
                      Handler.Home
                      Handler.Person
+                     Handler.PersonList
+                     Handler.PersonDetail
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

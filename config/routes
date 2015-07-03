@@ -6,3 +6,5 @@
 
 / HomeR GET POST
 /person/#PersonId PersonR GET POST UPDATE DELETE
+/persons PersonListR GET
+/person/detail/#PersonId PersonDetailR GET

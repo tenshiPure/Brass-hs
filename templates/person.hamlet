@@ -1,8 +1,0 @@
-<h1>Person
-<p>#{personName person}
-<p>#{personInstrument person}
-<hr>
-    <form method=post enctype=#{enctype}>
-        ^{personWidget}
-        <div>
-            <input type=submit value="新規登録">

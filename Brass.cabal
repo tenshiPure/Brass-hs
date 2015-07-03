@@ -25,6 +25,7 @@ library
                      Handler.PersonList
                      Handler.PersonDetail
                      Handler.PersonAdd
+                     Handler.PersonUpdate
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

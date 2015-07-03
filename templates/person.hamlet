@@ -1,11 +1,6 @@
 <h1>Person
-$if null persons
-    <p>No Persons.
-$else
-    <ul>
-        $forall Entity personId person <- persons
-            <li>
-                <a href=@{PersonR personId}>#{personName person}
+<p>#{personName person}
+<p>#{personInstrument person}
 <hr>
     <form method=post enctype=#{enctype}>
         ^{personWidget}

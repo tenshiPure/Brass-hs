@@ -17,7 +17,7 @@ form = renderDivs $ Person
 
 getPersonR :: PersonId -> Handler Html
 getPersonR personId = do
-    persons <- runDB $ selectList [] [Desc PersonId]
+    person <- runDB $ get404 personId
 
     (personWidget, enctype) <- generateFormPost form
     defaultLayout $ do

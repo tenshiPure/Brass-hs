@@ -1,0 +1,5 @@
+<h1>Person Add
+<form method=post enctype=#{enctype}>
+    ^{personWidget}
+    <div>
+        <input type=submit value="New Person">

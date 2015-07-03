@@ -6,5 +6,7 @@ $else
     <ul>
         $forall Entity personId person <- persons
             <li>
-                <a href=@{PersonDetailR personId}>#{personName person}
+              <a href=@{PersonDetailR personId}>#{personName person}
+              <form method=post action=@{PersonDeleteR personId}>
+                  <input type=submit value="delete">
 <a href=@{PersonAddR}>new

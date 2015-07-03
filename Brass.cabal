@@ -22,7 +22,6 @@ library
                      Settings.StaticFiles
                      Handler.Common
                      Handler.Home
-                     Handler.Person
                      Handler.PersonList
                      Handler.PersonDetail
                      Handler.PersonAdd

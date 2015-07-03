@@ -1,8 +1,10 @@
 <h1>Persons
+^{links}
 $if null persons
     <p>No Persons...
 $else
     <ul>
         $forall Entity personId person <- persons
             <li>
-                <a href=@{PersonDetailR personId}> #{personName person}
+                <a href=@{PersonDetailR personId}>#{personName person}
+<a href=@{PersonAddR}>new

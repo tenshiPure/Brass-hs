@@ -24,7 +24,13 @@ getPersonR personId = do
         $(widgetFile "person")
 
 postPersonR :: PersonId -> Handler Html
-postPersonR = error "Not yet implemented: postPersonR"
+postPersonR personId = do
+    ((res, personWidget), enctype) <- runFormPost form
+    case res of
+        FormSuccess person -> do
+            personId <- runDB $ insert person
+            setMessage $ toHtml $ (personName person) <> "　を作成しました"
+            redirect $ PersonR personId
 
 updatePersonR :: PersonId -> Handler Html
 updatePersonR = error "Not yet implemented: updatePersonR"

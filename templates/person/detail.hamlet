@@ -1,0 +1,3 @@
+<h1>Person Detail
+<p>#{personName person}
+<p>#{personInstrument person}

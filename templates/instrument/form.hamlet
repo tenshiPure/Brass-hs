@@ -1,0 +1,7 @@
+#{extra}
+<p>
+  Name : ^{fvInput nameView}
+<p>
+  Icon : ^{fvInput iconView}
+<p>
+  Code : ^{fvInput codeView}

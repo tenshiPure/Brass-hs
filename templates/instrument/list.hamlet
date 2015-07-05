@@ -1,0 +1,11 @@
+<h1>Instruments
+$if null entities
+  <p>No Instruments...
+$else
+  <ul>
+    $forall Entity id entity <- entities
+      <li>
+        <a href=@{InstrumentUpdateR id}>#{instrumentName entity}
+
+<hr>
+<a href=@{InstrumentCreateR}>new

@@ -35,6 +35,8 @@ $newline never
         <a href=@{PersonListR}>persons
         <br>
         <a href=@{GroupListR}>groups
+        <br>
+        <a href=@{InstrumentListR}>instruments
 
     $maybe analytics <- appAnalytics $ appSettings master
       <script>

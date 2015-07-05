@@ -12,3 +12,4 @@
 /person/delete/#PersonId PersonDeleteR POST
 /group/add GroupAddR GET POST
 /group/detail/#GroupId GroupDetailR GET
+/sample SampleR GET POST

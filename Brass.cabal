@@ -29,6 +29,7 @@ library
                      Handler.PersonDelete
                      Handler.GroupAdd
                      Handler.GroupDetail
+                     Handler.Sample
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

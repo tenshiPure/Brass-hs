@@ -8,6 +8,11 @@ form :: Form Person
 form = renderDivs $ Person
     <$> areq textField "名前" Nothing
     <*> areq textField "楽器" Nothing
+    <*> areq (selectField sections) "グループ" Nothing
+    where
+        sections = do
+            entities <- runDB $ selectList [] [Asc GroupName]
+            optionsPairs $ map (\e -> (groupName $ entityVal e, entityKey e)) entities
 
 
 getPersonAddR :: Handler Html

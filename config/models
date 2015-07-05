@@ -12,6 +12,7 @@ Email
 Person
     name       Text
     instrument Text
+    groupId    GroupId
 
 Group
     name Text

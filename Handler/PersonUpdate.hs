@@ -8,6 +8,11 @@ form :: Maybe Person -> Form Person
 form mPerson = renderDivs $ Person
     <$> areq textField "名前" (personName <$> mPerson)
     <*> areq textField "楽器" (personInstrument <$> mPerson)
+    <*> areq (selectField sections) "グループ" (personGroupId <$> mPerson)
+    where
+        sections = do
+            entities <- runDB $ selectList [] [Asc GroupName]
+            optionsPairs $ map (\e -> (groupName $ entityVal e, entityKey e)) entities
 
 
 getPersonUpdateR :: PersonId -> Handler Html
@@ -25,7 +30,7 @@ postPersonUpdateR personId = do
     ((res, widget), enctype) <- runFormPost (form Nothing)
     case res of
         FormSuccess person -> do
-            runDB $ updateWhere [PersonId ==. personId] [PersonName =. (personName person), PersonInstrument =. (personInstrument person)]
+            runDB $ replace personId person
             setMessage $ toHtml $ (personName person) <> " updated"
             redirect $ PersonDetailR personId
 

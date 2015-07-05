@@ -1,5 +1,6 @@
 <h1>Person Detail
 <p>#{personName person}
 <p>#{personInstrument person}
+<p>#{groupName group}
 
 <a href=@{PersonUpdateR personId}>update

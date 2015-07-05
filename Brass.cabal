@@ -27,6 +27,8 @@ library
                      Handler.PersonAdd
                      Handler.PersonUpdate
                      Handler.PersonDelete
+                     Handler.GroupAdd
+                     Handler.GroupDetail
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

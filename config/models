@@ -12,3 +12,6 @@ Email
 Person
     name       Text
     instrument Text
+
+Group
+    name Text

@@ -37,8 +37,7 @@ import Handler.PersonDetail
 import Handler.PersonAdd
 import Handler.PersonUpdate
 import Handler.PersonDelete
-import Handler.GroupAdd
-import Handler.GroupDetail
+import Handler.Group
 import Handler.Sample
 
 -- This line actually creates our YesodDispatch instance. It is the second half

@@ -27,8 +27,7 @@ library
                      Handler.PersonAdd
                      Handler.PersonUpdate
                      Handler.PersonDelete
-                     Handler.GroupAdd
-                     Handler.GroupDetail
+                     Handler.Group
                      Handler.Sample
 
     if flag(dev) || flag(library-only)

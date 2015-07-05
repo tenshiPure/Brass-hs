@@ -10,6 +10,8 @@
 /person/add PersonAddR GET POST
 /person/update/#PersonId PersonUpdateR GET POST
 /person/delete/#PersonId PersonDeleteR POST
-/group/add GroupAddR GET POST
+
+/group/add             GroupAddR    GET POST
 /group/detail/#GroupId GroupDetailR GET
+
 /sample SampleR GET POST

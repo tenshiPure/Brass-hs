@@ -5,7 +5,9 @@ $else
   <ul>
     $forall Entity id entity <- entities
       <li>
-        <a href=@{InstrumentUpdateR id}>#{instrumentName entity}
+        <a href=@{InstrumentUpdateR id}>
+          #{instrumentName entity}
+          <img src=/static/image/instruments/#{instrumentIcon entity} width=100>
 
 <hr>
 <a href=@{InstrumentCreateR}>new

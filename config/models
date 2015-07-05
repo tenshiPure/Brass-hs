@@ -16,8 +16,8 @@ Person
 
 Instrument
     name Text
-    code Text
     icon Text
+    code Text
 
 Group
     name Text

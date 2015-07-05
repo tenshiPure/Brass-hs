@@ -2,4 +2,4 @@
 
 <form action=@{GroupCreateR} method=post enctype=#{enctype}>
     ^{widget}
-    <input type="submit" value="new">
+    <input type="submit" value="create">

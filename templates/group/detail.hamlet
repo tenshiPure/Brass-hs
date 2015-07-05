@@ -1,2 +1,3 @@
 <h1>Group Detail
 <p>#{groupName group}
+<a href=@{GroupUpdateR groupId}>update

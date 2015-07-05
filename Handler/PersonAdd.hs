@@ -13,7 +13,6 @@ form = renderDivs $ Person
 getPersonAddR :: Handler Html
 getPersonAddR = do
     (widget, enctype) <- generateFormPost form
-    let links = $(widgetFile "person/links")
 
     defaultLayout $(widgetFile "person/add")
 
@@ -28,6 +27,5 @@ postPersonAddR = do
             redirect $ PersonDetailR personId
 
         _ -> defaultLayout $ do
-            let links = $(widgetFile "person/links")
             setTitle "Invalid Input"
             $(widgetFile "person/add")

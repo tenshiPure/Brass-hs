@@ -14,7 +14,6 @@ getPersonUpdateR :: PersonId -> Handler Html
 getPersonUpdateR personId = do
     person <- runDB $ get404 personId
     (widget, enctype) <- generateFormPost $ form (Just person)
-    let links = $(widgetFile "person/links")
 
     defaultLayout $ do
         setTitle $ toHtml $ personName person
@@ -31,6 +30,5 @@ postPersonUpdateR personId = do
             redirect $ PersonDetailR personId
 
         _ -> defaultLayout $ do
-            let links = $(widgetFile "person/links")
             setTitle "Invalid Input"
             $(widgetFile "person/update")

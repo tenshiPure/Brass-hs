@@ -1,5 +1,4 @@
 <h1>Person Update
-^{links}
 <form method=post enctype=#{enctype}>
     ^{widget}
     <div>

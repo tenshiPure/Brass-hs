@@ -1,5 +1,4 @@
 <h1>Person Detail
-^{links}
 <p>#{personName person}
 <p>#{personInstrument person}
 

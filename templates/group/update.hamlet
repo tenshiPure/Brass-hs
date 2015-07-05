@@ -2,4 +2,4 @@
 
 <form action=@{GroupUpdateR groupId} method=post enctype=#{enctype}>
     ^{widget}
-    <input type="submit" value="new">
+    <input type="submit" value="update">

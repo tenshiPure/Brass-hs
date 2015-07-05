@@ -1,5 +1,4 @@
 <h1>Persons
-^{links}
 $if null persons
     <p>No Persons...
 $else

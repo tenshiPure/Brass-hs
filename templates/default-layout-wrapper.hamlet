@@ -20,6 +20,7 @@ $newline never
     \<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     \<![endif]-->
 
+    <script src=/static/js/jquery-min.js>
     <script>
       document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
   <body>
@@ -29,6 +30,11 @@ $newline never
         ^{pageBody pc}
       <footer>
         #{appCopyright $ appSettings master}
+        <br>
+        <br>
+        <a href=@{PersonListR}>persons
+        <br>
+        <a href=@{GroupListR}>groups
 
     $maybe analytics <- appAnalytics $ appSettings master
       <script>

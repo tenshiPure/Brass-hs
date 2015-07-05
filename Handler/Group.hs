@@ -6,17 +6,17 @@ import Import
 
 getGroupListR :: Handler Html
 getGroupListR = do
-    groups <- runDB $ selectList [] [Desc GroupId]
+    entities <- runDB $ selectList [] [Desc GroupId]
 
     defaultLayout $(widgetFile "group/list")
 
 
 getGroupDetailR :: GroupId -> Handler Html
-getGroupDetailR groupId = do
-    group <- runDB $ get404 groupId
+getGroupDetailR eId = do
+    entity <- runDB $ get404 eId
 
     defaultLayout $ do
-        setTitle $ toHtml $ groupName group
+        setTitle $ toHtml $ groupName entity
         $(widgetFile "group/detail")
 
 
@@ -40,10 +40,10 @@ postGroupCreateR :: Handler Html
 postGroupCreateR = do
     ((res, widget), enctype) <- runFormPost $ form Nothing
     case res of
-        FormSuccess group -> do
-            groupId <- runDB $ insert group
-            setMessage $ toHtml $ (groupName group) <> " created"
-            redirect $ GroupDetailR groupId
+        FormSuccess entity -> do
+            eId <- runDB $ insert entity
+            setMessage $ toHtml $ (groupName entity) <> " created"
+            redirect $ GroupDetailR eId
 
         _ -> defaultLayout $ do
             setTitle "Invalid Input"
@@ -51,21 +51,21 @@ postGroupCreateR = do
 
 
 getGroupUpdateR :: GroupId -> Handler Html
-getGroupUpdateR groupId = do
-    group <- runDB $ get404 groupId
-    (widget, enctype) <- generateFormPost $ form (Just group)
+getGroupUpdateR eId = do
+    entity <- runDB $ get404 eId
+    (widget, enctype) <- generateFormPost $ form (Just entity)
 
     defaultLayout $(widgetFile "group/update")
 
 
 postGroupUpdateR :: GroupId -> Handler Html
-postGroupUpdateR groupId = do
+postGroupUpdateR eId = do
     ((res, widget), enctype) <- runFormPost $ form Nothing
     case res of
-        FormSuccess group -> do
-            runDB $ replace groupId group
-            setMessage $ toHtml $ (groupName group) <> " update"
-            redirect $ GroupDetailR groupId
+        FormSuccess entity -> do
+            runDB $ replace eId entity
+            setMessage $ toHtml $ (groupName entity) <> " update"
+            redirect $ GroupDetailR eId
 
         _ -> defaultLayout $ do
             setTitle "Invalid Input"
@@ -73,6 +73,6 @@ postGroupUpdateR groupId = do
 
 
 postGroupDeleteR :: GroupId -> Handler Html
-postGroupDeleteR groupId = do
-    runDB $ delete groupId
+postGroupDeleteR eId = do
+    runDB $ delete eId
     redirect $ GroupListR

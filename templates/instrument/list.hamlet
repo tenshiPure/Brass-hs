@@ -3,9 +3,9 @@ $if null entities
   <p>No Instruments...
 $else
   <ul>
-    $forall Entity id entity <- entities
+    $forall Entity eId entity <- entities
       <li>
-        <a href=@{InstrumentUpdateR id}>
+        <a href=@{InstrumentUpdateR eId}>
           #{instrumentName entity}
           <img src=/static/image/instruments/#{instrumentIcon entity} width=100>
 

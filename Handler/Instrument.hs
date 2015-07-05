@@ -36,7 +36,7 @@ postInstrumentCreateR = do
     ((res, widget), enctype) <- runFormPost $ form Nothing
     case res of
         FormSuccess entity -> do
-            groupId <- runDB $ insert entity
+            _ <- runDB $ insert entity
             redirect $ InstrumentListR
 
         _ -> defaultLayout $ do
@@ -44,19 +44,19 @@ postInstrumentCreateR = do
 
 
 getInstrumentUpdateR :: InstrumentId -> Handler Html
-getInstrumentUpdateR id = do
-    entity <- runDB $ get404 id
+getInstrumentUpdateR eId = do
+    entity <- runDB $ get404 eId
     (widget, enctype) <- generateFormPost $ form (Just entity)
 
     defaultLayout $(widgetFile "instrument/update")
 
 
 postInstrumentUpdateR :: InstrumentId -> Handler Html
-postInstrumentUpdateR id = do
+postInstrumentUpdateR eId = do
     ((res, widget), enctype) <- runFormPost $ form Nothing
     case res of
         FormSuccess entity -> do
-            runDB $ replace id entity
+            runDB $ replace eId entity
             redirect $ InstrumentListR
 
         _ -> defaultLayout $ do
@@ -64,6 +64,6 @@ postInstrumentUpdateR id = do
 
 
 postInstrumentDeleteR :: InstrumentId -> Handler Html
-postInstrumentDeleteR id = do
-    runDB $ delete id
+postInstrumentDeleteR eId = do
+    runDB $ delete eId
     redirect $ InstrumentListR

@@ -1,5 +1,5 @@
 <h1>Instrument Update
 
-<form method=post enctype=#{enctype} action=@{InstrumentUpdateR id}>
+<form method=post enctype=#{enctype} action=@{InstrumentUpdateR eId}>
     ^{widget}
     <input type="submit" value="update">

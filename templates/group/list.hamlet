@@ -1,11 +1,11 @@
 <h1>Groups
-$if null groups
+$if null entities
     <p>No Groups...
 $else
     <ul>
-        $forall Entity groupId group <- groups
+        $forall Entity eId entity <- entities
             <li>
-              <a href=@{GroupDetailR groupId}>#{groupName group}
-              <form method=post action=@{GroupDeleteR groupId}>
+              <a href=@{GroupDetailR eId}>#{groupName entity}
+              <form method=post action=@{GroupDeleteR eId}>
                   <input type=submit value="delete">
 <a href=@{GroupCreateR}>new

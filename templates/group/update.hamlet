@@ -1,5 +1,5 @@
 <h1>Group Update
 
-<form action=@{GroupUpdateR groupId} method=post enctype=#{enctype}>
+<form action=@{GroupUpdateR eId} method=post enctype=#{enctype}>
     ^{widget}
     <input type="submit" value="update">

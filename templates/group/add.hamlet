@@ -1,5 +1,0 @@
-<h1>Group Add
-
-<form action=@{GroupAddR} method=post enctype=#{enctype}>
-    ^{widget}
-    <input type="submit" value="new">

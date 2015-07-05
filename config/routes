@@ -11,7 +11,10 @@
 /person/update/#PersonId PersonUpdateR GET POST
 /person/delete/#PersonId PersonDeleteR POST
 
-/group/add             GroupAddR    GET POST
+/groups                GroupListR   GET
 /group/detail/#GroupId GroupDetailR GET
+/group/create          GroupCreateR GET POST
+/group/update/#GroupId GroupUpdateR GET POST
+/group/delete/#GroupId GroupDeleteR POST
 
 /sample SampleR GET POST

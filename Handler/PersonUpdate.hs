@@ -5,12 +5,9 @@ import Import
 
 
 form :: Maybe Person -> Form Person
-form (Just person) = renderDivs $ Person
-    <$> areq textField "名前" (Just $ personName person)
-    <*> areq textField "楽器" (Just $ personInstrument person)
-form Nothing = renderDivs $ Person
-    <$> areq textField "名前" Nothing
-    <*> areq textField "楽器" Nothing
+form mPerson = renderDivs $ Person
+    <$> areq textField "名前" (personName <$> mPerson)
+    <*> areq textField "楽器" (personInstrument <$> mPerson)
 
 
 getPersonUpdateR :: PersonId -> Handler Html

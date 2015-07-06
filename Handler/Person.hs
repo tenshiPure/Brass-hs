@@ -20,23 +20,26 @@ getPersonDetailR personId = do
         $(widgetFile "person/detail")
 
 
-form :: Maybe Person -> Form Person
-form mPerson = renderDivs $ Person
-    <$> areq textField "名前" (personName <$> mPerson)
+fPerson :: Html -> MForm Handler (FormResult (Person, Maybe Text), Widget)
+fPerson = renderDivs $ (,)
+    <$> (
+        Person <$> areq textField "名前" Nothing
+    )
+    <*> aopt textField "その他" Nothing
 
 
 getPersonAddR :: Handler Html
 getPersonAddR = do
-    (widget, enctype) <- generateFormPost (form Nothing)
+    (widget, enctype) <- generateFormPost fPerson
 
     defaultLayout $(widgetFile "person/add")
 
 
 postPersonAddR :: Handler Html
 postPersonAddR = do
-    ((res, widget), enctype) <- runFormPost (form Nothing)
+    ((res, widget), enctype) <- runFormPost fPerson
     case res of
-        FormSuccess person -> do
+        FormSuccess (person, _) -> do
             personId <- runDB $ insert person
             setMessage $ toHtml $ (personName person) <> " created"
             redirect $ PersonDetailR personId
@@ -49,7 +52,7 @@ postPersonAddR = do
 getPersonUpdateR :: PersonId -> Handler Html
 getPersonUpdateR personId = do
     person <- runDB $ get404 personId
-    (widget, enctype) <- generateFormPost $ form (Just person)
+    (widget, enctype) <- generateFormPost $ fPerson
 
     defaultLayout $ do
         setTitle $ toHtml $ personName person
@@ -58,9 +61,9 @@ getPersonUpdateR personId = do
 
 postPersonUpdateR :: PersonId -> Handler Html
 postPersonUpdateR personId = do
-    ((res, widget), enctype) <- runFormPost (form Nothing)
+    ((res, widget), enctype) <- runFormPost fPerson
     case res of
-        FormSuccess person -> do
+        FormSuccess (person, _) -> do
             runDB $ replace personId person
             setMessage $ toHtml $ (personName person) <> " updated"
             redirect $ PersonDetailR personId

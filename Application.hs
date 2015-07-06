@@ -32,11 +32,7 @@ import System.Log.FastLogger                (defaultBufSize, newStdoutLoggerSet,
 -- Don't forget to add new modules to your cabal file!
 import Handler.Common
 import Handler.Home
-import Handler.PersonList
-import Handler.PersonDetail
-import Handler.PersonAdd
-import Handler.PersonUpdate
-import Handler.PersonDelete
+import Handler.Person
 import Handler.Group
 import Handler.Sample
 import Handler.Instrument

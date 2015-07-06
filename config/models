@@ -11,13 +11,16 @@ Email
 
 Person
     name       Text
-    instrument Text
-    groupId    GroupId
 
 Instrument
     name Text
     icon Text
     code Text
+
+PersonInstrumentRef
+    personId     PersonId
+    instrumentId InstrumentId
+    experience   Int
 
 Group
     name Text

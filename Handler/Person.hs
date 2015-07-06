@@ -20,12 +20,16 @@ getPersonDetailR personId = do
         $(widgetFile "person/detail")
 
 
-fPerson :: Html -> MForm Handler (FormResult (Person, Maybe Text), Widget)
+fPerson :: Html -> MForm Handler (FormResult (Person, Maybe (Key Instrument)), Widget)
 fPerson = renderDivs $ (,)
     <$> (
         Person <$> areq textField "名前" Nothing
     )
-    <*> aopt textField "その他" Nothing
+    <*> aopt (selectField sections) "その他" Nothing
+    where
+        sections = do
+            entities <- runDB $ selectList [] [Asc InstrumentId]
+            optionsPairs $ map (\e -> (instrumentName $ entityVal e, entityKey e)) entities
 
 
 getPersonAddR :: Handler Html

@@ -6,11 +6,13 @@ $if null es
 $else
     <ul>
         <form method=post action=@{ExperienceUpdateR personId}>
-        $forall e <- es
-            <li>
-                <input type=hidden name=person-id value=#{show $ ePersonId e}>
-                <input type=hidden name=instrument-id value=#{show $ eInstrumentId e}>
-                $maybe years <- eMaybeYears e
-                    #{eInstrumentName e} : <img class=icon src=/static/image/instruments/#{eInstrumentIcon e} width=100> <input class=years type=number name=year value=#{years} min=0 required>年
-                $nothing
-                    #{eInstrumentName e} : <img class=icon src=/static/image/instruments/#{eInstrumentIcon e} width=100> <input class=years type=number name=year value=0 min=0 required>年
+            $forall e <- es
+                <li>
+                    <input type=hidden name=person-id[] value=#{show $ ePersonId e}>
+                    <input type=hidden name=instrument-id[] value=#{show $ eInstrumentId e}>
+                    $maybe years <- eMaybeYears e
+                        #{eInstrumentName e} : <img class=icon src=/static/image/instruments/#{eInstrumentIcon e} width=100> <input class=years type=number name=year[] value=#{years} min=0 required>年
+                    $nothing
+                        #{eInstrumentName e} : <img class=icon src=/static/image/instruments/#{eInstrumentIcon e} width=100> <input class=years type=number name=year[] value=0 min=0 required>年
+
+            <input type=submit value=update>

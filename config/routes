@@ -25,4 +25,4 @@
 /instruments/update/#InstrumentId InstrumentUpdateR GET POST
 /instruments/delete/#InstrumentId InstrumentDeleteR     POST
 
-/experiences/#PersonId ExperienceListR GET
+/experience/update/#PersonId ExperienceUpdateR GET POST

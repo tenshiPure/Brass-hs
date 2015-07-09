@@ -26,6 +26,7 @@ library
                      Handler.Group
                      Handler.Sample
                      Handler.Instrument
+                     Handler.Experience
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

@@ -1,0 +1,16 @@
+<h1>Expeirnce
+#{personName person}
+
+$if null es
+    <p>No Experiences...
+$else
+    <ul>
+        <form method=post action=@{ExperienceListR personId}>
+        $forall e <- es
+            <li>
+                <input type=hidden name=person-id value=#{show $ ePersonId e}>
+                <input type=hidden name=instrument-id value=#{show $ eInstrumentId e}>
+                $maybe years <- eMaybeYears e
+                    #{eInstrumentName e} : <input type=text name=year value=#{years}>年
+                $nothing
+                    #{eInstrumentName e} : <input type=text name=year value=0>年

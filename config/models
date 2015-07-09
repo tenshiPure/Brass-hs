@@ -17,10 +17,10 @@ Instrument
     icon Text
     code Text
 
-PersonInstrumentRef
+Experience
     personId     PersonId
     instrumentId InstrumentId
-    experience   Int
+    years        Int
 
 Group
     name Text

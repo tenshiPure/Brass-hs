@@ -1,0 +1,18 @@
+$(function() {
+	$('.years').on('keydown change', grayout);
+	$('.years').trigger('keydown');
+});
+
+function grayout() {
+    var years = $(this).val();
+    var icon = $(this).prev('.icon');
+    var src = $(this).prev('.icon').attr('src');
+
+    if (years == 0) {
+        icon.attr('src', src.replace(/image\/instrument/, 'image\/gray_instrument'));
+
+    } else {
+        icon.attr('src', src.replace(/gray_instrument/, 'instrument'));
+
+    }
+};

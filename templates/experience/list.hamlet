@@ -11,6 +11,6 @@ $else
                 <input type=hidden name=person-id value=#{show $ ePersonId e}>
                 <input type=hidden name=instrument-id value=#{show $ eInstrumentId e}>
                 $maybe years <- eMaybeYears e
-                    #{eInstrumentName e} : <img src=/static/image/instruments/#{eInstrumentIcon e} width=100> <input type=text name=year value=#{years} size=5>年
+                    #{eInstrumentName e} : <img class=icon src=/static/image/instruments/#{eInstrumentIcon e} width=100> <input class=years type=number name=year value=#{years} min=0 required>年
                 $nothing
-                    #{eInstrumentName e} : <img src=/static/image/instruments/#{eInstrumentIcon e} width=100> <input type=text name=year value=0 size=5>年
+                    #{eInstrumentName e} : <img class=icon src=/static/image/instruments/#{eInstrumentIcon e} width=100> <input class=years type=number name=year value=0 min=0 required>年

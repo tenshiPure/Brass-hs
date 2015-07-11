@@ -1,6 +1,6 @@
 $(function() {
-	$('.years').on('keydown change', grayout);
-	$('.years').trigger('keydown');
+    $('.years').on('keydown change', grayout);
+    $('.years').trigger('keydown');
 });
 
 function grayout() {

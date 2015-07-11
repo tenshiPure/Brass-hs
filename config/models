@@ -11,19 +11,23 @@ Email
 
 Person
     name       Text
+    deriving Show
 
 Instrument
     name Text
     icon Text
     code Text
+    deriving Show
 
 Experience
     personId     PersonId
     instrumentId InstrumentId
     years        Int
+    deriving Show
 
 Group
     name Text
+    deriving Show
 
 Sample
     name Text

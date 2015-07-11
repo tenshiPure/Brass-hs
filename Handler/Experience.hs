@@ -2,6 +2,7 @@ module Handler.Experience where
 
 
 import Import
+import Prelude(read)
 
 
 data Es = Es { ePersonId :: PersonId, eInstrumentId :: InstrumentId, eMaybeYears :: Maybe Int, eInstrumentName ::  Text, eInstrumentIcon :: Text }
@@ -26,4 +27,21 @@ getExperienceUpdateR personId = do
 
 postExperienceUpdateR :: PersonId -> Handler Html
 postExperienceUpdateR personId = do
-    defaultLayout [whamlet| hello |]
+    instrumentIds <- getInstrumentIds
+    years <- getYears
+    let experiences = zipWith (\instrumentId year -> Experience personId instrumentId year) instrumentIds years
+    map (runDB . insert) experiences
+    redirect $ ExperienceUpdateR personId
+
+getInstrumentIds :: HandlerT App IO [InstrumentId]
+getInstrumentIds = do
+    instrumentIds' <- lookupPostParams "instrument-id[]"
+    return $ map (read . unpack) instrumentIds'
+
+getYears :: (MonadHandler m, Read a) => m [a]
+getYears = do
+    years' <- lookupPostParams "years[]"
+    return $ map (read . unpack) years'
+
+-- getExperience :: PersonId -> Experience
+-- getExperience personId = Experience personId (read "InstrumentKey {unInstrumentKey = SqlBackendKey {unSqlBackendKey = 2}}" :: InstrumentId) 0

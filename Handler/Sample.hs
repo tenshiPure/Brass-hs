@@ -24,3 +24,9 @@ postSampleR = do
         Just "update" -> defaultLayout [whamlet|<p>update!|]
         Just "delete" -> defaultLayout [whamlet|<p>delete!|]
         _             -> defaultLayout [whamlet|<p>error!|]
+
+
+getSampleStringR :: PersonId -> Handler String
+getSampleStringR personId = do
+    person <- runDB $ get404 personId
+    return $ show person

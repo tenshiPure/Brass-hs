@@ -1,7 +1,11 @@
 <h1>Group Detail
 <p>#{groupName entity}
-$forall person <- persons
+$forall (personId, person) <- tPersons
     <p>
         #{personName person}
+        <a href=@{BelongDeleteR personId groupId}>bang
 
-<a href=@{GroupUpdateR groupId}>update
+<p>
+    <a href=@{GroupUpdateR groupId}>update
+<p>
+    <a href=@{BelongCreateR groupId}>invite

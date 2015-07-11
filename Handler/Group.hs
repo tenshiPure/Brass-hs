@@ -2,8 +2,6 @@ module Handler.Group where
 
 
 import Import
-import Database.Persist.Sql
-import Prelude(read)
 
 
 getGroupListR :: Handler Html
@@ -17,9 +15,11 @@ getGroupDetailR :: GroupId -> Handler Html
 getGroupDetailR groupId = do
     entity <- runDB $ get404 groupId
 
-    belongs <- runDB $ selectList [BelongGroupId ==. groupId] [Asc BelongId]
+    belongs <- runDB $ selectList [BelongGroupId ==. groupId] [Asc BelongPersonId]
     let personIds = map (belongPersonId . entityVal) belongs
     persons <- mapM (runDB . get404) personIds
+
+    let tPersons = zip personIds persons
 
     defaultLayout $ do
         $(widgetFile "group/detail")

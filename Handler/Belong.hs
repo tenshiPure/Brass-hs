@@ -23,13 +23,14 @@ getBelongCreateR groupId = do
 
 postBelongCreateR :: GroupId -> Handler Html
 postBelongCreateR groupId = do
-    ((res, widget), enctype) <- runFormPost (fBelong groupId)
+    ((res, _), _) <- runFormPost (fBelong groupId)
     case res of
         FormSuccess belong -> do
-            runDB $ insert belong
-            redirect $ PersonListR
+            _ <- runDB $ insert belong
+            redirect $ GroupDetailR groupId
 
 
-postBelongDeleteR :: PersonId -> GroupId -> Handler Html
-postBelongDeleteR personId groupId = do
-    undefined
+getBelongDeleteR :: PersonId -> GroupId -> Handler Html
+getBelongDeleteR personId groupId = do
+    _ <- runDB $ deleteWhere [BelongPersonId ==. personId, BelongGroupId ==. groupId]
+    redirect $ GroupDetailR groupId

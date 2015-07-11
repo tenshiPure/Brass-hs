@@ -36,3 +36,8 @@ Belong
     personId PersonId
     groupId  GroupId
     deriving Show
+
+Schedule
+    prace Text Maybe
+    note  Text Maybe
+    deriving Show

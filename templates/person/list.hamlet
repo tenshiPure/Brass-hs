@@ -8,4 +8,4 @@ $else
               <a href=@{PersonDetailR personId}>#{personName person}
               <form method=post action=@{PersonDeleteR personId}>
                   <input type=submit value="delete">
-<a href=@{PersonAddR}>new
+<a href=@{PersonCreateR}>new

@@ -25,15 +25,15 @@ fPerson mPerson = renderDivs $ Person
     <$> areq textField "名前" (personName <$> mPerson)
 
 
-getPersonAddR :: Handler Html
-getPersonAddR = do
+getPersonCreateR :: Handler Html
+getPersonCreateR = do
     (widget, enctype) <- generateFormPost (fPerson Nothing)
 
-    defaultLayout $(widgetFile "person/add")
+    defaultLayout $(widgetFile "person/create")
 
 
-postPersonAddR :: Handler Html
-postPersonAddR = do
+postPersonCreateR :: Handler Html
+postPersonCreateR = do
     ((res, widget), enctype) <- runFormPost (fPerson Nothing)
     case res of
         FormSuccess person -> do
@@ -43,7 +43,7 @@ postPersonAddR = do
 
         _ -> defaultLayout $ do
             setTitle "Invalid Input"
-            $(widgetFile "person/add")
+            $(widgetFile "person/create")
 
 
 getPersonUpdateR :: PersonId -> Handler Html

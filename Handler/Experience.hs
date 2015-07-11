@@ -30,7 +30,7 @@ postExperienceUpdateR personId = do
     instrumentIds <- getInstrumentIds
     years <- getYears
     let experiences = zipWith (\instrumentId year -> Experience personId instrumentId year) instrumentIds years
-    map (runDB . insert) experiences
+--     map (runDB . insert) experiences
     redirect $ ExperienceUpdateR personId
 
 getInstrumentIds :: HandlerT App IO [InstrumentId]

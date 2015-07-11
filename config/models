@@ -31,3 +31,7 @@ Group
 
 Sample
     name Text
+
+Belong
+    personId PersonId
+    groupId  GroupId

@@ -27,6 +27,7 @@ library
                      Handler.Sample
                      Handler.Instrument
                      Handler.Experience
+                     Handler.Belong
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

@@ -1,4 +1,4 @@
-<h1>Person Add
+<h1>Person Create
 <form method=post enctype=#{enctype}>
     ^{widget}
     <div>

@@ -5,8 +5,5 @@ $else
     <ul>
         $forall Entity scheduleId schedule <- schedules
             <li>
-                $maybe prace <- schedulePrace schedule
-                    場所：#{prace}
-                $nothing
-                    場所：-
+                #{show $ scheduleDay schedule}
 <a href=@{ScheduleCreateR groupId}>create

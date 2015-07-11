@@ -13,7 +13,8 @@ getScheduleListR groupId = do
 
 fSchedule :: Maybe Schedule -> Form Schedule
 fSchedule mSchedule = renderDivs $ Schedule
-    <$> aopt textField "場所" (schedulePrace <$> mSchedule)
+    <$> areq dayField  "日程" (scheduleDay   <$> mSchedule)
+    <*> aopt textField "場所" (schedulePrace <$> mSchedule)
     <*> aopt textField "備考" (scheduleNote  <$> mSchedule)
 
 

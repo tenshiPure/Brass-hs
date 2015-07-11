@@ -38,6 +38,7 @@ Belong
     deriving Show
 
 Schedule
+    day   Day
     prace Text Maybe
     note  Text Maybe
     deriving Show

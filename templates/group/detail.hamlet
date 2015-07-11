@@ -9,3 +9,5 @@ $forall (personId, person) <- tPersons
     <a href=@{GroupUpdateR groupId}>update
 <p>
     <a href=@{BelongCreateR groupId}>invite
+<p>
+    <a href=@{ScheduleListR groupId}>schedules

@@ -35,3 +35,4 @@ Sample
 Belong
     personId PersonId
     groupId  GroupId
+    deriving Show

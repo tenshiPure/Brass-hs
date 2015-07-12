@@ -7,5 +7,5 @@ $else
         $forall Entity scheduleId schedule <- schedules
             <li>
                 <a href=@{ScheduleDetailR groupId scheduleId}>
-                    #{show $ scheduleDay schedule}
+                    #{show schedule}
 <a href=@{ScheduleCreateR groupId}>create

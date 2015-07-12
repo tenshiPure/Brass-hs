@@ -42,4 +42,3 @@ Schedule
     prace    Text Maybe
     note     Text Maybe
     groupId  GroupId
-    deriving Show

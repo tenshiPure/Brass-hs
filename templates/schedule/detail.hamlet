@@ -1,0 +1,21 @@
+<h1>Schedule Detail
+<p>#{groupName entity}
+
+<p>日程：#{show $ scheduleDay schedule}
+
+$maybe prace <- schedulePrace schedule
+    <p>場所：#{prace}
+$nothing
+    <p>場所：-
+
+$maybe note <- scheduleNote schedule
+    <p>備考：#{note}
+$nothing
+    <p>場所：-
+
+<p>
+    <a href=@{ScheduleListR groupId}>
+        schedules
+<p>
+    <a href=@{ScheduleUpdateR groupId scheduleId}>
+        update

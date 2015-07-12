@@ -6,5 +6,6 @@ $else
     <ul>
         $forall Entity scheduleId schedule <- schedules
             <li>
-                #{show $ scheduleDay schedule}
+                <a href=@{ScheduleDetailR groupId scheduleId}>
+                    #{show $ scheduleDay schedule}
 <a href=@{ScheduleCreateR groupId}>create

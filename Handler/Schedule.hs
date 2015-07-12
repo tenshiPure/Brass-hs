@@ -12,6 +12,14 @@ getScheduleListR groupId = do
     defaultLayout $(widgetFile "schedule/list")
 
 
+getScheduleDetailR :: GroupId -> ScheduleId -> Handler Html
+getScheduleDetailR groupId scheduleId = do
+    entity <- runDB $ get404 groupId
+    schedule <- runDB $ get404 scheduleId
+
+    defaultLayout $(widgetFile "schedule/detail")
+
+
 fSchedule :: GroupId -> Maybe Schedule -> Form Schedule
 fSchedule groupId mSchedule = renderDivs $ Schedule
     <$> areq dayField    "日程" (scheduleDay   <$> mSchedule)
@@ -35,5 +43,23 @@ postScheduleCreateR groupId = do
             _ <- runDB $ insert schedule
             redirect $ ScheduleListR groupId
 
-        _ -> defaultLayout $ do
-            $(widgetFile "schedule/create")
+        _ -> defaultLayout $(widgetFile "schedule/create")
+
+
+getScheduleUpdateR :: GroupId -> ScheduleId -> Handler Html
+getScheduleUpdateR groupId scheduleId = do
+    schedule <- runDB $ get404 scheduleId
+    (widget, enctype) <- generateFormPost (fSchedule groupId $ Just schedule)
+
+    defaultLayout $(widgetFile "schedule/update")
+
+
+postScheduleUpdateR :: GroupId -> ScheduleId -> Handler Html
+postScheduleUpdateR groupId scheduleId = do
+    ((res, widget), enctype) <- runFormPost (fSchedule groupId Nothing)
+    case res of
+        FormSuccess schedule -> do
+            runDB $ replace scheduleId schedule
+            redirect $ ScheduleListR groupId
+
+        _ -> defaultLayout $(widgetFile "schedule/create")

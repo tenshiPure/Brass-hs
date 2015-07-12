@@ -31,5 +31,7 @@
 /belong/create/#GroupId           BelongCreateR GET POST
 /belong/delete/#PersonId/#GroupId BelongDeleteR GET
 
-/schedules/#GroupId       ScheduleListR GET
-/schedule/create/#GroupId ScheduleCreateR GET POST
+/schedules/#GroupId                   ScheduleListR GET
+/schedule/detail/#GroupId/#ScheduleId ScheduleDetailR GET
+/schedule/create/#GroupId             ScheduleCreateR GET POST
+/schedule/update/#GroupId/#ScheduleId ScheduleUpdateR GET POST

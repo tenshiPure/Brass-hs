@@ -126,7 +126,7 @@ instance YesodAuth App where
     redirectToReferer _ = True
 
     getAuthId creds = runDB $ do
-        x <- insertBy $ Person (credsIdent creds) "John Doe"
+        x <- insertBy $ Person (credsIdent creds) (credsIdent creds)
         return $ Just $
             case x of
                 Left (Entity personId _) -> personId

@@ -22,8 +22,8 @@ getPersonDetailR personId = do
 
 fPerson :: Maybe Person -> Form Person
 fPerson mPerson = renderDivs $ Person
-    <$> areq textField "メール" (personMail <$> mPerson)
-    <*> areq textField "名前" (personName <$> mPerson)
+    <$> areq hiddenField ""     (personMail <$> mPerson)
+    <*> areq textField   "名前" (personName <$> mPerson)
 
 
 getPersonCreateR :: Handler Html

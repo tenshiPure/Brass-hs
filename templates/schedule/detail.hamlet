@@ -13,6 +13,12 @@ $maybe note <- scheduleNote schedule
 $nothing
     <p>場所：-
 
+$if null persons
+    <p>
+        No Persons...
+$forall person <- persons
+    <p>
+        #{personName person}
 <p>
     <a href=@{ScheduleListR groupId}>
         schedules

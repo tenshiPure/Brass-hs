@@ -26,6 +26,10 @@ getScheduleDetailR groupId scheduleId = do
     entity <- runDB $ get404 groupId
     schedule <- runDB $ get404 scheduleId
 
+    attendances <- runDB $ selectList [AttendanceScheduleId ==. scheduleId] [Asc AttendanceId]
+    let personIds = map (attendancePersonId . entityVal) attendances
+    persons <- mapM (runDB . get404) personIds
+
     defaultLayout $(widgetFile "schedule/detail")
 
 

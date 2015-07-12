@@ -35,3 +35,5 @@
 /schedule/detail/#GroupId/#ScheduleId ScheduleDetailR GET
 /schedule/create/#GroupId             ScheduleCreateR GET POST
 /schedule/update/#GroupId/#ScheduleId ScheduleUpdateR GET POST
+
+/attendance/create/#GroupId/#ScheduleId/#PersonId AttendanceCreateR GET POST

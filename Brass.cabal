@@ -29,6 +29,7 @@ library
                      Handler.Experience
                      Handler.Belong
                      Handler.Schedule
+                     Handler.Attendance
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

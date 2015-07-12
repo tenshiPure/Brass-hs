@@ -11,22 +11,22 @@ Email
 
 Person
     name       Text
-    deriving Show
+    deriving   Show
 
 Instrument
-    name Text
-    icon Text
-    code Text
+    name     Text
+    icon     Text
+    code     Text
     deriving Show
 
 Experience
     personId     PersonId
     instrumentId InstrumentId
     years        Int
-    deriving Show
+    deriving     Show
 
 Group
-    name Text
+    name     Text
     deriving Show
 
 Sample
@@ -38,7 +38,8 @@ Belong
     deriving Show
 
 Schedule
-    day   Day
-    prace Text Maybe
-    note  Text Maybe
+    day      Day
+    prace    Text Maybe
+    note     Text Maybe
+    groupId  GroupId
     deriving Show

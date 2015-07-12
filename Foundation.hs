@@ -117,7 +117,7 @@ instance YesodPersistRunner App where
     getDBRunner = defaultGetDBRunner appConnPool
 
 instance YesodAuth App where
-    type AuthId App = UserId
+    type AuthId App = PersonId
 
     -- Where to send a user after successful login
     loginDest _ = HomeR
@@ -126,11 +126,12 @@ instance YesodAuth App where
     -- Override the above two destinations when a Referer: header is present
     redirectToReferer _ = True
 
-    authenticate creds = runDB $ do
-        x <- getBy $ UniqueUser $ credsIdent creds
-        return $ case x of
-            Just (Entity uid _) -> Authenticated uid
-            Nothing -> UserError InvalidLogin
+    getAuthId creds = runDB $ do
+        x <- insertBy $ Person (credsIdent creds) "John Doe"
+        return $ Just $
+            case x of
+                Left (Entity personId _) -> personId
+                Right personId -> personId
 
     -- You can add other plugins like BrowserID, email or OAuth here
     authPlugins _ = [authBrowserId def]

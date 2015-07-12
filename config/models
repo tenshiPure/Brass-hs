@@ -10,8 +10,11 @@ Email
     UniqueEmail email
 
 Person
-    name       Text
+    mail         Text
+    name         Text
+    UniquePerson mail
     deriving   Show
+    deriving   Typeable
 
 Instrument
     name     Text

@@ -30,3 +30,9 @@ getSampleStringR :: PersonId -> Handler String
 getSampleStringR personId = do
     person <- runDB $ get404 personId
     return $ show person
+
+
+getSampleAuthR :: Handler String
+getSampleAuthR = do
+    person <- requireAuth
+    return $ show person

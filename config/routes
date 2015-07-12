@@ -18,8 +18,9 @@
 /group/update/#GroupId GroupUpdateR GET POST
 /group/delete/#GroupId GroupDeleteR     POST
 
-/sample                  SampleR GET POST
+/sample                  SampleR       GET POST
 /sample/string/#PersonId SampleStringR GET
+/sample/auth             SampleAuthR   GET
 
 /instruments                      InstrumentListR   GET
 /instruments/create               InstrumentCreateR GET POST

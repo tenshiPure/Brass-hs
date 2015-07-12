@@ -30,6 +30,8 @@ getScheduleDetailR groupId scheduleId = do
     let personIds = map (attendancePersonId . entityVal) attendances
     persons <- mapM (runDB . get404) personIds
 
+    let tPersons = zip attendances persons
+
     defaultLayout $(widgetFile "schedule/detail")
 
 

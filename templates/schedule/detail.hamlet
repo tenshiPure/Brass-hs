@@ -16,9 +16,12 @@ $nothing
 $if null persons
     <p>
         No Persons...
-$forall person <- persons
+$forall (attendance, person) <- tPersons
     <p>
-        #{personName person}
+        $maybe note <- attendanceNote $ entityVal attendance
+            #{personName person} : #{attendancePresence $ entityVal attendance} (#{note})
+        $nothing
+            #{personName person} : #{attendancePresence $ entityVal attendance}
 <p>
     <a href=@{ScheduleListR groupId}>
         schedules

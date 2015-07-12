@@ -46,3 +46,5 @@ Schedule
 Attendance
     personId   PersonId
     scheduleId ScheduleId
+    presence   Int
+    note       Text Maybe

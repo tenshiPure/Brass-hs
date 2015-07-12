@@ -6,8 +6,10 @@ import Import
 
 fAttendance :: ScheduleId -> PersonId -> Form Attendance
 fAttendance scheduleId personId = renderDivs $ Attendance
-    <$> areq hiddenField "" (Just personId)
-    <*> areq hiddenField "" (Just scheduleId)
+    <$> areq hiddenField ""     (Just personId)
+    <*> areq hiddenField ""     (Just scheduleId)
+    <*> areq intField    "出欠" (Nothing)
+    <*> aopt textField   "備考" (Nothing)
 
 
 getAttendanceCreateR :: GroupId -> ScheduleId -> PersonId -> Handler Html

@@ -2,6 +2,7 @@ module Handler.Schedule where
 
 
 import Import
+import Handler.Attendance(fromInt)
 
 
 instance Show Schedule where
@@ -9,8 +10,8 @@ instance Show Schedule where
 
 getOr :: Maybe Text -> String
 getOr maybe = case maybe of
-	(Just val) -> unpack val
-	Nothing    -> "--"
+    (Just val) -> unpack val
+    Nothing    -> "--"
 
 
 getScheduleListR :: GroupId -> Handler Html

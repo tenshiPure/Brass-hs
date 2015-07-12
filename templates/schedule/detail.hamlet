@@ -19,9 +19,9 @@ $if null persons
 $forall (attendance, person) <- tPersons
     <p>
         $maybe note <- attendanceNote $ entityVal attendance
-            #{personName person} : #{attendancePresence $ entityVal attendance} (#{note})
+            #{personName person} : #{fromInt $ attendancePresence $ entityVal attendance} (#{note})
         $nothing
-            #{personName person} : #{attendancePresence $ entityVal attendance}
+            #{personName person} : #{fromInt $ attendancePresence $ entityVal attendance}
 <p>
     <a href=@{ScheduleListR groupId}>
         schedules

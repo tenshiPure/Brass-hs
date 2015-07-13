@@ -8,9 +8,7 @@
 
 /persons                 PersonListR   GET
 /person/detail/#PersonId PersonDetailR GET
-/person/create           PersonCreateR GET POST
-/person/update/#PersonId PersonUpdateR GET POST
-/person/delete/#PersonId PersonDeleteR     POST
+/person/update           PersonUpdateR GET POST
 
 /groups                GroupListR   GET
 /group/detail/#GroupId GroupDetailR GET
@@ -38,3 +36,8 @@
 /schedule/update/#GroupId/#ScheduleId ScheduleUpdateR GET POST
 
 /attendance/create/#GroupId/#ScheduleId/#PersonId AttendanceCreateR GET POST
+
+
+/debug/person/create           DebugPersonCreateR GET POST
+/debug/person/update/#PersonId DebugPersonUpdateR GET POST
+/debug/person/delete/#PersonId DebugPersonDeleteR     POST

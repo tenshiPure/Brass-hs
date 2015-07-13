@@ -15,9 +15,8 @@ getPersonDetailR :: PersonId -> Handler Html
 getPersonDetailR personId = do
     person <- runDB $ get404 personId
 
-    defaultLayout $ do
-        setTitle $ toHtml $ personName person
-        $(widgetFile "person/detail")
+    defaultLayout $(widgetFile "person/detail")
+        
 
 
 fPerson :: Maybe Person -> Form Person
@@ -26,52 +25,23 @@ fPerson mPerson = renderDivs $ Person
     <*> areq textField   "名前" (personName <$> mPerson)
 
 
-getPersonCreateR :: Handler Html
-getPersonCreateR = do
-    (widget, enctype) <- generateFormPost (fPerson Nothing)
-
-    defaultLayout $(widgetFile "person/create")
-
-
-postPersonCreateR :: Handler Html
-postPersonCreateR = do
-    ((res, widget), enctype) <- runFormPost (fPerson Nothing)
-    case res of
-        FormSuccess person -> do
-            personId <- runDB $ insert person
-            setMessage $ toHtml $ (personName person) <> " created"
-            redirect $ PersonDetailR personId
-
-        _ -> defaultLayout $ do
-            setTitle "Invalid Input"
-            $(widgetFile "person/create")
-
-
-getPersonUpdateR :: PersonId -> Handler Html
-getPersonUpdateR personId = do
+getPersonUpdateR :: Handler Html
+getPersonUpdateR = do
+    personId <- requireAuthId
     person <- runDB $ get404 personId
     (widget, enctype) <- generateFormPost $ (fPerson $ Just person)
 
-    defaultLayout $ do
-        setTitle $ toHtml $ personName person
-        $(widgetFile "person/update")
+    defaultLayout $(widgetFile "person/update")
+        
 
 
-postPersonUpdateR :: PersonId -> Handler Html
-postPersonUpdateR personId = do
+postPersonUpdateR :: Handler Html
+postPersonUpdateR = do
+    personId <- requireAuthId
     ((res, widget), enctype) <- runFormPost (fPerson Nothing)
     case res of
         FormSuccess person -> do
             runDB $ replace personId person
-            setMessage $ toHtml $ (personName person) <> " updated"
             redirect $ PersonDetailR personId
 
-        _ -> defaultLayout $ do
-            setTitle "Invalid Input"
-            $(widgetFile "person/update")
-
-
-postPersonDeleteR :: PersonId -> Handler Html
-postPersonDeleteR personId = do
-    runDB $ delete personId
-    redirect $ PersonListR
+        _ -> defaultLayout $(widgetFile "person/update")

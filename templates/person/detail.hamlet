@@ -1,4 +1,4 @@
 <h1>Person Detail
 <p>#{personName person}
 
-<a href=@{PersonUpdateR personId}>update
+<a href=@{DebugPersonUpdateR personId}>debug update

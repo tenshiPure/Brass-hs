@@ -5,7 +5,13 @@ $else
     <ul>
         $forall Entity personId person <- persons
             <li>
-                <a href=@{PersonDetailR personId}>#{personName person}
-                <form method=post action=@{PersonDeleteR personId}>
-                    <input type=submit value="delete">
-<a href=@{PersonCreateR}>new
+                <a href=@{PersonDetailR personId}>
+                    #{personName person}
+                <form method=post action=@{DebugPersonDeleteR personId}>
+                    <input type=submit value="debug delete">
+<p>
+    <a href=@{DebugPersonCreateR}>
+        debug create
+<p>
+    <a href=@{PersonUpdateR}>
+        self update

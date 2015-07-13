@@ -155,3 +155,18 @@ unsafeHandler = Unsafe.fakeHandlerGetLogger appLogger
 -- https://github.com/yesodweb/yesod/wiki/Sending-email
 -- https://github.com/yesodweb/yesod/wiki/Serve-static-files-from-a-separate-domain
 -- https://github.com/yesodweb/yesod/wiki/i18n-messages-in-the-scaffolding
+
+
+-- require login, title and current group id.
+renderWithGroups :: Widget -> Html -> GroupId -> Handler Html
+renderWithGroups content title currentGroupId = do
+    personId <- requireAuthId
+    person <- runDB $ get404 personId
+
+    belongs <- runDB $ selectList [BelongPersonId ==. personId] [Asc BelongId]
+    let belongGroupIds = map (belongGroupId . entityVal) belongs
+    groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
+
+    defaultLayout $ do
+        setTitle title
+        $(widgetFile "frame/groups")

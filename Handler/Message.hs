@@ -12,23 +12,11 @@ fMessage mMessage groupId personId = renderDivs $ Message
     <*> areq hiddenField "" (Just groupId)
 
 
-renderWithGroups :: Widget -> GroupId -> Handler Html
-renderWithGroups content currentGroupId = do
-    personId <- requireAuthId
-    person <- runDB $ get404 personId
-
-    belongs <- runDB $ selectList [BelongPersonId ==. personId] [Asc BelongId]
-    let belongGroupIds = map (belongGroupId . entityVal) belongs
-    groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
-
-    defaultLayout $(widgetFile "message/wrapper")
-
-
 getMessageListR :: GroupId -> Handler Html
 getMessageListR groupId = do
     messages <- runDB $ selectList [] [Asc MessageId]
 
-    renderWithGroups $(widgetFile "message/list") groupId
+    renderWithGroups $(widgetFile "message/list") "グループチャット" groupId
 
 
 getMessageCreateR :: GroupId -> Handler Html

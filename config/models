@@ -42,5 +42,6 @@ Attendance
     note       Text Maybe
 
 Link
-    title Text
-    url   Text
+    title    Text
+    url      Text
+    groupId  GroupId

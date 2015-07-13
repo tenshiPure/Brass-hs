@@ -6,7 +6,7 @@ import Import
 
 getLinkListR :: GroupId -> Handler Html
 getLinkListR groupId = do
-    links <- runDB $ selectList [] [Asc LinkId]
+    links <- runDB $ selectList [LinkGroupId ==. groupId] [Asc LinkId]
 
     defaultLayout $(widgetFile "link/list")
 
@@ -20,22 +20,23 @@ getLinkDetailR groupId linkId = do
     defaultLayout $(widgetFile "link/detail")
 
 
-fLink :: Maybe Link -> Form Link
-fLink mLink = renderDivs $ Link
-    <$> areq textField "タイトル" (linkTitle <$> mLink)
-    <*> areq urlField  "リンク先" (linkUrl   <$> mLink)
+fLink :: GroupId -> Maybe Link -> Form Link
+fLink groupId mLink = renderDivs $ Link
+    <$> areq textField   "タイトル" (linkTitle <$> mLink)
+    <*> areq urlField    "リンク先" (linkUrl   <$> mLink)
+    <*> areq hiddenField ""         (Just groupId)
 
 
 getLinkCreateR :: GroupId -> Handler Html
 getLinkCreateR groupId = do
-    (widget, enctype) <- generateFormPost (fLink Nothing)
+    (widget, enctype) <- generateFormPost (fLink groupId Nothing)
 
     defaultLayout $(widgetFile "link/create")
 
 
 postLinkCreateR :: GroupId -> Handler Html
 postLinkCreateR groupId = do
-    ((res, widget), enctype) <- runFormPost (fLink Nothing)
+    ((res, widget), enctype) <- runFormPost (fLink groupId Nothing)
     case res of
         FormSuccess link -> do
             personId <- runDB $ insert link

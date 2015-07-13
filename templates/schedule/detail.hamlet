@@ -13,7 +13,7 @@ $maybe note <- scheduleNote schedule
 $nothing
     <p>場所：-
 
-$if null persons
+$if null tPersons
     <p>
         No Persons...
 $forall (attendance, person) <- tPersons
@@ -23,8 +23,15 @@ $forall (attendance, person) <- tPersons
         $nothing
             #{personName person} : #{fromInt $ attendancePresence $ entityVal attendance}
 <p>
+    <a href=@{AttendanceCreateR groupId scheduleId}>
+        self attendance create
+<p>
     <a href=@{ScheduleListR groupId}>
         schedules
 <p>
     <a href=@{ScheduleUpdateR groupId scheduleId}>
         update
+$forall personId <- personIds
+    <p>
+        <a href=@{DebugAttendanceCreateR groupId scheduleId personId}>
+            #{show personId} : debug attendance create

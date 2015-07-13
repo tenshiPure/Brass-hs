@@ -27,15 +27,17 @@ fAttendance scheduleId personId = renderDivs $ Attendance
     <*> aopt textField                       "備考" (Nothing)
 
 
-getAttendanceCreateR :: GroupId -> ScheduleId -> PersonId -> Handler Html
-getAttendanceCreateR groupId scheduleId personId = do
+getAttendanceCreateR :: GroupId -> ScheduleId -> Handler Html
+getAttendanceCreateR groupId scheduleId = do
+    personId <- requireAuthId
     (widget, enctype) <- generateFormPost (fAttendance scheduleId personId)
 
     defaultLayout $(widgetFile "attendance/create")
 
 
-postAttendanceCreateR :: GroupId -> ScheduleId -> PersonId -> Handler Html
-postAttendanceCreateR groupId scheduleId personId = do
+postAttendanceCreateR :: GroupId -> ScheduleId -> Handler Html
+postAttendanceCreateR groupId scheduleId = do
+    personId <- requireAuthId
     ((res, _), _) <- runFormPost (fAttendance scheduleId personId)
     case res of
         FormSuccess attendance -> do

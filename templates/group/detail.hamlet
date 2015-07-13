@@ -3,7 +3,7 @@
 $forall (personId, person) <- tPersons
     <p>
         #{personName person}
-        <a href=@{BelongDeleteR personId groupId}>bang
+        <a href=@{BelongDeleteR groupId personId}>bang
 
 <p>
     <a href=@{GroupUpdateR groupId}>update

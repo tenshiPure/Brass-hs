@@ -36,7 +36,7 @@ postBelongCreateR groupId = do
             redirect $ GroupDetailR groupId
 
 
-getBelongDeleteR :: PersonId -> GroupId -> Handler Html
-getBelongDeleteR personId groupId = do
+getBelongDeleteR :: GroupId -> PersonId -> Handler Html
+getBelongDeleteR groupId personId = do
     _ <- runDB $ deleteWhere [BelongPersonId ==. personId, BelongGroupId ==. groupId]
     redirect $ GroupDetailR groupId

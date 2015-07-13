@@ -2,6 +2,7 @@ module Handler.Debug where
 
 
 import Import
+import Handler.Attendance(fromInt, presenceTypes, fAttendance)
 
 
 fPerson :: Maybe Person -> Form Person
@@ -54,3 +55,24 @@ postDebugPersonDeleteR :: PersonId -> Handler Html
 postDebugPersonDeleteR personId = do
     runDB $ delete personId
     redirect $ PersonListR
+
+
+
+
+
+getDebugAttendanceCreateR :: GroupId -> ScheduleId -> PersonId -> Handler Html
+getDebugAttendanceCreateR groupId scheduleId personId = do
+    (widget, enctype) <- generateFormPost (fAttendance scheduleId personId)
+
+    defaultLayout $(widgetFile "attendance/create")
+
+
+postDebugAttendanceCreateR :: GroupId -> ScheduleId -> PersonId -> Handler Html
+postDebugAttendanceCreateR groupId scheduleId personId = do
+    ((res, _), _) <- runFormPost (fAttendance scheduleId personId)
+    case res of
+        FormSuccess attendance -> do
+            _ <- runDB $ insert attendance
+            redirect $ ScheduleDetailR groupId scheduleId
+
+        _ -> redirect $ ScheduleDetailR groupId scheduleId

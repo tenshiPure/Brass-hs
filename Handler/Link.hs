@@ -15,7 +15,7 @@ getLinkDetailR :: GroupId -> LinkId -> Handler Html
 getLinkDetailR groupId linkId = do
     entity <- runDB $ get404 groupId
     link <- runDB $ get404 linkId
-    let comments = ["hoge", "fuga"]
+    comments <- runDB $ selectList [CommentLinkId ==. linkId] [Asc CommentId]
 
     defaultLayout $(widgetFile "link/detail")
 
@@ -39,7 +39,7 @@ postLinkCreateR groupId = do
     ((res, widget), enctype) <- runFormPost (fLink groupId Nothing)
     case res of
         FormSuccess link -> do
-            personId <- runDB $ insert link
-            redirect $ LinkListR groupId
+            linkId <- runDB $ insert link
+            redirect $ LinkDetailR groupId linkId
 
         _ -> defaultLayout $(widgetFile "link/create")

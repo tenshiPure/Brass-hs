@@ -45,3 +45,7 @@ Link
     title    Text
     url      Text
     groupId  GroupId
+
+Comment
+    body   Text
+    linkId LinkId

@@ -42,6 +42,8 @@
 /link/detail/#GroupId/#LinkId LinkDetailR GET
 /link/create/#GroupId         LinkCreateR GET POST
 
+/comment/create/#GroupId/#LinkId CommentCreateR GET POST
+
 /debug/person/create           DebugPersonCreateR GET POST
 /debug/person/update/#PersonId DebugPersonUpdateR GET POST
 /debug/person/delete/#PersonId DebugPersonDeleteR     POST

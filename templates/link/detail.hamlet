@@ -8,8 +8,10 @@ $if null comments
     <p>
         No Comments...
 $else
-    $forall comment <- comments
+    $forall Entity commentId comment <- comments
         <p>
-            #{show comment}
+            #{commentBody comment}
+<p>
+    <a href=@{CommentCreateR groupId linkId}>create comment
 <p>
     <a href=@{LinkListR groupId}>links

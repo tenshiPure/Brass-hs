@@ -1,48 +1,28 @@
-$newline never
 \<!doctype html>
-\<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-\<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-\<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-\<!--[if gt IE 8]><!-->
-<html class="no-js" lang="en"> <!--<![endif]-->
-  <head>
-    <meta charset="UTF-8">
+<html>
+    <head>
+        <meta charset="UTF-8">
 
-    <title>#{pageTitle pc}
-    <meta name="description" content="">
-    <meta name="author" content="">
+        <title>#{pageTitle pc}
 
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+        ^{pageHead pc}
 
-    ^{pageHead pc}
+        <script src=/static/js/jquery.js>
+    <body>
+        <div #contents>
+            <div #header>
+                <p style="margin: 0">
+                    頭
 
-    \<!--[if lt IE 9]>
-    \<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    \<![endif]-->
+            <div #left-side>
+                <p .side-group .current>
+                    東ブラ
+                <p .side-group>
+                    江戸川
 
-    <script src=/static/js/jquery-min.js>
-    <script>
-      document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
-  <body>
-    <div class="container">
-      <header>
-      <div id="main" role="main">
-        ^{pageBody pc}
-      <footer>
-        #{appCopyright $ appSettings master}
-        <br>
-        <br>
-        <a href=@{PersonListR}>persons
-        <br>
-        <a href=@{GroupListR}>groups
+            <div #main>
+                ^{pageBody pc}
 
-    $maybe analytics <- appAnalytics $ appSettings master
-      <script>
-        if(!window.location.href.match(/localhost/)){
-          window._gaq = [['_setAccount','#{analytics}'],['_trackPageview'],['_trackPageLoadTime']];
-          (function() {
-          \  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          \  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          \  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-        }
+            <div #footer>
+                <p style="margin: 0">
+                    足

@@ -49,3 +49,9 @@ Link
 Comment
     body   Text
     linkId LinkId
+
+Message
+    body     Text
+    createAt Day
+    personId PersonId
+    groupId  GroupId

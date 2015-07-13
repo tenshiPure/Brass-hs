@@ -1,0 +1,14 @@
+<h1>Messages
+$if null messages
+    <p>No Messages...
+$else
+    <ul>
+        $forall Entity messageId message <- messages
+            <li>
+                #{show $ messagePersonId message} (#{show $ messageCreateAt message}) : #{messageBody message}
+<p>
+    <a href=@{MessageCreateR groupId}>
+        create message
+<p>
+    <a href=@{GroupDetailR groupId}>
+        group

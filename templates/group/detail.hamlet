@@ -13,3 +13,5 @@ $forall (personId, person) <- tPersons
     <a href=@{ScheduleListR groupId}>schedules
 <p>
     <a href=@{LinkListR groupId}>links
+<p>
+    <a href=@{MessageListR groupId}>messages

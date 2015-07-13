@@ -44,6 +44,9 @@
 
 /comment/create/#GroupId/#LinkId CommentCreateR GET POST
 
+/messages/#GroupId       MessageListR   GET
+/message/create/#GroupId MessageCreateR GET POST
+
 /debug/person/create           DebugPersonCreateR GET POST
 /debug/person/update/#PersonId DebugPersonUpdateR GET POST
 /debug/person/delete/#PersonId DebugPersonDeleteR     POST

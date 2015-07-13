@@ -30,6 +30,7 @@ library
                      Handler.Belong
                      Handler.Schedule
                      Handler.Attendance
+                     Handler.Link
                      Handler.Debug
 
     if flag(dev) || flag(library-only)

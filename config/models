@@ -40,3 +40,6 @@ Attendance
     scheduleId ScheduleId
     presence   Int
     note       Text Maybe
+
+Link
+    content Text

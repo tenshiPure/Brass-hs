@@ -1,0 +1,15 @@
+<h1>Links
+$if null links
+    <p>No Links...
+$else
+    <ul>
+        $forall Entity linkId link <- links
+            <li>
+                #{linkContent link}
+$#                 <a href=@{PersonDetailR personId}>
+$#                     #{personName person}
+$#                 <form method=post action=@{DebugPersonDeleteR personId}>
+$#                     <input type=submit value="debug delete">
+<p>
+    <a href=@{LinkCreateR groupId}>
+        link create

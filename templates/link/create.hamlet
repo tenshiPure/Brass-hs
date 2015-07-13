@@ -1,0 +1,5 @@
+<h1>Link Create
+<form method=post enctype=#{enctype}>
+    ^{widget}
+    <div>
+        <input type=submit value="create">

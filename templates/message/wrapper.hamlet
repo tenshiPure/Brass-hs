@@ -1,0 +1,21 @@
+<div #contents>
+    <div #header>
+        <p style="margin: 0">
+            #{personName person} logined.
+
+    $if null groups
+        <p>
+            No Groups...
+    $else
+        <div #left-side>
+            $forall Entity groupId group <- groups
+                <p .side-group :currentGroupId == groupId:.current>
+                    #{groupName group}
+
+    <div #main>
+        <p>
+            ^{content}
+
+    <div #footer>
+        <p style="margin: 0">
+             足

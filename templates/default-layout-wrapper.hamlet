@@ -9,23 +9,4 @@
 
         <script src=/static/js/jquery.js>
     <body>
-        <div #contents>
-            <div #header>
-                <p style="margin: 0">
-                    #{personName person} is logined.
-
-            $if null groups
-                <p>
-                    No Groups...
-            $else
-                <div #left-side>
-                    $forall Entity groupId group <- groups
-                        <p .side-group .current>
-                            #{groupName group}
-
-            <div #main>
-                ^{pageBody pc}
-
-            <div #footer>
-                <p style="margin: 0">
-                    足
+        ^{pageBody pc}

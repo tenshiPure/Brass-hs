@@ -21,12 +21,9 @@ library
                      Settings
                      Settings.StaticFiles
                      Handler.Common
-                     Handler.Home
+                     Handler.Root
                      Handler.Person
                      Handler.Group
-                     Handler.Sample
-                     Handler.Instrument
-                     Handler.Experience
                      Handler.Belong
                      Handler.Schedule
                      Handler.Attendance

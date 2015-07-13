@@ -5,24 +5,9 @@ Person
     deriving   Show
     deriving   Typeable
 
-Instrument
-    name     Text
-    icon     Text
-    code     Text
-    deriving Show
-
-Experience
-    personId     PersonId
-    instrumentId InstrumentId
-    years        Int
-    deriving     Show
-
 Group
     name     Text
     deriving Show
-
-Sample
-    name Text
 
 Belong
     personId PersonId

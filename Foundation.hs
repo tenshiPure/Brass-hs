@@ -74,7 +74,7 @@ instance Yesod App where
     -- Routes not requiring authentication.
     isAuthorized (AuthR _) _ = return Authorized
     isAuthorized FaviconR _ = return Authorized
-    isAuthorized RobotsR _ = return Authorized
+--     isAuthorized RobotsR _ = return Authorized
     -- Default to Authorized for now.
     isAuthorized _ _ = return Authorized
 
@@ -119,9 +119,9 @@ instance YesodAuth App where
     type AuthId App = PersonId
 
     -- Where to send a user after successful login
-    loginDest _ = HomeR
+    loginDest _ = RootR
     -- Where to send a user after logout
-    logoutDest _ = HomeR
+    logoutDest _ = RootR
     -- Override the above two destinations when a Referer: header is present
     redirectToReferer _ = True
 

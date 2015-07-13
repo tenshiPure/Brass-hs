@@ -12,13 +12,16 @@
         <div #contents>
             <div #header>
                 <p style="margin: 0">
-                    頭
+                    #{personName person} is logined.
 
-            <div #left-side>
-                <p .side-group .current>
-                    東ブラ
-                <p .side-group>
-                    江戸川
+            $if null groups
+                <p>
+                    No Groups...
+            $else
+                <div #left-side>
+                    $forall Entity groupId group <- groups
+                        <p .side-group .current>
+                            #{groupName group}
 
             <div #main>
                 ^{pageBody pc}

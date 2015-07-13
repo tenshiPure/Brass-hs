@@ -54,6 +54,13 @@ instance Yesod App where
         "config/client_session_key.aes"
 
     defaultLayout widget = do
+        personId <- requireAuthId
+        person <- runDB $ get404 personId
+
+        belongs <- runDB $ selectList [BelongPersonId ==. personId] [Asc BelongId]
+        let belongGroupIds = map (belongGroupId . entityVal) belongs
+        groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
+
 --         master <- getYesod
 --         mmsg <- getMessage
 

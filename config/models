@@ -42,4 +42,5 @@ Attendance
     note       Text Maybe
 
 Link
-    content Text
+    title Text
+    url   Text

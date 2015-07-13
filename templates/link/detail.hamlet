@@ -1,0 +1,15 @@
+<h1>Link Detail
+<p>
+    #{groupName entity}
+<p>
+    <a href=#{linkUrl link}>
+        #{linkTitle link}
+$if null comments
+    <p>
+        No Comments...
+$else
+    $forall comment <- comments
+        <p>
+            #{show comment}
+<p>
+    <a href=@{LinkListR groupId}>links

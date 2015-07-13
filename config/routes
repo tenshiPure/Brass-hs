@@ -35,7 +35,8 @@
 /schedule/create/#GroupId             ScheduleCreateR GET POST
 /schedule/update/#GroupId/#ScheduleId ScheduleUpdateR GET POST
 
-/attendance/create/#GroupId/#ScheduleId AttendanceCreateR GET POST
+/attendance/create/#GroupId/#ScheduleId               AttendanceCreateR GET POST
+/attendance/update/#GroupId/#ScheduleId/#AttendanceId AttendanceUpdateR GET POST
 
 
 /debug/person/create           DebugPersonCreateR GET POST

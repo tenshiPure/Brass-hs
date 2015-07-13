@@ -25,13 +25,12 @@ $forall (attendance, person) <- tPersons
 <p>
     <a href=@{AttendanceCreateR groupId scheduleId}>
         self attendance create
+$# <p>
+$#     <a href=@{AttendanceUpdateR groupId scheduleId}>
+$#         self attendance update
 <p>
     <a href=@{ScheduleListR groupId}>
         schedules
 <p>
     <a href=@{ScheduleUpdateR groupId scheduleId}>
         update
-$forall personId <- personIds
-    <p>
-        <a href=@{DebugAttendanceCreateR groupId scheduleId personId}>
-            #{show personId} : debug attendance create

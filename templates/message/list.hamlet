@@ -10,13 +10,13 @@
                 <div .message-text-area>
                     <p>
                         #{personName person} (#{format $ messageCreated message})
-                    <p>
+                    <p .message-body>
                         #{messageBody message}
 
             <hr style="clear: both;">
 
 <div .message-input>
     <form action=@{MessageCreateR groupId} method=post>
-        <textarea #message-input-area>
+        <textarea #message-input-area name=body>
         <div .message-input-bar>
             <input #submit type=submit value=send>

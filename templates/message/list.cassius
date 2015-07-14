@@ -16,6 +16,9 @@
     float: left
     width: 85%
 
+.message-body
+    white-space: pre
+
 .message-image
     height: 100px
     margin-left: 10px

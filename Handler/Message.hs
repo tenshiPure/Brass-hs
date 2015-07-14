@@ -18,6 +18,11 @@ getMessageListR groupId = do
 postMessageCreateR :: GroupId -> Handler Html
 postMessageCreateR groupId = do
     personId <- requireAuthId
-    now <- liftIO getNow
-    _ <- runDB $ insert $ Message "hoge-" now groupId personId
-    redirect $ MessageListR groupId
+    mBody <- lookupPostParam "body"
+
+    case mBody of
+        (Just body) -> do
+            now <- liftIO getNow
+            _ <- runDB $ insert $ Message body now groupId personId
+            redirect $ MessageListR groupId
+        Nothing -> redirect $ MessageListR groupId

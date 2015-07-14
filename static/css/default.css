@@ -37,6 +37,10 @@ html,body {
     float: left;
 }
 
+.group-link {
+    text-decoration: none;
+}
+
 .current {
 	background-color: #ffffff;
 }

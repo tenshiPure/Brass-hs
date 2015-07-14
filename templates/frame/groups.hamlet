@@ -11,10 +11,11 @@
                     所属しているグループがありません
         $else
             $forall Entity groupId group <- groups
-                <div .side-group :currentGroupId == groupId:.current>
-                    <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
-                    <span>
-                        #{groupName group}
+                <a .group-link href=@{MessageListR groupId}>
+                    <div .side-group :currentGroupId == groupId:.current>
+                        <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
+                        <span>
+                            #{groupName group}
 
     <div #main>
         ^{content}

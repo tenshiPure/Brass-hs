@@ -1,23 +1,19 @@
 <div #messages>
-    <div .message>
-        <div .message-image-area>
-            <img src=/static/image/icon.png>
-        <div .message-text-area>
-            <p>
-                ほげちゃん
-            <p>
-                ほげほげふがー
+    $if null contents
+        <p>
+            現在このグループにはメッセージが存在しません
+    $else
+        $forall (message, person) <- contents
+            <div .message>
+                <div .message-image-area>
+                    <img src=/static/image/icon.png>
+                <div .message-text-area>
+                    <p>
+                        #{personName person}
+                    <p>
+                        #{messageBody message}
 
-    <hr style="clear: both;">
-
-    <div .message>
-        <div .message-image-area>
-            <img src=/static/image/icon.png>
-        <div .message-text-area>
-            <p>
-                ほげちゃん
-            <p>
-                ほげほげふがー
+            <hr style="clear: both;">
 
 <div .message-input>
     <textarea #message-input-area>

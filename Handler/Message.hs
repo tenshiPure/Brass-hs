@@ -14,10 +14,14 @@ fMessage mMessage groupId personId = renderDivs $ Message
 
 getMessageListR :: GroupId -> Handler Html
 getMessageListR groupId = do
-    messages <- runDB $ selectList [] [Asc MessageId]
+    messages <- fmap (fmap entityVal) $ runDB $ selectList [MessageGroupId ==. groupId] [Asc MessageId]
+    contents <- forM messages $ \message -> do
+        let personId = messagePersonId message
+        person <- runDB $ get404 personId
+        return (message, person)
 
     renderWithGroups $(widgetFile "message/list") "グループチャット" groupId
-
+        
 
 getMessageCreateR :: GroupId -> Handler Html
 getMessageCreateR groupId = do

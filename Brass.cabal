@@ -30,6 +30,7 @@ library
                      Handler.Link
                      Handler.Comment
                      Handler.Message
+                     Handler.Admin
                      Handler.Debug
 
     if flag(dev) || flag(library-only)

@@ -4,10 +4,10 @@ module Handler.Message where
 import Import
 
 
-fMessage :: Maybe Message -> GroupId -> PersonId -> Form Message
-fMessage mMessage groupId personId = renderDivs $ Message
-    <$> areq textField "内容" (messageBody <$> mMessage)
-    <*> areq dayField  "時間" (messageCreateAt <$> mMessage)
+fMessage :: GroupId -> PersonId -> Form Message
+fMessage groupId personId = renderDivs $ Message
+    <$> areq textField "内容" Nothing
+    <*> areq dayField  "時間" Nothing
     <*> areq hiddenField "" (Just personId)
     <*> areq hiddenField "" (Just groupId)
 
@@ -20,24 +20,19 @@ getMessageListR groupId = do
         person <- runDB $ get404 personId
         return (message, person)
 
-    renderWithGroups $(widgetFile "message/list") "グループチャット" groupId
-        
-
-getMessageCreateR :: GroupId -> Handler Html
-getMessageCreateR groupId = do
     personId <- requireAuthId
-    (widget, enctype) <- generateFormPost (fMessage Nothing groupId personId)
+    (widget, enctype) <- generateFormPost (fMessage groupId personId)
 
-    defaultLayout $(widgetFile "message/create")
+    renderWithGroups $(widgetFile "message/list") "グループチャット" groupId
 
 
 postMessageCreateR :: GroupId -> Handler Html
 postMessageCreateR groupId = do
     personId <- requireAuthId
-    ((res, _), _) <- runFormPost (fMessage Nothing groupId personId)
+    ((res, _), _) <- runFormPost (fMessage groupId personId)
     case res of
-        FormSuccess belong -> do
-            _ <- runDB $ insert belong
+        FormSuccess message -> do
+            _ <- runDB $ insert message
             redirect $ MessageListR groupId
         _ -> do
             redirect $ MessageListR groupId

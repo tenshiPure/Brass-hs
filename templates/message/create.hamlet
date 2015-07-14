@@ -1,5 +1,0 @@
-<h1>Message Create
-<form method=post enctype=#{enctype}>
-    ^{widget}
-    <div>
-        <input type=submit value="Create Message">

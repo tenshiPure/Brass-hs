@@ -3,11 +3,11 @@
         <p style="margin: 0">
             #{personName person} logined.
 
-    $if null groups
-        <p>
-            No Groups...
-    $else
-        <div #left-side>
+    <div #left-side>
+        $if null groups
+            <p .side-group .current>
+                所属しているグループがありません
+        $else
             $forall Entity groupId group <- groups
                 <p .side-group :currentGroupId == groupId:.current>
                     #{groupName group}

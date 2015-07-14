@@ -9,11 +9,15 @@
                     <img src=/static/image/icon.png>
                 <div .message-text-area>
                     <p>
-                        #{personName person}
+                        #{personName person} (#{show $ messageCreateAt message})
                     <p>
                         #{messageBody message}
 
             <hr style="clear: both;">
+
+    <form action=@{MessageCreateR groupId} method=post enctype=#{enctype}>
+        ^{widget}
+        <input type=submit value=送信>
 
 <div .message-input>
     <textarea #message-input-area>

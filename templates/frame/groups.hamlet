@@ -13,8 +13,7 @@
                     #{groupName group}
 
     <div #main>
-        <p>
-            ^{content}
+        ^{content}
 
     <div #footer>
         <p style="margin: 0">

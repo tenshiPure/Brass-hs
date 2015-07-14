@@ -1,1 +1,25 @@
-<h1>Messages
+<div #messages>
+    <div .message>
+        <div .message-image-area>
+            <img src=/static/image/icon.png>
+        <div .message-text-area>
+            <p>
+                ほげちゃん
+            <p>
+                ほげほげふがー
+
+    <hr style="clear: both;">
+
+    <div .message>
+        <div .message-image-area>
+            <img src=/static/image/icon.png>
+        <div .message-text-area>
+            <p>
+                ほげちゃん
+            <p>
+                ほげほげふがー
+
+<div .message-input>
+    <textarea #message-input-area>
+    <div .message-input-bar>
+        <input #submit type=submit value=send>

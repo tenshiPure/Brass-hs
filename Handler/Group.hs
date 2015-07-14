@@ -25,25 +25,27 @@ getGroupDetailR groupId = do
         $(widgetFile "group/detail")
 
 
-form :: Maybe Group -> Html -> MForm Handler (FormResult Group, Widget)
-form mGroup extra = do
+fGroup :: Maybe Group -> Html -> MForm Handler (FormResult Group, Widget)
+fGroup mGroup extra = do
     (nameResult, nameView) <- mreq textField "" (groupName <$> mGroup)
+    (iconResult, iconView) <- mreq textField "" (groupIcon <$> mGroup)
     let result = Group
            <$> nameResult
+           <*> iconResult
         widget = $(widgetFile "group/form")
     return (result, widget)
 
 
 getGroupCreateR :: Handler Html
 getGroupCreateR = do
-    (widget, enctype) <- generateFormPost $ form Nothing
+    (widget, enctype) <- generateFormPost $ fGroup Nothing
 
     defaultLayout $(widgetFile "group/create")
 
 
 postGroupCreateR :: Handler Html
 postGroupCreateR = do
-    ((res, widget), enctype) <- runFormPost $ form Nothing
+    ((res, widget), enctype) <- runFormPost $ fGroup Nothing
     case res of
         FormSuccess entity -> do
             eId <- runDB $ insert entity
@@ -58,14 +60,14 @@ postGroupCreateR = do
 getGroupUpdateR :: GroupId -> Handler Html
 getGroupUpdateR eId = do
     entity <- runDB $ get404 eId
-    (widget, enctype) <- generateFormPost $ form (Just entity)
+    (widget, enctype) <- generateFormPost $ fGroup (Just entity)
 
     defaultLayout $(widgetFile "group/update")
 
 
 postGroupUpdateR :: GroupId -> Handler Html
 postGroupUpdateR eId = do
-    ((res, widget), enctype) <- runFormPost $ form Nothing
+    ((res, widget), enctype) <- runFormPost $ fGroup Nothing
     case res of
         FormSuccess entity -> do
             runDB $ replace eId entity

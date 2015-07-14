@@ -1,12 +1,14 @@
 Person
     mail         Text
     name         Text
+    icon         Text
     UniquePerson mail
     deriving   Show
     deriving   Typeable
 
 Group
     name     Text
+    icon     Text
     deriving Show
 
 Belong

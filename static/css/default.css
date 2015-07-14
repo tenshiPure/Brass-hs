@@ -32,6 +32,11 @@ html,body {
 	padding-left: 5%;
 }
 
+.group-icon {
+    height: 50px;
+    float: left;
+}
+
 .current {
 	background-color: #ffffff;
 }

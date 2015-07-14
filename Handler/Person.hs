@@ -23,6 +23,7 @@ fPerson :: Maybe Person -> Form Person
 fPerson mPerson = renderDivs $ Person
     <$> areq hiddenField ""     (personMail <$> mPerson)
     <*> areq textField   "名前" (personName <$> mPerson)
+    <*> areq textField   "画像" (personIcon <$> mPerson)
 
 
 getPersonUpdateR :: Handler Html

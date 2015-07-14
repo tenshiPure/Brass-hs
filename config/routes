@@ -41,5 +41,6 @@
 
 /debug/attendance/create/#GroupId/#ScheduleId/#PersonId DebugAttendanceCreateR GET POST
 
-/admin         AdminR GET
-/admin/init-db AdminInitDBR GET
+/admin           AdminR          GET
+/admin/init-db   AdminInitDBR    GET
+/admin/workspace AdminWorkspaceR GET

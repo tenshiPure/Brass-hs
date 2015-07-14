@@ -9,6 +9,8 @@ import Yesod.Default.Util   (addStaticContentExternal)
 import Yesod.Core.Types     (Logger)
 import qualified Yesod.Core.Unsafe as Unsafe
 
+import Data.Time(hoursToTimeZone, utcToLocalTime, localTimeToUTC)
+
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
 -- starts running, such as database connections. Every handler will have
@@ -170,3 +172,17 @@ renderWithGroups content title currentGroupId = do
     defaultLayout $ do
         setTitle title
         $(widgetFile "frame/groups")
+
+
+-- get timezoned current utctime
+getNow :: IO UTCTime
+getNow = do
+    let tz = hoursToTimeZone 9
+    now <- getCurrentTime
+    let lt = utcToLocalTime tz now
+    return $ localTimeToUTC tz lt
+
+
+-- 07/14 20:12:05
+format :: UTCTime -> String
+format = formatTime defaultTimeLocale "%m/%d %H:%M:%S"

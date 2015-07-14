@@ -9,17 +9,14 @@
                     <img .message-image src=/static/image/icon/person/#{personIcon person}>
                 <div .message-text-area>
                     <p>
-                        #{personName person} (#{show $ messageCreateAt message})
+                        #{personName person} (#{format $ messageCreated message})
                     <p>
                         #{messageBody message}
 
             <hr style="clear: both;">
 
-    <form action=@{MessageCreateR groupId} method=post enctype=#{enctype}>
-        ^{widget}
-        <input type=submit value=送信>
-
 <div .message-input>
-    <textarea #message-input-area>
-    <div .message-input-bar>
-        <input #submit type=submit value=send>
+    <form action=@{MessageCreateR groupId} method=post>
+        <textarea #message-input-area>
+        <div .message-input-bar>
+            <input #submit type=submit value=send>

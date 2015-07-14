@@ -39,6 +39,6 @@ Comment
 
 Message
     body     Text
-    createAt Day
-    personId PersonId
+    created  UTCTime
     groupId  GroupId
+    personId PersonId

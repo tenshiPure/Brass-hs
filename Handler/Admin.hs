@@ -97,19 +97,25 @@ getAdminInitDBR = do
     _ <- runDB $ insert $ Belong (toSqlKey 6 :: PersonId) (toSqlKey  1 :: GroupId)
     _ <- runDB $ insert $ Belong (toSqlKey 6 :: PersonId) (toSqlKey  3 :: GroupId)
 
-    _ <- runDB $ insert $ Message "東ブラほげ〜"                       (fromGregorian 2015 7 14) (toSqlKey 1 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         (fromGregorian 2015 7 14) (toSqlKey 2 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "いいですね"                         (fromGregorian 2015 7 14) (toSqlKey 3 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         (fromGregorian 2015 7 14) (toSqlKey 2 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "いいですね"                         (fromGregorian 2015 7 14) (toSqlKey 3 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         (fromGregorian 2015 7 14) (toSqlKey 2 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "いいですね"                         (fromGregorian 2015 7 14) (toSqlKey 3 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         (fromGregorian 2015 7 14) (toSqlKey 2 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "いいですね"                         (fromGregorian 2015 7 14) (toSqlKey 3 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         (fromGregorian 2015 7 14) (toSqlKey 2 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "いいですね"                         (fromGregorian 2015 7 14) (toSqlKey 3 :: PersonId) (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Message "年末の同窓会が楽しみだ〜"           (fromGregorian 2015 7 14) (toSqlKey 1 :: PersonId) (toSqlKey 3 :: GroupId)
-    _ <- runDB $ insert $ Message "アーノルド難しかったけど楽しかった" (fromGregorian 2015 7 14) (toSqlKey 1 :: PersonId) (toSqlKey 7 :: GroupId)
-    _ <- runDB $ insert $ Message "お疲れっしたー"                     (fromGregorian 2015 7 14) (toSqlKey 4 :: PersonId) (toSqlKey 7 :: GroupId)
+    now <- liftIO getNow
+    _ <- runDB $ insert $ Message "東ブラほげ〜"                       now (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Message "いいですね"                         now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Message "いいですね"                         now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Message "いいですね"                         now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Message "いいですね"                         now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Message "いいですね"                         now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message "年末の同窓会が楽しみだ〜"           now (toSqlKey 3 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Message "アーノルド難しかったけど楽しかった" now (toSqlKey 7 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Message "お疲れっしたー"                     now (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
     redirect AdminR
+
+
+getAdminWorkspaceR :: Handler Html
+getAdminWorkspaceR = do
+    defaultLayout [whamlet| workspace |]

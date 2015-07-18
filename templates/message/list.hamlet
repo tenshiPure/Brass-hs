@@ -1,22 +1,24 @@
 <div #messages>
     $if null contents
-        <p>
+        <p .no-contents>
             現在このグループにはメッセージが存在しません
     $else
         $forall (message, person) <- contents
-            <div .message>
-                <div .message-image-area>
+            <div .media>
+                <div .media__image>
                     <img .message-image src=/static/image/icon/person/#{personIcon person}>
-                <div .message-text-area>
-                    <p>
-                        #{personName person} (#{format $ messageCreated message})
-                    <p .message-body>
+                <div .media__body>
+                    <span .media__body__by>
+                        #{personName person}
+                    <span .media__body__at>
+                         #{format $ messageCreated message}
+                    <p .media__body__text>
                         #{messageBody message}
+                <hr>
 
-            <hr style="clear: both;">
 
-<div .message-input>
-    <form action=@{MessageCreateR groupId} method=post>
-        <textarea #message-input-area name=body>
-        <div .message-input-bar>
-            <input #submit type=submit value=send>
+$# <div .message-input>
+$#     <form action=@{MessageCreateR groupId} method=post>
+$#         <textarea #message-input-area name=body>
+$#         <div .message-input-bar>
+$#             <input #submit type=submit value=send>

@@ -36,4 +36,4 @@
                             #{groupName group}
 
 <div #layout-contents>
-$#         ^{content}
+        ^{content}

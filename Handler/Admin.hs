@@ -98,20 +98,21 @@ getAdminInitDBR = do
     _ <- runDB $ insert $ Belong (toSqlKey 6 :: PersonId) (toSqlKey  3 :: GroupId)
 
     now <- liftIO getNow
-    _ <- runDB $ insert $ Message "東ブラほげ〜"                       now (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
-    _ <- runDB $ insert $ Message "いいですね"                         now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
-    _ <- runDB $ insert $ Message "いいですね"                         now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
-    _ <- runDB $ insert $ Message "いいですね"                         now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
-    _ <- runDB $ insert $ Message "いいですね"                         now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Message "千葉さんタバコ行きましょう"         now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
-    _ <- runDB $ insert $ Message "いいですね"                         now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Message "年末の同窓会が楽しみだ〜"           now (toSqlKey 3 :: GroupId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ Message "アーノルド難しかったけど楽しかった" now (toSqlKey 7 :: GroupId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ Message "お疲れっしたー"                     now (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
+    let longBody = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    let shortBody = "Lorem ipsum dolor sit amet"
+    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message longBody  now (toSqlKey 3 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
     redirect AdminR
 

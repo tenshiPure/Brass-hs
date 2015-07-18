@@ -2,17 +2,17 @@
     <div .header__name>
     <div .header__nav>
         <ul .nav>
-            <li .nav__item>
-                <a href="#">
+            <li .nav__item :page == PHome:.nav__item--active>
+                <a href=@{AdminWorkspaceR}>
                     ホーム
-            <li .nav__item .nav__item--active>
-                <a href="#">
+            <li .nav__item :page == PMessage:.nav__item--active>
+                <a href=@{MessageListR currentGroupId}>
                     チャット
-            <li .nav__item>
-                <a href="#">
+            <li .nav__item :page == PSchedule:.nav__item--active>
+                <a href=@{ScheduleListR currentGroupId}>
                     出欠
-            <li .nav__item>
-                <a href="#">
+            <li .nav__item :page == PLink:.nav__item--active>
+                <a href=@{LinkListR currentGroupId}>
                     リンク
     <div .header__icons>
         <a href="#">
@@ -30,10 +30,30 @@
         $else
             $forall Entity groupId group <- groups
                 <li .side__link :currentGroupId == groupId:.side__link--active>
-                    <a href=@{MessageListR groupId}>
-                        <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
-                        <p>
-                            #{groupName group}
+                    $case page
+                        $of PHome
+                            <a href=@{AdminWorkspaceR}>
+                                <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
+                                <p>
+                                    #{groupName group}
+
+                        $of PMessage
+                            <a href=@{MessageListR groupId}>
+                                <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
+                                <p>
+                                    #{groupName group}
+
+                        $of PSchedule
+                            <a href=@{ScheduleListR groupId}>
+                                <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
+                                <p>
+                                    #{groupName group}
+
+                        $of PLink
+                            <a href=@{LinkListR groupId}>
+                                <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
+                                <p>
+                                    #{groupName group}
 
 <div #layout-contents>
         ^{content}

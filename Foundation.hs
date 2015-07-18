@@ -159,11 +159,15 @@ unsafeHandler = Unsafe.fakeHandlerGetLogger appLogger
 -- https://github.com/yesodweb/yesod/wiki/i18n-messages-in-the-scaffolding
 
 
+-- page type
+data Page = PHome | PMessage | PSchedule | PLink deriving (Show, Eq)
+
+
 -- require login, title and current group id.
-renderWithGroups :: Widget -> Html -> GroupId -> Handler Html
-renderWithGroups content title currentGroupId = do
+renderWithGroups :: Widget -> Html -> Page -> GroupId -> Handler Html
+renderWithGroups content title page currentGroupId = do
     personId <- requireAuthId
-    person <- runDB $ get404 personId
+    _ <- runDB $ get404 personId
 
     belongs <- runDB $ selectList [BelongPersonId ==. personId] [Asc BelongId]
     let belongGroupIds = map (belongGroupId . entityVal) belongs

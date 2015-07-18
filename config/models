@@ -34,8 +34,9 @@ Link
     groupId  GroupId
 
 Comment
-    body   Text
-    linkId LinkId
+    body     Text
+    linkId   LinkId
+    personId PersonId
 
 Message
     body     Text

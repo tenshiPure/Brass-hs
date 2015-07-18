@@ -1,16 +1,8 @@
-<h1>Links
-$if null links
-    <p>No Links...
-$else
-    <ul>
-        $forall Entity linkId link <- links
-            <li>
-                <a href=@{LinkDetailR groupId linkId}>
-                    #{linkTitle link}
-$#                 <a href=@{PersonDetailR personId}>
-$#                     #{personName person}
-$#                 <form method=post action=@{DebugPersonDeleteR personId}>
-$#                     <input type=submit value="debug delete">
-<p>
-    <a href=@{LinkCreateR groupId}>
-        link create
+<div #links>
+    $if null contents
+        <p .no-contents>
+            現在このグループにはリンクが存在しません
+    $else
+        $forall (link, count) <- contents
+            <p>
+                #{linkTitle link} (#{count})

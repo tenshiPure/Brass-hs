@@ -4,25 +4,28 @@ module Handler.Comment where
 import Import
 
 
-fComment :: LinkId -> Maybe Comment -> Form Comment
-fComment linkId mComment = renderDivs $ Comment
-    <$> areq textField   "コメント" (commentBody <$> mComment)
+fComment :: LinkId -> PersonId -> Form Comment
+fComment linkId personId = renderDivs $ Comment
+    <$> areq textField   "コメント" Nothing
     <*> areq hiddenField ""         (Just linkId)
+    <*> areq hiddenField ""         (Just personId)
 
 
 getCommentCreateR :: GroupId -> LinkId -> Handler Html
 getCommentCreateR groupId linkId = do
-    (widget, enctype) <- generateFormPost (fComment linkId Nothing)
+    personId <- requireAuthId
+    (widget, enctype) <- generateFormPost (fComment linkId personId)
 
     defaultLayout $(widgetFile "comment/create")
 
 
 postCommentCreateR :: GroupId -> LinkId -> Handler Html
 postCommentCreateR groupId linkId = do
-    ((res, widget), enctype) <- runFormPost (fComment linkId Nothing)
+    personId <- requireAuthId
+    ((res, widget), enctype) <- runFormPost (fComment linkId personId)
     case res of
         FormSuccess comment -> do
-            commentId <- runDB $ insert comment
+            _ <- runDB $ insert comment
             redirect $ LinkDetailR groupId linkId
 
         _ -> defaultLayout $(widgetFile "comment/create")

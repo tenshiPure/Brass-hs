@@ -7,8 +7,11 @@ import Import
 getLinkListR :: GroupId -> Handler Html
 getLinkListR groupId = do
     links <- runDB $ selectList [LinkGroupId ==. groupId] [Asc LinkId]
+    contents <- forM links $ \link -> do
+        count <- runDB $ count [CommentLinkId ==. entityKey link]
+        return (entityVal link, count)
 
-    defaultLayout $(widgetFile "link/list")
+    renderWithGroups $(widgetFile "link/list") "リンク" PLink groupId
 
 
 getLinkDetailR :: GroupId -> LinkId -> Handler Html

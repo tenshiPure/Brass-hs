@@ -114,6 +114,15 @@ getAdminInitDBR = do
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 1 :: PersonId)
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
+    _ <- runDB $ insert $ Link "アーノルドの楽譜" "http://home.n05.itscom.net/grotta/image/musicsheet/Thais.GIF" (toSqlKey 7 :: GroupId)
+    _ <- runDB $ insert $ Link "録音（7/20）" "https://www.youtube.com/" (toSqlKey 7 :: GroupId)
+
+    _ <- runDB $ insert $ Comment "アップしました" (toSqlKey 2 :: LinkId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Comment "あざますー"     (toSqlKey 2 :: LinkId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Comment "お疲れ様でした" (toSqlKey 2 :: LinkId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Comment "乙でしたー"     (toSqlKey 2 :: LinkId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Comment "疲れた"         (toSqlKey 2 :: LinkId) (toSqlKey 1 :: PersonId)
+
     redirect AdminR
 
 

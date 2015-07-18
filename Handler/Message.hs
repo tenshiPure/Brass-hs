@@ -12,7 +12,7 @@ getMessageListR groupId = do
         person <- runDB $ get404 personId
         return (message, person)
 
-    renderWithGroups $(widgetFile "message/list") "グループチャット" PMessage groupId
+    renderWithGroups $(widgetFile "message/list") "チャット" PMessage groupId
 
 
 postMessageCreateR :: GroupId -> Handler Html

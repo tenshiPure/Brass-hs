@@ -1,25 +1,39 @@
-<div #contents>
-    <div #header>
-        <p style="margin: 0">
-            #{personName person} logined.
+<div #layout-header>
+    <div .header__name>
+    <div .header__nav>
+        <ul .nav>
+            <li .nav__item .nav__item--active>
+                <a href="#">
+                    ホーム
+            <li .nav__item>
+                <a href="#">
+                    チャット
+            <li .nav__item>
+                <a href="#">
+                    出欠
+            <li .nav__item>
+                <a href="#">
+                    リンク
+    <div .header__icons>
+        <a href="#">
+            <span .icon .icon--person>
+        <a href="#">
+            <span .icon .icon--information>
+        <a href="#">
+            <span .icon .icon--config>
 
-    <div #left-side>
+<div #layout-left>
+    <ul .side>
         $if null groups
-            <p .side-group .current>
-                <img .group-icon src=/static/image/icon/group/default_1.jpg>
-                <span>
+                <li .side__link .side__link--active>
                     所属しているグループがありません
         $else
             $forall Entity groupId group <- groups
-                <a .group-link href=@{MessageListR groupId}>
-                    <div .side-group :currentGroupId == groupId:.current>
+                <li .side__link :currentGroupId == groupId:.side__link--active>
+                    <a href=@{MessageListR groupId}>
                         <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
-                        <span>
+                        <p>
                             #{groupName group}
 
-    <div #main>
-        ^{content}
-
-    <div #footer>
-        <p style="margin: 0">
-             足
+<div #layout-contents>
+$#         ^{content}

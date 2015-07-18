@@ -1,78 +1,143 @@
+/*
+ * 初期化
+ */
 html,body {
     height: 100%;
     margin: 0px;
 }
 
-#contents {
+/*
+ * ヘッダー
+ */
+#layout-header {
+	height: 50px;
+}
+#layout-header:after {
+	clear: both;
+}
+/*
+ * ヘッダー　名前
+ */
+.header__name {
+	background-color: #FAA;
+	width: 20%;
+	height: 100%;
+	float: left;
+	overflow: hidden;
+}
+/*
+ * ヘッダー　ナビゲーション
+ */
+.header__nav {
+	background-color: #FAF;
+	width: 60%;
+	height: 100%;
+	float: left;
+	overflow: hidden;
+}
+.nav {
+	display: table;
 	width: 100%;
 	height: 100%;
-	margin-top: 0px;
-	margin-bottom: 0px;
+	table-layout: fixed;
+	padding: 0;
+	margin: 0;
 }
-
-#header {
-	background-color: #99ff99;
-	height: 5%;
+.nav__item {
+	display: table-cell;
 }
-
-#left-side {
-	background-color: #ff9999;
+.nav__item:hover {
+	background-color: #FCF;
+}
+.nav__item--active, .nav__item--active:hover {
+	background-color: #FFF;
+}
+.nav__item > a {
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 1.5em;
+	margin-top: 0.2em;
+}
+/*
+ * ヘッダー　アイコン
+ */
+.header__icons {
+	background-color: #AAA;
+	width: 20%;
+	height: 100%;
+	float: left;
+	overflow: hidden;
+}
+.icon {
+	display: inline-block;
+	background-image: url(/static/css/sprite-sheet.png);
+}
+.icon--person {
+	width: 32px;
+	height: 32px;
+	background-position: -365px 2px;
+}
+.icon--information {
+	width: 32px;
+	height: 32px;
+	background-position: -260px -206px;
+}
+.icon--config {
+	width: 32px;
+	height: 32px;
+	background-position: -940px 2px;
+}
+.header__icons span {
+	margin-left: 0.5em;
+	margin-top: 0.5em;
+}
+/*
+ * サイドバー
+ */
+#layout-left {
+	background-color: #AFA;
 	float: left;
 	width: 20%;
-	height: 90%;
-	overflow: scroll;
+	height: 100%;
 }
-
-.side-group {
-	background-color: #aaaaaa;
-	height: 50px;
-	margin-top: 0px;
-	margin-bottom: 10px;
-	margin-left: 5px;
-	padding-left: 5%;
+#layout-left:after {
+	clear: both;
 }
-
-.group-icon {
-    height: 50px;
-    float: left;
+.side {
+	padding: 0px;
+	margin: 0px;
 }
-
-.group-link {
-    text-decoration: none;
+.side__link {
+	padding: 1em;
+	background-color: #AFF;
 }
-
-.current {
-	background-color: #ffffff;
+.side__link:hover  {
+	background-color: #CFF;
 }
-
-#main {
-	background-color: #9999ff;
+.side__link--active, .side__link--active:hover {
+	background-color: #FFF;
+}
+.side__link > a {
+	display: block;
+	margin: -1em;
+	padding: 1em;
+	text-decoration: none;
+}
+.side__link + .side__link {
+	border-top: 1px solid #000;
+}
+.side__link img {
+	height: 40px;
 	float: left;
-	width: 80%;
-	height: 90%;
+	margin-left: -0.5em;
+	margin-top: -0.5em;
+	margin-right: 0.2em;
 }
 
-#footer {
-	background-color: #ffff99;
-	clear: left;
-	height: 5%;
+.side__link p {
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
 }
-
-// div#messages {
-// 	overflow: scroll;
-// 	height: 100%;
-// 	background-color: white;
-// }
-// 
-// div.message-image-area {
-// 	background-color: #ffff99;
-// 	float: left;
-// 	width: 15%;
-// 	height: 100px;
-// }
-// 
-// div.message-text-area {
-// 	background-color: #ff99ff;
-// 	float: left;
-// 	width: 85%;
-// }

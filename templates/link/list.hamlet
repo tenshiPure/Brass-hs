@@ -4,5 +4,16 @@
             現在このグループにはリンクが存在しません
     $else
         $forall (link, count) <- contents
-            <p>
-                #{linkTitle link} (#{count})
+            <div .link__item>
+                <a href=@{LinkDetailR groupId (entityKey link)}>
+                    #{linkTitle $ entityVal link}
+                    <span>
+                        コメント：#{count}
+            <hr>
+
+<div #input>
+    <form action=@{MessageCreateR groupId} method=post>
+        <textarea .input__form name=body>
+        <div .input__buttons>
+            <span>
+                <input #submit .button type=submit value=送信>

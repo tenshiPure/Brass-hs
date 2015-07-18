@@ -9,7 +9,7 @@ getLinkListR groupId = do
     links <- runDB $ selectList [LinkGroupId ==. groupId] [Asc LinkId]
     contents <- forM links $ \link -> do
         count <- runDB $ count [CommentLinkId ==. entityKey link]
-        return (entityVal link, count)
+        return (link, count)
 
     renderWithGroups $(widgetFile "link/list") "リンク" PLink groupId
 

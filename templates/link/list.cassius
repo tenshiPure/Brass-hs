@@ -1,0 +1,71 @@
+/*
+ * リンク
+ */
+#links
+    height: 80%
+    overflow: scroll
+
+.link__item
+    padding-left: 1em
+    font-size: 1.5em
+
+.link__item span
+    margin-left: 2em
+
+.link__item > a
+    text-decoration: none
+
+
+
+
+
+/*
+ * 入力
+ */
+#input
+    height: 20%
+    text-align: center
+    background-color: #FFA
+
+.input__form
+    width: 95%
+    height: 80px
+    margin: 0 auto
+    margin-top: 1em
+    font-size: 1em
+
+.input__buttons > span
+    float: right
+    margin-right: 2em
+
+/*
+ * 汎用
+ */
+.no-contents
+    padding: 0
+    margin: 0
+    margin-left: 0.5em
+    margin-top: 0.5em
+    font-weight: bold
+    font-size: 2em
+
+.button
+    color: #FFF
+    background-color: #248
+    font-weight: bold
+    font-size: 1em
+    padding: 5px 10px
+    border-style: none
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+    border-radius: 5px
+    text-decoration: none
+
+.button:hover
+    background-color: #24D
+    cursor: pointer
+
+.button:active
+    padding-top: 6px
+    padding-bottom: 4px
+    color:#e0ebf5

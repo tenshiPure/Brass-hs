@@ -151,6 +151,7 @@ html,body {
  */
 #layout-contents {
 	background-color: #AAF;
+	float: left;
 	height: 100%;
-	width: 100%;
+	width: 80%;
 }

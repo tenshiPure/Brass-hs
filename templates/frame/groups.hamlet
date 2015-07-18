@@ -2,10 +2,10 @@
     <div .header__name>
     <div .header__nav>
         <ul .nav>
-            <li .nav__item .nav__item--active>
+            <li .nav__item>
                 <a href="#">
                     ホーム
-            <li .nav__item>
+            <li .nav__item .nav__item--active>
                 <a href="#">
                     チャット
             <li .nav__item>

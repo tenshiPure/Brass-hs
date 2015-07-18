@@ -16,9 +16,9 @@
                         #{messageBody message}
                 <hr>
 
-
-$# <div .message-input>
-$#     <form action=@{MessageCreateR groupId} method=post>
-$#         <textarea #message-input-area name=body>
-$#         <div .message-input-bar>
-$#             <input #submit type=submit value=send>
+<div #input>
+    <form action=@{MessageCreateR groupId} method=post>
+        <textarea .input__form name=body>
+        <div .input__buttons>
+            <span>
+                <input #submit .button type=submit value=送信>

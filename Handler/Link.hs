@@ -23,23 +23,32 @@ getLinkDetailR groupId linkId = do
     defaultLayout $(widgetFile "link/detail")
 
 
-fLink :: GroupId -> Maybe Link -> Form Link
-fLink groupId mLink = renderDivs $ Link
-    <$> areq textField   "タイトル" (linkTitle <$> mLink)
-    <*> areq urlField    "リンク先" (linkUrl   <$> mLink)
-    <*> areq hiddenField ""         (Just groupId)
+categories :: [(Text, Text)]
+categories = [("音楽", "notes.gif"),
+              ("建物", "building.gif"),
+              ("宴会", "beer.png"),
+              ("書類", "documents.png"),
+              ("通知", "megaphone.png"),
+              ("動画", "video.png")]
+
+fLink :: GroupId -> Form Link
+fLink groupId = renderDivs $ Link
+    <$> areq textField                    "タイトル" Nothing
+    <*> areq urlField                     "リンク先" Nothing
+    <*> areq (selectFieldList categories) "ジャンル" Nothing
+    <*> areq hiddenField                  ""         (Just groupId)
 
 
 getLinkCreateR :: GroupId -> Handler Html
 getLinkCreateR groupId = do
-    (widget, enctype) <- generateFormPost (fLink groupId Nothing)
+    (widget, enctype) <- generateFormPost (fLink groupId)
 
     defaultLayout $(widgetFile "link/create")
 
 
 postLinkCreateR :: GroupId -> Handler Html
 postLinkCreateR groupId = do
-    ((res, widget), enctype) <- runFormPost (fLink groupId Nothing)
+    ((res, widget), enctype) <- runFormPost (fLink groupId)
     case res of
         FormSuccess link -> do
             linkId <- runDB $ insert link

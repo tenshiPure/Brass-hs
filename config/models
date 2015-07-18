@@ -31,6 +31,7 @@ Attendance
 Link
     title    Text
     url      Text
+    icon     Text
     groupId  GroupId
 
 Comment

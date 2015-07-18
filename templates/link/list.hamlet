@@ -6,6 +6,7 @@
         $forall (link, count) <- contents
             <div .link__item>
                 <a href=@{LinkDetailR groupId (entityKey link)}>
+                    <img src=/static/image/icon/link/#{linkIcon $ entityVal link}>
                     #{linkTitle $ entityVal link}
                     <span>
                         コメント：#{count}

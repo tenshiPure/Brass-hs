@@ -9,6 +9,9 @@
     padding-left: 1em
     font-size: 1.5em
 
+.link__item img
+    height: 50px
+
 .link__item span
     margin-left: 2em
 

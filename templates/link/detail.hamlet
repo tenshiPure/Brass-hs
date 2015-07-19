@@ -1,17 +1,25 @@
-<h1>Link Detail
-<p>
-    #{groupName entity}
-<p>
-    <a href=#{linkUrl link}>
-        #{linkTitle link}
-$if null comments
-    <p>
-        No Comments...
-$else
-    $forall Entity commentId comment <- comments
-        <p>
-            #{commentBody comment}
-<p>
-    <a href=@{CommentCreateR groupId linkId}>create comment
-<p>
-    <a href=@{LinkListR groupId}>links
+<div #link>
+    <div .image-title>
+        <img .image-title__image src=/static/image/icon/link/#{linkIcon link}>
+        <div .image-title__text>
+            #{linkTitle link}
+    <div .link-url>
+        リンク先：
+        <a href=#{linkUrl link}>
+            #{linkUrl link}
+
+    $if null contents
+        <p .no-contents>
+            現在このリンクにはコメントが存在しません
+    $else
+        $forall (comment, person) <- contents
+            <div .media>
+                <div .media__image>
+                    <img .image-list__item__image src=/static/image/icon/person/#{personIcon person}>
+                <div .media__body>
+                    <span .media__body__by>
+                        #{personName person}
+                    <span .media__body__at>
+                        07/19
+                    <p .media__body__text>
+                        #{commentBody $ entityVal comment}

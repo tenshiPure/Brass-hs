@@ -1,15 +1,19 @@
 /*
- * リンク
+ * リンク 一覧
  */
 #links
     height: 80%
 
+/*
+ * 画像付き一覧
+ */
 .image-lists
     width: 100%
     height: 100%
     font-size: 2em
     overflow: scroll
     padding-left: 0
+    margin: 0
 
 .image-lists li
     list-style: none

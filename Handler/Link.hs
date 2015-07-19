@@ -11,16 +11,19 @@ getLinkListR groupId = do
         count <- runDB $ count [CommentLinkId ==. entityKey link]
         return (link, count)
 
-    renderWithGroups $(widgetFile "link/list") "リンク" PLink groupId
+    renderWithGroups $(widgetFile "link/list") "リンク 一覧" PLink groupId
 
 
 getLinkDetailR :: GroupId -> LinkId -> Handler Html
 getLinkDetailR groupId linkId = do
-    entity <- runDB $ get404 groupId
     link <- runDB $ get404 linkId
+--     let ownerId = link
     comments <- runDB $ selectList [CommentLinkId ==. linkId] [Asc CommentId]
+    contents <- forM comments $ \comment -> do
+        person <- runDB $ get404 (commentPersonId $ entityVal comment)
+        return (comment, person)
 
-    defaultLayout $(widgetFile "link/detail")
+    renderWithGroups $(widgetFile "link/detail") "リンク 詳細" PLink groupId
 
 
 categories :: [(Text, Text)]

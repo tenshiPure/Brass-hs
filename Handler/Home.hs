@@ -12,7 +12,6 @@ getHomeR groupId = do
 
 getHomeInitDBR :: GroupId -> Handler Html
 getHomeInitDBR groupId = do
-    _ <- runDB $ insert $ Person "user.ryo@gmail.com" "鈴木" "hoge.png"
     _ <- runDB $ insert $ Person "m-i.com" "松本" "default_1.png"
     _ <- runDB $ insert $ Person "t-h.com" "千葉" "default_2.png"
     _ <- runDB $ insert $ Person "i-k.com" "伊藤" "default_1.png"
@@ -99,18 +98,18 @@ getHomeInitDBR groupId = do
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
     let url = "https://www.google.co.jp/"
-    _ <- runDB $ insert $ Link "ToySparkの演奏会" url "notes.gif"     (toSqlKey 7 :: GroupId)
-    _ <- runDB $ insert $ Link "深川二中の場所"   url "building.gif"  (toSqlKey 7 :: GroupId)
-    _ <- runDB $ insert $ Link "打ち上げ（7/20）" url "beer.png"      (toSqlKey 7 :: GroupId)
-    _ <- runDB $ insert $ Link "2015総会資料"     url "documents.png" (toSqlKey 7 :: GroupId)
-    _ <- runDB $ insert $ Link "衣装について"     url "megaphone.png" (toSqlKey 7 :: GroupId)
-    _ <- runDB $ insert $ Link "録音（7/20）"     url "video.png"     (toSqlKey 7 :: GroupId)
+    _ <- runDB $ insert $ Link "ToySparkの演奏会" url "notes.gif"     (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Link "深川二中の場所"   url "building.gif"  (toSqlKey 7 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Link "打ち上げ（7/20）" url "beer.png"      (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Link "2015総会資料"     url "documents.png" (toSqlKey 7 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Link "衣装について"     url "megaphone.png" (toSqlKey 7 :: GroupId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Link "録音（7/20）"     url "video.png"     (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
-    _ <- runDB $ insert $ Comment "アップしました" (toSqlKey 2 :: LinkId) (toSqlKey 4 :: PersonId)
-    _ <- runDB $ insert $ Comment "あざますー"     (toSqlKey 2 :: LinkId) (toSqlKey 5 :: PersonId)
-    _ <- runDB $ insert $ Comment "お疲れ様でした" (toSqlKey 2 :: LinkId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ Comment "乙でしたー"     (toSqlKey 2 :: LinkId) (toSqlKey 4 :: PersonId)
-    _ <- runDB $ insert $ Comment "疲れた"         (toSqlKey 2 :: LinkId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Comment "アップしました" (toSqlKey 6 :: LinkId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Comment "あざますー"     (toSqlKey 6 :: LinkId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Comment "お疲れ様でした" (toSqlKey 6 :: LinkId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Comment "乙でしたー"     (toSqlKey 6 :: LinkId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Comment "疲れた"         (toSqlKey 6 :: LinkId) (toSqlKey 1 :: PersonId)
 
     redirect $ HomeR groupId
 

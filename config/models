@@ -33,6 +33,7 @@ Link
     url      Text
     icon     Text
     groupId  GroupId
+    personId PersonId
 
 Comment
     body     Text

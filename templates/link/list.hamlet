@@ -4,14 +4,14 @@
             現在このグループにはリンクが存在しません
     $else
         <ul .image-lists>
-            $forall (link, count) <- contents
+            $forall (link, commentNum) <- contents
                 <li .image-list__item>
                     <a href=@{LinkDetailR groupId (entityKey link)}>
                         <img src=/static/image/icon/link/#{linkIcon $ entityVal link}>
                         <div>
                             #{linkTitle $ entityVal link}
                             <span .right-position>
-                                コメント：#{count}
+                                コメント：#{commentNum}
 
 <div #input>
 $#     <form action=@{MessageCreateR groupId} method=post>

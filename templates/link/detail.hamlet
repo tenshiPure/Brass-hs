@@ -5,7 +5,7 @@
             #{linkTitle link}
     <div .link-url>
         リンク先：
-        <a href=#{linkUrl link}>
+        <a href=#{linkUrl link} target=_blank>
             #{linkUrl link}
 
     $if null contents
@@ -14,12 +14,23 @@
     $else
         $forall (comment, person) <- contents
             <div .media>
-                <div .media__image>
-                    <img .image-list__item__image src=/static/image/icon/person/#{personIcon person}>
-                <div .media__body>
-                    <span .media__body__by>
-                        #{personName person}
-                    <span .media__body__at>
-                        07/19
-                    <p .media__body__text>
-                        #{commentBody $ entityVal comment}
+                $if ownerId == commentPersonId comment
+                    <div .media__image>
+                        <img src=/static/image/icon/person/#{personIcon person}>
+                    <div .media__body>
+                        <span .media__body__by>
+                            #{personName person}
+                        <span .media__body__at>
+                            07/19
+                        <p .media__body__text>
+                            #{commentBody comment}
+                $else
+                    <div .media__image--rev>
+                        <img src=/static/image/icon/person/#{personIcon person}>
+                    <div .media__body>
+                        <span .media__body__by>
+                            #{personName person}
+                        <span .media__body__at>
+                            07/19
+                        <p .media__body__text>
+                            #{commentBody comment}

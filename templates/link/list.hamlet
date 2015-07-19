@@ -3,18 +3,19 @@
         <p .no-contents>
             現在このグループにはリンクが存在しません
     $else
-        $forall (link, count) <- contents
-            <div .link__item>
-                <a href=@{LinkDetailR groupId (entityKey link)}>
-                    <img src=/static/image/icon/link/#{linkIcon $ entityVal link}>
-                    #{linkTitle $ entityVal link}
-                    <span>
-                        コメント：#{count}
-            <hr>
+        <ul .image-lists>
+            $forall (link, count) <- contents
+                <li .image-list__item>
+                    <a href=@{LinkDetailR groupId (entityKey link)}>
+                        <img src=/static/image/icon/link/#{linkIcon $ entityVal link}>
+                        <div>
+                            #{linkTitle $ entityVal link}
+                            <span .right-position>
+                                コメント：#{count}
 
 <div #input>
-    <form action=@{MessageCreateR groupId} method=post>
-        <textarea .input__form name=body>
-        <div .input__buttons>
-            <span>
-                <input #submit .button type=submit value=送信>
+$#     <form action=@{MessageCreateR groupId} method=post>
+$#         <textarea .input__form name=body>
+$#         <div .input__buttons>
+$#             <span>
+$#                 <input #submit .button type=submit value=送信>

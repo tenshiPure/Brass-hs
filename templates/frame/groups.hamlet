@@ -33,26 +33,26 @@
                     $case page
                         $of PHome
                             <a href=@{HomeR groupId}>
-                                <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
-                                <p>
+                                <img src=/static/image/icon/group/#{groupIcon group}>
+                                <div>
                                     #{groupName group}
 
                         $of PMessage
                             <a href=@{MessageListR groupId}>
-                                <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
-                                <p>
+                                <img src=/static/image/icon/group/#{groupIcon group}>
+                                <div>
                                     #{groupName group}
 
                         $of PSchedule
                             <a href=@{ScheduleListR groupId}>
-                                <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
-                                <p>
+                                <img src=/static/image/icon/group/#{groupIcon group}>
+                                <div>
                                     #{groupName group}
 
                         $of PLink
                             <a href=@{LinkListR groupId}>
-                                <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
-                                <p>
+                                <img src=/static/image/icon/group/#{groupIcon group}>
+                                <div>
                                     #{groupName group}
 
 <div #layout-contents>

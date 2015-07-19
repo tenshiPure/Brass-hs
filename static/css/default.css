@@ -117,6 +117,7 @@ html,body {
 .side__link {
 	padding: 1em;
 	background-color: #AFF;
+	line-height: 2em;
 }
 .side__link:hover  {
 	background-color: #CFF;
@@ -134,16 +135,15 @@ html,body {
 	border-top: 1px solid #000;
 }
 .side__link img {
-	height: 40px;
+	height: 3em;
 	float: left;
 	margin-left: -0.5em;
 	margin-top: -0.5em;
 	margin-right: 0.2em;
 }
-.side__link p {
-	margin: 0px;
-	padding: 0px;
-	overflow: hidden;
+.side__link div {
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 /*

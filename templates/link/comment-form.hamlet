@@ -1,0 +1,6 @@
+<div>
+    内容：^{fvInput bodyView}
+^{fvInput linkIdView}
+^{fvInput personIdView}
+#{extra}
+<input #submit .button type=submit value=送信>

@@ -25,16 +25,21 @@ fLink groupId personId extra = do
            <*> iconResult
            <*> groupIdResult
            <*> personIdResult
-        widget = $(widgetFile "link/form")
+        widget = $(widgetFile "link/link-form")
     return (result, widget)
 
--- fLink :: GroupId -> PersonId -> Form Link
--- fLink groupId personId = renderDivs $ Link
---     <$> areq textField                    "タイトル" Nothing
---     <*> areq urlField                     "リンク先" Nothing
---     <*> areq (selectFieldList categories) "ジャンル" Nothing
---     <*> areq hiddenField                  ""         (Just groupId)
---     <*> areq hiddenField                  ""         (Just personId)
+
+fComment :: LinkId -> PersonId -> Html -> MForm Handler (FormResult Comment, Widget)
+fComment linkId personId extra = do
+    (bodyResult, bodyView) <- mreq textareaField "" Nothing
+    (linkIdResult, linkIdView) <- mreq hiddenField "" (Just linkId)
+    (personIdResult, personIdView) <- mreq hiddenField "" (Just personId)
+    let result = Comment
+           <$> bodyResult
+           <*> linkIdResult
+           <*> personIdResult
+        widget = $(widgetFile "link/comment-form")
+    return (result, widget)
 
 
 getLinkListR :: GroupId -> Handler Html
@@ -58,6 +63,9 @@ getLinkDetailR groupId linkId = do
         person <- runDB $ get404 (commentPersonId comment)
         return (comment, person)
 
+    personId <- requireAuthId
+    (formWidget, enctype) <- generateFormPost (fComment linkId personId)
+
     renderWithGroups $(widgetFile "link/detail") "リンク 詳細" PLink groupId
 
 
@@ -70,4 +78,18 @@ postLinkCreateR groupId = do
             _ <- runDB $ insert link
             redirect $ LinkListR groupId
 
+        -- todo
         _ -> defaultLayout $(widgetFile "link/create")
+
+
+postLinkCommentCreateR :: GroupId -> LinkId -> Handler Html
+postLinkCommentCreateR groupId linkId = do
+    personId <- requireAuthId
+    ((res, widget), enctype) <- runFormPost (fComment linkId personId)
+    case res of
+        FormSuccess comment -> do
+            _ <- runDB $ insert comment
+            redirect $ LinkDetailR groupId linkId
+
+        -- todo
+        _ -> defaultLayout $(widgetFile "comment/create")

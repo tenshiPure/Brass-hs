@@ -38,7 +38,6 @@ import Handler.Belong
 import Handler.Schedule
 import Handler.Attendance
 import Handler.Link
-import Handler.Comment
 import Handler.Message
 import Handler.Home
 import Handler.Debug

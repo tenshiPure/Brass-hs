@@ -28,7 +28,6 @@ library
                      Handler.Schedule
                      Handler.Attendance
                      Handler.Link
-                     Handler.Comment
                      Handler.Message
                      Handler.Home
                      Handler.Debug

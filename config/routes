@@ -30,7 +30,7 @@
 /link/detail/#GroupId/#LinkId LinkDetailR GET
 /link/create/#GroupId         LinkCreateR     POST
 
-/comment/create/#GroupId/#LinkId CommentCreateR GET POST
+/comment/create/#GroupId/#LinkId LinkCommentCreateR     POST
 
 /messages/#GroupId       MessageListR   GET
 /message/create/#GroupId MessageCreateR     POST

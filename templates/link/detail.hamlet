@@ -23,3 +23,7 @@
                         07/19
                     <p .media__body__text>
                         #{commentBody comment}
+
+<div #input>
+    <form action=@{LinkCommentCreateR groupId linkId} method=post enctype=#{enctype}>
+        ^{formWidget}

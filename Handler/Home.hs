@@ -105,11 +105,15 @@ getHomeInitDBR groupId = do
     _ <- runDB $ insert $ Link "衣装について"     url "megaphone.png" (toSqlKey 7 :: GroupId) (toSqlKey 5 :: PersonId)
     _ <- runDB $ insert $ Link "録音（7/20）"     url "video.png"     (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
-    _ <- runDB $ insert $ Comment "アップしました" (toSqlKey 6 :: LinkId) (toSqlKey 4 :: PersonId)
-    _ <- runDB $ insert $ Comment "あざますー"     (toSqlKey 6 :: LinkId) (toSqlKey 5 :: PersonId)
-    _ <- runDB $ insert $ Comment "お疲れ様でした" (toSqlKey 6 :: LinkId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ Comment "乙でしたー"     (toSqlKey 6 :: LinkId) (toSqlKey 4 :: PersonId)
-    _ <- runDB $ insert $ Comment "疲れた"         (toSqlKey 6 :: LinkId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea shortBody)        (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "アップしました") (toSqlKey 6 :: LinkId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "あざますー")     (toSqlKey 6 :: LinkId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "お疲れ様でした") (toSqlKey 6 :: LinkId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "乙でしたー")     (toSqlKey 6 :: LinkId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "疲れた")         (toSqlKey 6 :: LinkId) (toSqlKey 1 :: PersonId)
 
     redirect $ HomeR groupId
 

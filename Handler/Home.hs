@@ -12,6 +12,10 @@ getHomeR groupId = do
 
 getHomeInitDBR :: GroupId -> Handler Html
 getHomeInitDBR groupId = do
+
+    let hoge = Person "user.ryo@gmail.com" "ほげ" "hoge.png"
+    _ <- runDB $ replace (toSqlKey 1 :: PersonId) hoge
+
     _ <- runDB $ insert $ Person "m-i.com" "松本" "default_1.png"
     _ <- runDB $ insert $ Person "t-h.com" "千葉" "default_2.png"
     _ <- runDB $ insert $ Person "i-k.com" "伊藤" "default_1.png"

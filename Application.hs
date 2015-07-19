@@ -40,7 +40,7 @@ import Handler.Attendance
 import Handler.Link
 import Handler.Comment
 import Handler.Message
-import Handler.Admin
+import Handler.Home
 import Handler.Debug
 
 -- This line actually creates our YesodDispatch instance. It is the second half

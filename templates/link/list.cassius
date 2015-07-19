@@ -18,10 +18,6 @@
 .link__item > a
     text-decoration: none
 
-
-
-
-
 /*
  * 入力
  */

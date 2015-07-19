@@ -1,33 +1,17 @@
-module Handler.Admin where
+module Handler.Home where
 
 
 import Import
 import Database.Persist.Sql(toSqlKey)
 
 
-getAdminR :: Handler Html
-getAdminR = do
-    defaultLayout [whamlet|
-    <ul>
-        <li>
-            <a href=@{PersonListR}>
-                人一覧
-        <li>
-            <a href=@{GroupListR}>
-                グループ一覧
-        <hr>
-
-        <li>
-            <a href=/auth/login>
-                ログイン
-        <li>
-            <a href=@{AdminInitDBR}>
-                DB初期化
-    |]
+getHomeR :: GroupId -> Handler Html
+getHomeR groupId = do
+    renderWithGroups $(widgetFile "home/list") "ホーム" PHome groupId
 
 
-getAdminInitDBR :: Handler Html
-getAdminInitDBR = do
+getHomeInitDBR :: GroupId -> Handler Html
+getHomeInitDBR groupId = do
     _ <- runDB $ insert $ Person "user.ryo@gmail.com" "鈴木" "hoge.png"
     _ <- runDB $ insert $ Person "m-i.com" "松本" "default_1.png"
     _ <- runDB $ insert $ Person "t-h.com" "千葉" "default_2.png"
@@ -128,9 +112,9 @@ getAdminInitDBR = do
     _ <- runDB $ insert $ Comment "乙でしたー"     (toSqlKey 2 :: LinkId) (toSqlKey 4 :: PersonId)
     _ <- runDB $ insert $ Comment "疲れた"         (toSqlKey 2 :: LinkId) (toSqlKey 1 :: PersonId)
 
-    redirect AdminR
+    redirect $ HomeR groupId
 
 
-getAdminWorkspaceR :: Handler Html
-getAdminWorkspaceR = do
+getHomeWorkspaceR :: GroupId -> Handler Html
+getHomeWorkspaceR _ = do
     defaultLayout [whamlet| workspace |]

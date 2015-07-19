@@ -3,7 +3,7 @@
     <div .header__nav>
         <ul .nav>
             <li .nav__item :page == PHome:.nav__item--active>
-                <a href=@{AdminInitDBR}>
+                <a href=@{HomeR currentGroupId}>
                     ホーム
             <li .nav__item :page == PMessage:.nav__item--active>
                 <a href=@{MessageListR currentGroupId}>
@@ -32,7 +32,7 @@
                 <li .side__link :currentGroupId == groupId:.side__link--active>
                     $case page
                         $of PHome
-                            <a href=@{AdminInitDBR}>
+                            <a href=@{HomeR groupId}>
                                 <img .group-icon src=/static/image/icon/group/#{groupIcon group}>
                                 <p>
                                     #{groupName group}

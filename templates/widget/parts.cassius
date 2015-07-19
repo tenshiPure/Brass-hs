@@ -1,0 +1,59 @@
+/*
+ * 空コンテンツ
+ */
+.no-contents
+    padding: 0
+    margin: 0
+    margin-left: 0.5em
+    margin-top: 0.5em
+    font-weight: bold
+    font-size: 2em
+
+/*
+ * ボタン
+ */
+.button
+    color: #FFF
+    background-color: #248
+    font-weight: bold
+    font-size: 1em
+    padding: 5px 10px
+    border-style: none
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+    border-radius: 5px
+    text-decoration: none
+
+.button:hover
+    background-color: #24D
+    cursor: pointer
+
+.button:active
+    padding-top: 6px
+    padding-bottom: 4px
+    color:#e0ebf5
+
+/*
+ * ポジション
+ */
+.position-right
+    float: right
+    margin-right: 2em
+
+/*
+ * 画像付きタイトル
+ */
+.image-title
+    margin-top: 1em
+    margin-left: 1em
+    width: 100%
+    background-color: #FAA
+    line-height: 4em
+
+.image-title__image
+    height: 4em
+    float: left
+    margin-right: 1em
+
+.image-title__text
+    font-size: 2em

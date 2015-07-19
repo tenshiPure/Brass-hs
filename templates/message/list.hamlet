@@ -14,7 +14,6 @@
                          #{format $ messageCreated message}
                     <p .media__body__text>
                         #{messageBody message}
-                <hr>
 
 <div #input>
     <form action=@{MessageCreateR groupId} method=post>

@@ -1,0 +1,36 @@
+/*
+ * メディア
+ */
+.media:before, .media:after
+    display: table
+    content: " "
+
+.media:after
+    clear: both
+
+.media img
+    display: block
+    height: 70px
+
+.media + .media
+    border-top: 1px solid #FFF
+
+.media__image
+    float: left
+    margin-right: 2em
+
+.media__body
+    overflow: hidden
+    min-height: 70px
+
+.media__body__by
+    color: #FFF
+
+.media__body__at
+    color: #FFF
+    float: right
+
+.media__body__text
+    margin-top: 0
+    margin-bottom: 0
+    white-space: pre-wrap

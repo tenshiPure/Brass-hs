@@ -5,24 +5,6 @@
     height: 80%
 
 /*
- * 画像付きタイトル
- */
-.image-title
-    margin-top: 1em
-    margin-left: 1em
-    width: 100%
-    background-color: #FAA
-    line-height: 4em
-
-.image-title__image
-    height: 4em
-    float: left
-    margin-right: 1em
-
-.image-title__text
-    font-size: 2em
-
-/*
  * リンク先
  */
 .link-url
@@ -30,45 +12,3 @@
     margin-left: 0.5em
     margin-bottom: 1em
     font-size: 2em
-
-/*
- * メディア
- */
-.media:before, .media:after
-    display: table
-    content: " "
-
-.media:after
-    clear: both
-
-.media img
-    display: block
-    height: 70px
-
-.media + .media
-    border-top: 1px solid #FFF
-
-.media__image
-    float: left
-    margin-right: 2em
-
-.media__image--rev
-    float: right
-    margin-right: 0
-    margin-left: 2em
-
-.media__body
-    overflow: hidden
-    min-height: 70px
-
-.media__body__by
-    color: #FFF
-
-.media__body__at
-    color: #FFF
-    float: right
-
-.media__body__text
-    margin-top: 0
-    margin-bottom: 0
-    white-space: pre-wrap

@@ -173,10 +173,14 @@ renderWithGroups content title page currentGroupId = do
     let belongGroupIds = map (belongGroupId . entityVal) belongs
     groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
 
+
     defaultLayout $ do
+        toWidget ($(widgetFile "widget/parts") :: Widget)
+        toWidget ($(widgetFile "widget/media") :: Widget)
+        toWidget ($(widgetFile "widget/image-list") :: Widget)
+
         setTitle title
         $(widgetFile "frame/groups")
-
 
 -- get timezoned current utctime
 getNow :: IO UTCTime

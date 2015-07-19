@@ -39,21 +39,3 @@
 .position-right
     float: right
     margin-right: 2em
-
-/*
- * 画像付きタイトル
- */
-.image-title
-    margin-top: 1em
-    margin-left: 1em
-    width: 100%
-    background-color: #FAA
-    line-height: 4em
-
-.image-title__image
-    height: 4em
-    float: left
-    margin-right: 1em
-
-.image-title__text
-    font-size: 2em

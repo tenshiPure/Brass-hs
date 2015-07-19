@@ -28,7 +28,7 @@
 
 /links/#GroupId               LinkListR   GET
 /link/detail/#GroupId/#LinkId LinkDetailR GET
-/link/create/#GroupId         LinkCreateR GET POST
+/link/create/#GroupId         LinkCreateR     POST
 
 /comment/create/#GroupId/#LinkId CommentCreateR GET POST
 

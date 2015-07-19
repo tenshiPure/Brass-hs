@@ -14,23 +14,12 @@
     $else
         $forall (comment, person) <- contents
             <div .media>
-                $if ownerId == commentPersonId comment
-                    <div .media__image>
-                        <img src=/static/image/icon/person/#{personIcon person}>
-                    <div .media__body>
-                        <span .media__body__by>
-                            #{personName person}
-                        <span .media__body__at>
-                            07/19
-                        <p .media__body__text>
-                            #{commentBody comment}
-                $else
-                    <div .media__image--rev>
-                        <img src=/static/image/icon/person/#{personIcon person}>
-                    <div .media__body>
-                        <span .media__body__by>
-                            #{personName person}
-                        <span .media__body__at>
-                            07/19
-                        <p .media__body__text>
-                            #{commentBody comment}
+                <div .media__image>
+                    <img src=/static/image/icon/person/#{personIcon person}>
+                <div .media__body>
+                    <span .media__body__by>
+                        #{personName person}
+                    <span .media__body__at>
+                        07/19
+                    <p .media__body__text>
+                        #{commentBody comment}

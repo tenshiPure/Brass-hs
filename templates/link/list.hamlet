@@ -14,8 +14,5 @@
                                 コメント：#{commentNum}
 
 <div #input>
-$#     <form action=@{MessageCreateR groupId} method=post>
-$#         <textarea .input__form name=body>
-$#         <div .input__buttons>
-$#             <span>
-$#                 <input #submit .button type=submit value=送信>
+    <form action=@{LinkCreateR groupId} method=post enctype=#{enctype}>
+        ^{formWidget}

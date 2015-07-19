@@ -1,0 +1,10 @@
+<div>
+    タイトル：^{fvInput titleView}
+<div>
+    URL：^{fvInput urlView}
+<div>
+    ジャンル：^{fvInput iconView}
+^{fvInput groupIdView}
+^{fvInput personIdView}
+#{extra}
+<input #submit .button type=submit value=送信>

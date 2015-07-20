@@ -3,8 +3,8 @@
 
 <p>日程：#{show $ scheduleDay schedule}
 
-$maybe prace <- schedulePrace schedule
-    <p>場所：#{prace}
+$maybe place <- schedulePlace schedule
+    <p>場所：#{place}
 $nothing
     <p>場所：-
 

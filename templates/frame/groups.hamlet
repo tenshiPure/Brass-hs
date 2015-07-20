@@ -10,7 +10,7 @@
                     チャット
             <li .nav__item :page == PSchedule:.nav__item--active>
                 <a href=@{ScheduleListR currentGroupId}>
-                    出欠
+                    予定
             <li .nav__item :page == PLink:.nav__item--active>
                 <a href=@{LinkListR currentGroupId}>
                     リンク

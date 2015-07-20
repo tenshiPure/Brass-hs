@@ -126,6 +126,13 @@ getHomeInitDBR = do
     _ <- runDB $ insert $ Comment (Textarea "乙でしたー")     (toSqlKey 6 :: LinkId) (toSqlKey 4 :: PersonId)
     _ <- runDB $ insert $ Comment (Textarea "疲れた")         (toSqlKey 6 :: LinkId) (toSqlKey 1 :: PersonId)
 
+    let day = fromGregorian 2015 7 20
+    _ <- runDB $ deleteWhere ([] :: [Filter Schedule])
+    _ <- runDB $ insert $ Schedule day (Just "深川二中") (Just "中島先生レッスン")                                      (toSqlKey 1 :: GroupId)
+    _ <- runDB $ insert $ Schedule day (Just "青少年センター") Nothing                                                  (toSqlKey 1 :: GroupId)
+    _ <- runDB $ insert $ Schedule day Nothing                 (Just "場所未定")                                        (toSqlKey 1 :: GroupId)
+    _ <- runDB $ insert $ Schedule day (Just "青少年センター") (Just "午前中は分奏、午後はウエストサイドと幻想4,5です") (toSqlKey 1 :: GroupId)
+
     redirect $ HomeR
 
 

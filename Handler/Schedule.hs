@@ -5,21 +5,11 @@ import Import
 import Handler.Attendance(fromInt)
 
 
-instance Show Schedule where
-    show (Schedule day mPrace mNote groupId) = "日程 : " ++ (show day) ++ ", 場所 : " ++ getOr mPrace ++ ", 備考 : " ++ getOr mNote
-
-getOr :: Maybe Text -> String
-getOr maybe = case maybe of
-    (Just val) -> unpack val
-    Nothing    -> "--"
-
-
 getScheduleListR :: GroupId -> Handler Html
 getScheduleListR groupId = do
-    entity <- runDB $ get404 groupId
-    schedules <- runDB $ selectList [ScheduleGroupId ==. groupId] [Asc ScheduleId]
+    contents <- runDB $ selectList [ScheduleGroupId ==. groupId] [Asc ScheduleId]
 
-    defaultLayout $(widgetFile "schedule/list")
+    renderWithGroups $(widgetFile "schedule/list") "予定 一覧" PSchedule groupId []
 
 
 getScheduleDetailR :: GroupId -> ScheduleId -> Handler Html
@@ -39,7 +29,7 @@ getScheduleDetailR groupId scheduleId = do
 fSchedule :: GroupId -> Maybe Schedule -> Form Schedule
 fSchedule groupId mSchedule = renderDivs $ Schedule
     <$> areq dayField    "日程" (scheduleDay   <$> mSchedule)
-    <*> aopt textField   "場所" (schedulePrace <$> mSchedule)
+    <*> aopt textField   "場所" (schedulePlace <$> mSchedule)
     <*> aopt textField   "備考" (scheduleNote  <$> mSchedule)
     <*> areq hiddenField ""     (Just groupId)
 

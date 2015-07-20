@@ -1,11 +1,18 @@
-<h1>Schedules
-#{groupName entity}
-$if null schedules
-    <p>No Schedules...
-$else
-    <ul>
-        $forall Entity scheduleId schedule <- schedules
-            <li>
-                <a href=@{ScheduleDetailR groupId scheduleId}>
-                    #{show schedule}
-<a href=@{ScheduleCreateR groupId}>create
+<div #layout-contents>
+    $if null contents
+        <p .no-contents>
+            現在このグループには予定が存在しません
+    $else
+        <ul>
+            $forall Entity scheduleId schedule <- contents
+                <li>
+                    <a href=@{ScheduleDetailR groupId scheduleId}>
+                        <div>
+                            $maybe place <- schedulePlace schedule
+                                #{place}
+                            $nothing
+                                場所未定
+
+<div #layout-form>
+    <form action=# method=post enctype=#>
+$#         ^{formWidget}

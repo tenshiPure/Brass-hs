@@ -1,5 +1,0 @@
-<h1>Instrument Create
-
-<form method=post enctype=#{enctype} action=@{InstrumentCreateR}>
-    ^{widget}
-    <input type="submit" value="create">

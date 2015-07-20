@@ -35,12 +35,6 @@
 /messages/#GroupId       MessageListR   GET
 /message/create/#GroupId MessageCreateR     POST
 
-/debug/person/create           DebugPersonCreateR GET POST
-/debug/person/update/#PersonId DebugPersonUpdateR GET POST
-/debug/person/delete/#PersonId DebugPersonDeleteR     POST
-
-/debug/attendance/create/#GroupId/#ScheduleId/#PersonId DebugAttendanceCreateR GET POST
-
 /home/#GroupId           HomeR          GET
 /home/init-db/#GroupId   HomeInitDBR    GET
 /home/workspace/#GroupId HomeWorkspaceR GET

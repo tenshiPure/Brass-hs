@@ -1,9 +1,0 @@
-<h1>Sample GET
-<form method=post action=@{SampleR} enctype=#{enctype}>
-    ^{widget}
-    <input id=create_button type=submit value=create>
-    <input id=update_button type=submit value=update>
-    <input id=delete_button type=submit value=delete>
-    <input type=hidden id=verb name=verb value=>
-
-<script src=https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js>

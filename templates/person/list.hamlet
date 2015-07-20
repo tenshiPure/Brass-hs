@@ -7,11 +7,3 @@ $else
             <li>
                 <a href=@{PersonDetailR personId}>
                     #{personName person}
-                <form method=post action=@{DebugPersonDeleteR personId}>
-                    <input type=submit value="debug delete">
-<p>
-    <a href=@{DebugPersonCreateR}>
-        debug create
-<p>
-    <a href=@{PersonUpdateR}>
-        self update

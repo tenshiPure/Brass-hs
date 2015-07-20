@@ -117,12 +117,27 @@ html, body
     white-space: nowrap
 
 /*
- * メインコンテンツ
+ * メイン
  */
-#layout-contents
+#layout-main
     background-color: #AAF
     position: fixed
     top: 50px
     left: 20%
     bottom: 0px
     width: 80%
+
+/*
+ * メイン：コンテンツ
+ */
+#layout-contents
+    height: 80%
+    overflow: scroll
+
+/*
+ * メイン：フォーム
+ */
+#layout-form
+    height: 20%
+    text-align: center
+    background-color: #FFA

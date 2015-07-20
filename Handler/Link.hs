@@ -25,7 +25,7 @@ fLink groupId personId extra = do
            <*> iconResult
            <*> groupIdResult
            <*> personIdResult
-        widget = $(widgetFile "link/link-form")
+        widget = $(widgetFile "link/form/link")
     return (result, widget)
 
 
@@ -38,7 +38,7 @@ fComment linkId personId extra = do
            <$> bodyResult
            <*> linkIdResult
            <*> personIdResult
-        widget = $(widgetFile "link/comment-form")
+        widget = $(widgetFile "link/form/comment")
     return (result, widget)
 
 
@@ -72,7 +72,7 @@ getLinkDetailR groupId linkId = do
 postLinkCreateR :: GroupId -> Handler Html
 postLinkCreateR groupId = do
     personId <- requireAuthId
-    ((res, widget), enctype) <- runFormPost $ fLink groupId personId
+    ((res, _), _) <- runFormPost $ fLink groupId personId
     case res of
         FormSuccess link -> do
             _ <- runDB $ insert link
@@ -84,7 +84,7 @@ postLinkCreateR groupId = do
 postLinkCommentCreateR :: GroupId -> LinkId -> Handler Html
 postLinkCommentCreateR groupId linkId = do
     personId <- requireAuthId
-    ((res, widget), enctype) <- runFormPost (fComment linkId personId)
+    ((res, _), _) <- runFormPost (fComment linkId personId)
     case res of
         FormSuccess comment -> do
             _ <- runDB $ insert comment

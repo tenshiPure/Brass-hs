@@ -1,4 +1,4 @@
-<div #links>
+<div #layout-contents>
     $if null contents
         <p .no-contents>
             現在このグループにはリンクが存在しません
@@ -13,6 +13,6 @@
                             <span .right-position>
                                 コメント：#{commentNum}
 
-<div #input>
+<div #layout-form>
     <form action=@{LinkCreateR groupId} method=post enctype=#{enctype}>
         ^{formWidget}

@@ -1,4 +1,4 @@
-<div #messages>
+<div #layout-contents>
     $if null contents
         <p .no-contents>
             現在このグループにはメッセージが存在しません
@@ -15,9 +15,9 @@
                     <p .media__body__text>
                         #{messageBody message}
 
-<div #input>
+<div #layout-form>
     <form action=@{MessageCreateR groupId} method=post>
-        <textarea .input__form name=body>
-        <div .input__buttons>
+        <textarea name=body>
+        <div>
             <span>
-                <input #submit .button type=submit value=送信>
+                <input .submi-button type=submit value=送信>

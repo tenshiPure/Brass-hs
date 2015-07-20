@@ -50,5 +50,5 @@
                                 <div>
                                     #{groupName group}
 
-<div #layout-contents>
+<div #layout-main>
     ^{content}

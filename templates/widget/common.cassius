@@ -12,7 +12,7 @@
 /*
  * ボタン
  */
-.button
+.submit-button
     color: #FFF
     background-color: #248
     font-weight: bold
@@ -24,11 +24,11 @@
     border-radius: 5px
     text-decoration: none
 
-.button:hover
+.submit-button:hover
     background-color: #24D
     cursor: pointer
 
-.button:active
+.submit-button:active
     padding-top: 6px
     padding-bottom: 4px
     color:#e0ebf5

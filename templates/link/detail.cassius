@@ -1,11 +1,4 @@
 /*
- * リンク 詳細
- */
-#link
-    height: 80%
-    overflow: scroll
-
-/*
  * 画像付きタイトル
  */
 .image-title
@@ -31,18 +24,3 @@
     margin-left: 0.5em
     margin-bottom: 1em
     font-size: 2em
-
-/*
- * 入力
- */
-#input
-    height: 20%
-    text-align: center
-    background-color: #FFA
-
-.input__form
-    width: 95%
-    height: 80px
-    margin: 0 auto
-    margin-top: 1em
-    font-size: 1em

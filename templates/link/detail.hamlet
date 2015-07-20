@@ -1,4 +1,4 @@
-<div #link>
+<div #layout-contents>
     <div .image-title>
         <img .image-title__image src=/static/image/icon/link/#{linkIcon link}>
         <div .image-title__text>
@@ -24,6 +24,6 @@
                     <p .media__body__text>
                         #{commentBody comment}
 
-<div #input>
+<div #layout-form>
     <form action=@{LinkCommentCreateR groupId linkId} method=post enctype=#{enctype}>
         ^{formWidget}

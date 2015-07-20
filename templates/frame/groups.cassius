@@ -12,7 +12,7 @@ html, body
     top: 0
     left: 0
     width: 100%
-    height: 50px
+    height: 3em
 
 /*
  * ヘッダー：名前
@@ -44,6 +44,7 @@ html, body
 
 .nav__item
     display: table-cell
+    line-height: 3em
 
 .nav__item:hover
     background-color: #FCF
@@ -57,7 +58,6 @@ html, body
     text-decoration: none
     font-weight: bold
     font-size: 1.5em
-    margin-top: 0.2em
 
 /*
  * ヘッダー：アイコン
@@ -71,7 +71,7 @@ html, body
     line-height: 3em
 
 #header__logined img
-    height: 50px
+    height: 3em
     margin-right: 1em
     float: left
 
@@ -84,7 +84,7 @@ html, body
 #layout-left
     background-color: #AFA
     position: fixed
-    top: 50px
+    top: 3em
     left: 0px
     bottom: 0px
     width: 20%
@@ -131,7 +131,7 @@ html, body
 #layout-main
     background-color: #AAF
     position: fixed
-    top: 50px
+    top: 3em
     left: 20%
     bottom: 0px
     width: 80%

@@ -67,7 +67,6 @@ instance Yesod App where
 
         pc <- widgetToPageContent $ do
 --             addStylesheet $ StaticR css_bootstrap_css
-            addStylesheet $ StaticR css_default_css
             $(widgetFile "default-layout")
         withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
 
@@ -176,7 +175,7 @@ renderWithGroups content title page currentGroupId widgets = do
 
     defaultLayout $ do
         mapM_ toWidget widgets
-        toWidget ($(widgetFile "widget/common") :: Widget)
+--         toWidget ($(widgetFile "widget/common") :: Widget)
 
         setTitle title
         $(widgetFile "frame/groups")

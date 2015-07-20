@@ -1,6 +1,6 @@
 <div #layout-header>
-    <div .header__name>
-    <div .header__nav>
+    <div #layout-header__name>
+    <div #layout-header__nav>
         <ul .nav>
             <li .nav__item :page == PHome:.nav__item--active>
                 <a href=@{HomeR currentGroupId}>
@@ -14,20 +14,15 @@
             <li .nav__item :page == PLink:.nav__item--active>
                 <a href=@{LinkListR currentGroupId}>
                     リンク
-    <div .header__icons>
-        <a href="#">
-            <span .icon .icon--person>
-        <a href="#">
-            <span .icon .icon--information>
-        <a href="#">
-            <span .icon .icon--config>
+    <div #header__icons>
+
 
 <div #layout-left>
-    <ul .side>
-        $if null groups
-                <li .side__link .side__link--active>
-                    所属しているグループがありません
-        $else
+    $if null groups
+        <div>
+            所属しているグループがありません
+    $else
+        <ul .side>
             $forall Entity groupId group <- groups
                 <li .side__link :currentGroupId == groupId:.side__link--active>
                     $case page
@@ -56,4 +51,4 @@
                                     #{groupName group}
 
 <div #layout-contents>
-        ^{content}
+    ^{content}

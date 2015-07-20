@@ -124,4 +124,15 @@ getHomeInitDBR groupId = do
 
 getHomeWorkspaceR :: GroupId -> Handler Html
 getHomeWorkspaceR _ = do
-    defaultLayout [whamlet| workspace |]
+    defaultLayout $ do
+        submitWidget
+        let mediaWidget = getMediaWidget "hoge" "fuga"
+        [whamlet| ^{mediaWidget} |]
+
+
+submitWidget :: MonadWidget m => m ()
+submitWidget = do
+    $(widgetFile "home/submit")
+
+getMediaWidget :: Text -> Text -> Widget
+getMediaWidget arg1 arg2 = $(widgetFile "home/media")

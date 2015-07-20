@@ -7,7 +7,7 @@ import Database.Persist.Sql(toSqlKey)
 
 getHomeR :: GroupId -> Handler Html
 getHomeR groupId = do
-    renderWithGroups $(widgetFile "home/list") "ホーム" PHome groupId
+    renderWithGroups $(widgetFile "home/list") "ホーム" PHome groupId []
 
 
 getHomeInitDBR :: GroupId -> Handler Html

@@ -164,8 +164,8 @@ data Page = PHome | PMessage | PSchedule | PLink deriving (Show, Eq)
 
 
 -- require login, title and current group id.
-renderWithGroups :: Widget -> Html -> Page -> GroupId -> Handler Html
-renderWithGroups content title page currentGroupId = do
+renderWithGroups :: Widget -> Html -> Page -> GroupId -> [Widget] -> Handler Html
+renderWithGroups content title page currentGroupId widgets = do
     personId <- requireAuthId
     _ <- runDB $ get404 personId
 
@@ -175,9 +175,8 @@ renderWithGroups content title page currentGroupId = do
 
 
     defaultLayout $ do
-        toWidget ($(widgetFile "widget/parts") :: Widget)
-        toWidget ($(widgetFile "widget/media") :: Widget)
-        toWidget ($(widgetFile "widget/image-list") :: Widget)
+        mapM_ toWidget widgets
+        toWidget ($(widgetFile "widget/common") :: Widget)
 
         setTitle title
         $(widgetFile "frame/groups")

@@ -1,36 +1,28 @@
-<h1>Schedule Detail
-<p>#{groupName entity}
+<div #layout-contents>
+    <div .schedule>
+        <span .schedule__day>
+            #{show $ scheduleDay schedule}
+        <span .schedule__place>
+            場所：
+            $maybe place <- schedulePlace schedule
+                #{place}
+        <div .schedule__note>
+            備考：
+            $maybe note <- scheduleNote schedule
+                #{note}
 
-<p>日程：#{show $ scheduleDay schedule}
-
-$maybe place <- schedulePlace schedule
-    <p>場所：#{place}
-$nothing
-    <p>場所：-
-
-$maybe note <- scheduleNote schedule
-    <p>備考：#{note}
-$nothing
-    <p>場所：-
-
-$if null tPersons
-    <p>
-        No Persons...
-$forall (attendance, person) <- tPersons
-    <p>
-        $maybe note <- attendanceNote $ entityVal attendance
-            #{personName person} : #{fromInt $ attendancePresence $ entityVal attendance} (#{note})
-        $nothing
-            #{personName person} : #{fromInt $ attendancePresence $ entityVal attendance}
-<p>
-    <a href=@{AttendanceCreateR groupId scheduleId}>
-        self attendance create
-$# <p>
-$#     <a href=@{AttendanceUpdateR groupId scheduleId}>
-$#         self attendance update
-<p>
-    <a href=@{ScheduleListR groupId}>
-        schedules
-<p>
-    <a href=@{ScheduleUpdateR groupId scheduleId}>
-        update
+    $if null contents
+        <p .no-contents>
+            現在この予定には出欠が存在しません
+    $else
+        <ul .attendance-lists>
+            $forall (attendance, person) <- contents
+                <li .attendance__item>
+                    <span .attendance__item__name>
+                        #{personName person}
+                    <span .attendance__item__presence>
+                        #{fromInt $ attendancePresence $ entityVal attendance}
+                    <span .attendance__item__note>
+                        $maybe note <- attendanceNote $ entityVal attendance
+                            #{note}
+<div #layout-form>

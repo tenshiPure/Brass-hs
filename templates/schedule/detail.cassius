@@ -1,0 +1,51 @@
+/*
+ * 予定詳細
+ */
+.schedule
+    margin-top: 1em
+    margin-left: 1em
+    margin-right: -1em
+    width: 100%
+    line-height: 4em
+
+.schedule__day
+    font-size: 2em
+    margin-right: 1em
+
+.schedule__place
+    font-size: 2em
+
+.schedule__note
+    white-space: pre-wrap
+
+/*
+ * 出欠一覧
+ */
+.attendance-lists
+    width: 100%
+    height: 100%
+    font-size: 2em
+    overflow: scroll
+    padding-left: 0
+    margin: 0
+
+.attendance-lists li
+    list-style: none
+
+.attendance__item
+    line-height: 2em
+    padding-top: 0.5em
+    padding-bottom: 0.5em
+    padding-left: 0.5em
+
+.attendance__item__name
+    margin-right: 1em
+
+.attendance__item__presence
+    margin-right: 1em
+
+.attendance__item__note
+    font-size: 0.5em
+
+.attendance__item + .attendance__item
+    border-top: 1px solid #FFF

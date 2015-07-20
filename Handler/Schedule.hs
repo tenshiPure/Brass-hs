@@ -14,16 +14,15 @@ getScheduleListR groupId = do
 
 getScheduleDetailR :: GroupId -> ScheduleId -> Handler Html
 getScheduleDetailR groupId scheduleId = do
-    entity <- runDB $ get404 groupId
     schedule <- runDB $ get404 scheduleId
 
     attendances <- runDB $ selectList [AttendanceScheduleId ==. scheduleId] [Asc AttendanceId]
     let personIds = map (attendancePersonId . entityVal) attendances
     persons <- mapM (runDB . get404) personIds
 
-    let tPersons = zip attendances persons
+    let contents = zip attendances persons
 
-    defaultLayout $(widgetFile "schedule/detail")
+    renderWithGroups $(widgetFile "schedule/detail") "予定 詳細" PSchedule groupId []
 
 
 fSchedule :: GroupId -> Maybe Schedule -> Form Schedule

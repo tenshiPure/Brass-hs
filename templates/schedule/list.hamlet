@@ -8,10 +8,9 @@
                 <li .no-image-list__item>
                     <a href=@{ScheduleDetailR groupId scheduleId}>
                         <div>
+                            #{show $ scheduleDay schedule} 
                             $maybe place <- schedulePlace schedule
                                 #{place}
-                            $nothing
-                                場所未定
 
 <div #layout-form>
     <form action=# method=post enctype=#>

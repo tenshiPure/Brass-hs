@@ -25,7 +25,7 @@
     margin: -0.5em
 
 .no-image-list__item div
-    white-space: nowrap;
+    white-space: nowrap
 
 .no-image-list__item + .no-image-list__item
     border-top: 1px solid #FFF

@@ -12,7 +12,18 @@
 
     <li>
         <a href=/auth/login>
-            ログイン
+            GMailでログイン
     <li>
-        <a href=@{HomeInitDBR groupId}>
+        デバッグログイン
+        <form action=@{HomeDebugLoginR} method=post>
+            <select name=person-id>
+                $forall Entity personId person <- persons
+                    <option value=#{fromSqlKey personId}>
+                        #{personName person}
+            <input type=submit value=login>
+    <li>
+        <a href=@{HomeInitDBR}>
             DB初期化
+    <li>
+        <a href=@{HomeWorkspaceR}>
+            ワークスペース

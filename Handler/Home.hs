@@ -2,26 +2,27 @@ module Handler.Home where
 
 
 import Import
-import Database.Persist.Sql(toSqlKey)
+import Database.Persist.Sql(toSqlKey, fromSqlKey)
 
 
-getHomeR :: GroupId -> Handler Html
-getHomeR groupId = do
+getHomeR :: Handler Html
+getHomeR = do
+    persons <- runDB $ selectList [] [Asc PersonId]
     defaultLayout $(widgetFile "home/list")
 
 
-getHomeInitDBR :: GroupId -> Handler Html
-getHomeInitDBR groupId = do
-
-    let hoge = Person "user.ryo@gmail.com" "ほげ" "hoge.png"
-    _ <- runDB $ replace (toSqlKey 1 :: PersonId) hoge
-
+getHomeInitDBR :: Handler Html
+getHomeInitDBR = do
+    _ <- runDB $ deleteWhere ([] :: [Filter Person])
+    _ <- runDB $ insert $ Person "s-r.com" "ほげ" "hoge.png"
     _ <- runDB $ insert $ Person "m-i.com" "松本" "default_1.png"
     _ <- runDB $ insert $ Person "t-h.com" "千葉" "default_2.png"
     _ <- runDB $ insert $ Person "i-k.com" "伊藤" "default_1.png"
     _ <- runDB $ insert $ Person "m-y.com" "宮本" "default_2.png"
     _ <- runDB $ insert $ Person "o-j.com" "大瀧" "default_1.png"
+    _ <- runDB $ insert $ Person "o-a.com" "大渕" "default_1.png"
 
+    _ <- runDB $ deleteWhere ([] :: [Filter Group])
     _ <- runDB $ insert $ Group "東京ブラスオルケスター"           "tcbo.jpg"
     _ <- runDB $ insert $ Group "江戸川管楽合奏団"                 "default_1.jpg"
     _ <- runDB $ insert $ Group "高輪台高等学校吹奏楽部"           "tokai.jpg"
@@ -51,6 +52,7 @@ getHomeInitDBR groupId = do
     _ <- runDB $ insert $ Group "ダミーグループ - 16"              "default_1.jpg"
     _ <- runDB $ insert $ Group "ダミーグループ - 17"              "default_1.jpg"
 
+    _ <- runDB $ deleteWhere ([] :: [Filter Belong])
     _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey  1 :: GroupId)
     _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey  3 :: GroupId)
     _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey  7 :: GroupId)
@@ -83,10 +85,13 @@ getHomeInitDBR groupId = do
     _ <- runDB $ insert $ Belong (toSqlKey 5 :: PersonId) (toSqlKey  7 :: GroupId)
     _ <- runDB $ insert $ Belong (toSqlKey 6 :: PersonId) (toSqlKey  1 :: GroupId)
     _ <- runDB $ insert $ Belong (toSqlKey 6 :: PersonId) (toSqlKey  3 :: GroupId)
+    _ <- runDB $ insert $ Belong (toSqlKey 7 :: PersonId) (toSqlKey  3 :: GroupId)
+    _ <- runDB $ insert $ Belong (toSqlKey 7 :: PersonId) (toSqlKey  5 :: GroupId)
 
     now <- liftIO getNow
     let longBody = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     let shortBody = "Lorem ipsum dolor sit amet"
+    _ <- runDB $ deleteWhere ([] :: [Filter Message])
     _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
     _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
@@ -102,6 +107,7 @@ getHomeInitDBR groupId = do
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
     let url = "https://www.google.co.jp/"
+    _ <- runDB $ deleteWhere ([] :: [Filter Link])
     _ <- runDB $ insert $ Link "ToySparkの演奏会" (Just url) "notes.gif"     (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
     _ <- runDB $ insert $ Link "深川二中の場所"   (Just url) "building.gif"  (toSqlKey 7 :: GroupId) (toSqlKey 2 :: PersonId)
     _ <- runDB $ insert $ Link "打ち上げ（7/20）" (Just url) "beer.png"      (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
@@ -109,6 +115,7 @@ getHomeInitDBR groupId = do
     _ <- runDB $ insert $ Link "衣装について"     Nothing    "megaphone.png" (toSqlKey 7 :: GroupId) (toSqlKey 5 :: PersonId)
     _ <- runDB $ insert $ Link "録音（7/20）"     (Just url) "video.png"     (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
+    _ <- runDB $ deleteWhere ([] :: [Filter Comment])
     _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
     _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
     _ <- runDB $ insert $ Comment (Textarea shortBody)        (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
@@ -119,11 +126,11 @@ getHomeInitDBR groupId = do
     _ <- runDB $ insert $ Comment (Textarea "乙でしたー")     (toSqlKey 6 :: LinkId) (toSqlKey 4 :: PersonId)
     _ <- runDB $ insert $ Comment (Textarea "疲れた")         (toSqlKey 6 :: LinkId) (toSqlKey 1 :: PersonId)
 
-    redirect $ HomeR groupId
+    redirect $ HomeR
 
 
-getHomeWorkspaceR :: GroupId -> Handler Html
-getHomeWorkspaceR _ = do
+getHomeWorkspaceR :: Handler Html
+getHomeWorkspaceR = do
     let persons = ["John", "Jane"]
     let comments = ["hi", "hello"]
     let mediaWidgets = map (\(person, comment) -> getMediaWidget person comment) $ zip persons comments
@@ -141,3 +148,13 @@ submitWidget = do
 
 getMediaWidget :: Text -> Text -> Widget
 getMediaWidget arg1 arg2 = $(widgetFile "home/media")
+
+postHomeDebugLoginR :: Handler Html
+postHomeDebugLoginR = do
+    mPersonIdText <- lookupPostParam "person-id"
+
+    case mPersonIdText of
+        (Just personIdText) -> do
+            setSession "_ID" personIdText
+            redirect $ HomeR
+        Nothing -> error "login failed"

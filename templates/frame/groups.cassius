@@ -73,7 +73,7 @@ html, body
  * サイドバー
  */
 #layout-left
-    background-color: #AAF
+    background-color: #AFA
     position: fixed
     top: 50px
     left: 0px

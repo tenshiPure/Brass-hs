@@ -35,6 +35,7 @@
 /messages/#GroupId       MessageListR   GET
 /message/create/#GroupId MessageCreateR     POST
 
-/home/#GroupId           HomeR          GET
-/home/init-db/#GroupId   HomeInitDBR    GET
-/home/workspace/#GroupId HomeWorkspaceR GET
+/home                    HomeR           GET
+/home/init-db            HomeInitDBR     GET
+/home/workspace          HomeWorkspaceR  GET
+/home/debug/login        HomeDebugLoginR     POST

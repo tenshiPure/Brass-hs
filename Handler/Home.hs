@@ -108,6 +108,7 @@ getHomeInitDBR = do
 
     let url = "https://www.google.co.jp/"
     _ <- runDB $ deleteWhere ([] :: [Filter Link])
+    _ <- runDB $ insert $ Link "東ブラのブログ"   (Just url) "notes.gif"     (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
     _ <- runDB $ insert $ Link "ToySparkの演奏会" (Just url) "notes.gif"     (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
     _ <- runDB $ insert $ Link "深川二中の場所"   (Just url) "building.gif"  (toSqlKey 7 :: GroupId) (toSqlKey 2 :: PersonId)
     _ <- runDB $ insert $ Link "打ち上げ（7/20）" (Just url) "beer.png"      (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
@@ -116,15 +117,15 @@ getHomeInitDBR = do
     _ <- runDB $ insert $ Link "録音（7/20）"     (Just url) "video.png"     (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
     _ <- runDB $ deleteWhere ([] :: [Filter Comment])
-    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea shortBody)        (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea "アップしました") (toSqlKey 6 :: LinkId) (toSqlKey 4 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea "あざますー")     (toSqlKey 6 :: LinkId) (toSqlKey 5 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea "お疲れ様でした") (toSqlKey 6 :: LinkId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea "乙でしたー")     (toSqlKey 6 :: LinkId) (toSqlKey 4 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea "疲れた")         (toSqlKey 6 :: LinkId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 2 :: LinkId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 2 :: LinkId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea shortBody)        (toSqlKey 2 :: LinkId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 2 :: LinkId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "アップしました") (toSqlKey 7 :: LinkId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "あざますー")     (toSqlKey 7 :: LinkId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "お疲れ様でした") (toSqlKey 7 :: LinkId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "乙でしたー")     (toSqlKey 7 :: LinkId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "疲れた")         (toSqlKey 7 :: LinkId) (toSqlKey 1 :: PersonId)
 
     let day = fromGregorian 2015 7 20
     _ <- runDB $ deleteWhere ([] :: [Filter Schedule])

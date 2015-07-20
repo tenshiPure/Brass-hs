@@ -1,0 +1,34 @@
+/*
+ * 画像無し一覧
+ */
+.no-image-lists
+    width: 100%
+    height: 100%
+    font-size: 2em
+    overflow: scroll
+    padding-left: 0
+    margin: 0
+
+.no-image-lists li
+    list-style: none
+
+.no-image-list__item
+    line-height: 2em
+    padding-top: 0.5em
+    padding-bottom: 0.5em
+    padding-left: 0.5em
+
+.no-image-list__item  a
+    display: block
+    text-decoration: none
+    padding: 0.5em
+    margin: -0.5em
+
+.no-image-list__item div
+    white-space: nowrap;
+
+.no-image-list__item + .no-image-list__item
+    border-top: 1px solid #FFF
+
+.no-image-list__item a:hover
+    background-color: #CCF

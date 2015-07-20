@@ -10,7 +10,7 @@
                         <img src=/static/image/icon/link/#{linkIcon $ entityVal link}>
                         <div>
                             #{linkTitle $ entityVal link}
-                            <span .right-position>
+                            <span .position-right>
                                 コメント：#{commentNum}
 
 <div #layout-form>

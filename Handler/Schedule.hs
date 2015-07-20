@@ -9,7 +9,7 @@ getScheduleListR :: GroupId -> Handler Html
 getScheduleListR groupId = do
     contents <- runDB $ selectList [ScheduleGroupId ==. groupId] [Asc ScheduleId]
 
-    renderWithGroups $(widgetFile "schedule/list") "予定 一覧" PSchedule groupId []
+    renderWithGroups $(widgetFile "schedule/list") "予定 一覧" PSchedule groupId [$(widgetFile "widget/no-image-list")]
 
 
 getScheduleDetailR :: GroupId -> ScheduleId -> Handler Html

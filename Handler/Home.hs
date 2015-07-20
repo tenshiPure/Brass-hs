@@ -124,10 +124,15 @@ getHomeInitDBR groupId = do
 
 getHomeWorkspaceR :: GroupId -> Handler Html
 getHomeWorkspaceR _ = do
+    let persons = ["John", "Jane"]
+    let comments = ["hi", "hello"]
+    let mediaWidgets = map (\(person, comment) -> getMediaWidget person comment) $ zip persons comments
     defaultLayout $ do
         submitWidget
-        let mediaWidget = getMediaWidget "hoge" "fuga"
-        [whamlet| ^{mediaWidget} |]
+        [whamlet|
+            $forall mediaWidget <- mediaWidgets
+                ^{mediaWidget}
+        |]
 
 
 submitWidget :: MonadWidget m => m ()

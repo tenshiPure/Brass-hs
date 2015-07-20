@@ -62,12 +62,21 @@ html, body
 /*
  * ヘッダー：アイコン
  */
-#header__icons
+#header__logined
     background-color: #AAA
     width: 20%
     height: 100%
     float: left
     overflow: hidden
+    line-height: 3em
+
+#header__logined img
+    height: 50px
+    margin-right: 1em
+    float: left
+
+#header__logined div
+    font-size: 1.5em
 
 /*
  * サイドバー

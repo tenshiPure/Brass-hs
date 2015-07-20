@@ -14,7 +14,10 @@
             <li .nav__item :page == PLink:.nav__item--active>
                 <a href=@{LinkListR currentGroupId}>
                     リンク
-    <div #header__icons>
+    <div #header__logined>
+        <img src=/static/image/icon/person/#{personIcon loginPerson}>
+        <div>
+            #{personName loginPerson}
 
 
 <div #layout-left>

@@ -175,7 +175,7 @@ renderWithGroups content title page currentGroupId widgets = do
 
     defaultLayout $ do
         mapM_ toWidget widgets
---         toWidget ($(widgetFile "widget/common") :: Widget)
+        toWidget ($(widgetFile "widget/common") :: Widget)
 
         setTitle title
         $(widgetFile "frame/groups")

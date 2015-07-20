@@ -3,6 +3,7 @@
  */
 #link
     height: 80%
+    overflow: scroll
 
 /*
  * 画像付きタイトル

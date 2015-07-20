@@ -3,6 +3,7 @@
  */
 #links
     height: 80%
+    overflow: scroll
 
 /*
  * 入力

@@ -66,7 +66,7 @@ getLinkDetailR groupId linkId = do
     personId <- requireAuthId
     (formWidget, enctype) <- generateFormPost (fComment linkId personId)
 
-    renderWithGroups $(widgetFile "link/detail") "リンク 詳細" PLink groupId []
+    renderWithGroups $(widgetFile "link/detail") "リンク 詳細" PLink groupId [$(widgetFile "widget/media")]
 
 
 postLinkCreateR :: GroupId -> Handler Html
@@ -78,8 +78,7 @@ postLinkCreateR groupId = do
             _ <- runDB $ insert link
             redirect $ LinkListR groupId
 
-        -- todo
-        _ -> defaultLayout $(widgetFile "link/create")
+        _ -> error "todo"
 
 
 postLinkCommentCreateR :: GroupId -> LinkId -> Handler Html
@@ -91,5 +90,4 @@ postLinkCommentCreateR groupId linkId = do
             _ <- runDB $ insert comment
             redirect $ LinkDetailR groupId linkId
 
-        -- todo
-        _ -> defaultLayout $(widgetFile "comment/create")
+        _ -> error "todo"

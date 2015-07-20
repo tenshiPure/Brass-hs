@@ -102,12 +102,12 @@ getHomeInitDBR groupId = do
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
     let url = "https://www.google.co.jp/"
-    _ <- runDB $ insert $ Link "ToySparkの演奏会" url "notes.gif"     (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Link "深川二中の場所"   url "building.gif"  (toSqlKey 7 :: GroupId) (toSqlKey 2 :: PersonId)
-    _ <- runDB $ insert $ Link "打ち上げ（7/20）" url "beer.png"      (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Link "2015総会資料"     url "documents.png" (toSqlKey 7 :: GroupId) (toSqlKey 2 :: PersonId)
-    _ <- runDB $ insert $ Link "衣装について"     url "megaphone.png" (toSqlKey 7 :: GroupId) (toSqlKey 5 :: PersonId)
-    _ <- runDB $ insert $ Link "録音（7/20）"     url "video.png"     (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Link "ToySparkの演奏会" (Just url) "notes.gif"     (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Link "深川二中の場所"   (Just url) "building.gif"  (toSqlKey 7 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Link "打ち上げ（7/20）" (Just url) "beer.png"      (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Link "2015総会資料"     (Just url) "documents.png" (toSqlKey 7 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Link "衣装について"     Nothing    "megaphone.png" (toSqlKey 7 :: GroupId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Link "録音（7/20）"     (Just url) "video.png"     (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
     _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)
     _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 1 :: LinkId) (toSqlKey 3 :: PersonId)

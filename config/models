@@ -30,7 +30,7 @@ Attendance
 
 Link
     title    Text
-    url      Text
+    url      Text Maybe
     icon     Text
     groupId  GroupId
     personId PersonId

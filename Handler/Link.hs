@@ -14,10 +14,10 @@ categories = [("音楽", "notes.gif"),
 
 fLink :: GroupId -> PersonId -> Html -> MForm Handler (FormResult Link, Widget)
 fLink groupId personId extra = do
-    (titleResult, titleView) <- mreq textField "" Nothing
-    (urlResult, urlView) <- mreq urlField "" Nothing
-    (iconResult, iconView) <- mreq (selectFieldList categories) "" Nothing
-    (groupIdResult, groupIdView) <- mreq hiddenField "" (Just groupId)
+    (titleResult, titleView)       <- mreq textField "" Nothing
+    (urlResult, urlView)           <- mopt urlField "" Nothing
+    (iconResult, iconView)         <- mreq (selectFieldList categories) "" Nothing
+    (groupIdResult, groupIdView)   <- mreq hiddenField "" (Just groupId)
     (personIdResult, personIdView) <- mreq hiddenField "" (Just personId)
     let result = Link
            <$> titleResult

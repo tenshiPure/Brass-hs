@@ -4,9 +4,12 @@
         <div .image-title__text>
             #{linkTitle link}
     <div .link-url>
-        リンク先：
-        <a href=#{linkUrl link} target=_blank>
-            #{linkUrl link}
+        $maybe link <- linkUrl link
+            リンク先：
+            <a href=#{link} target=_blank>
+                #{link}
+        $nothing
+            リンク先：-
 
     $if null contents
         <p .no-contents>

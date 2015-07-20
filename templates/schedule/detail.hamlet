@@ -15,7 +15,7 @@
         <p .no-contents>
             現在この予定には出欠が存在しません
     $else
-        <ul .attendance-lists>
+        <ul .attendance-list>
             $forall (attendance, person) <- contents
                 <li .attendance__item>
                     <span .attendance__item__name>

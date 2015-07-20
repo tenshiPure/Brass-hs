@@ -3,7 +3,7 @@
         <p .no-contents>
             現在このグループにはリンクが存在しません
     $else
-        <ul .image-lists>
+        <ul .image-list>
             $forall (link, commentNum) <- contents
                 <li .image-list__item>
                     <a href=@{LinkDetailR groupId (entityKey link)}>

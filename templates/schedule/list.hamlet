@@ -3,7 +3,7 @@
         <p .no-contents>
             現在このグループには予定が存在しません
     $else
-        <ul .no-image-lists>
+        <ul .no-image-list>
             $forall Entity scheduleId schedule <- contents
                 <li .no-image-list__item>
                     <a href=@{ScheduleDetailR groupId scheduleId}>

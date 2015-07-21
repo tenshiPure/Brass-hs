@@ -11,7 +11,7 @@
                     <span .media__body__by>
                         #{personName person}
                     <span .media__body__at>
-                         #{format $ messageCreated message}
+                         #{format tz $ messageCreated message}
                     <p .media__body__text>
                         #{messageBody message}
 

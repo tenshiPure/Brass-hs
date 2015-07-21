@@ -9,7 +9,7 @@ import Yesod.Default.Util   (addStaticContentExternal)
 import Yesod.Core.Types     (Logger)
 import qualified Yesod.Core.Unsafe as Unsafe
 
-import Data.Time(hoursToTimeZone, utcToLocalTime, localTimeToUTC)
+import Data.Time
 
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
@@ -172,7 +172,6 @@ renderWithGroups content title page currentGroupId widgets = do
     let belongGroupIds = map (belongGroupId . entityVal) belongs
     groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
 
-
     defaultLayout $ do
         mapM_ toWidget widgets
         toWidget ($(widgetFile "widget/common") :: Widget)
@@ -180,15 +179,9 @@ renderWithGroups content title page currentGroupId widgets = do
         setTitle title
         $(widgetFile "frame/groups")
 
--- get timezoned current utctime
-getNow :: IO UTCTime
-getNow = do
-    let tz = hoursToTimeZone 9
-    now <- getCurrentTime
-    let lt = utcToLocalTime tz now
-    return $ localTimeToUTC tz lt
-
 
 -- 07/14 20:12:05
-format :: UTCTime -> String
-format = formatTime defaultTimeLocale "%m/%d %H:%M:%S"
+format :: TimeZone -> UTCTime -> String
+format timezone utctime = formatTime defaultTimeLocale "%m/%d %H:%M:%S" zonedTime
+    where
+        zonedTime = utcToZonedTime timezone utctime

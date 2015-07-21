@@ -2,6 +2,8 @@ module Handler.Message where
 
 
 import Import
+import Data.Time
+
 
 
 getMessageListR :: GroupId -> Handler Html
@@ -11,6 +13,8 @@ getMessageListR groupId = do
         let personId = messagePersonId message
         person <- runDB $ get404 personId
         return (message, person)
+
+    tz <- liftIO getCurrentTimeZone
 
     renderWithGroups $(widgetFile "message/list") "チャット" PMessage groupId [$(widgetFile "widget/media")]
         
@@ -23,7 +27,7 @@ postMessageCreateR groupId = do
 
     case mBody of
         (Just body) -> do
-            now <- liftIO getNow
+            now <- liftIO getCurrentTime
             _ <- runDB $ insert $ Message body now groupId personId
             redirect $ MessageListR groupId
         Nothing -> redirect $ MessageListR groupId

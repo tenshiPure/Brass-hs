@@ -89,6 +89,7 @@ library
                  , containers
                  , vector
                  , time
+                 , old-locale                    >= 1.0.0.6    && < 1.0.0.7
 
 executable         Brass
     if flag(library-only)

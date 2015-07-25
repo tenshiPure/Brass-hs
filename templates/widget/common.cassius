@@ -7,7 +7,7 @@
     margin-left: 0.5em
     margin-top: 0.5em
     font-weight: bold
-    font-size: 2em
+    font-size: 1.5em
 
 /*
  * ボタン
@@ -15,8 +15,7 @@
 .submit-button
     color: #FFF
     background-color: #248
-    font-weight: bold
-    font-size: 1em
+    font-size: 0.8em
     padding: 5px 10px
     border-style: none
     -moz-border-radius: 5px

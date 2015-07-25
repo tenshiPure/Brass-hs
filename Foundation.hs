@@ -164,7 +164,7 @@ data Page = PHome | PMessage | PSchedule | PLink deriving (Show, Eq)
 
 -- require login, title and current group id.
 renderWithGroups :: Widget -> Html -> Page -> GroupId -> [Widget] -> Handler Html
-renderWithGroups content title page currentGroupId widgets = do
+renderWithGroups mainWidget title page currentGroupId widgets = do
     loginPersonId <- requireAuthId
     loginPerson <- runDB $ get404 loginPersonId
 

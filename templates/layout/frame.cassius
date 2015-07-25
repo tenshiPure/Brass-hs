@@ -2,6 +2,7 @@ html, body
     padding: 0
     margin: 0
     height: 100%
+    overflow: hidden
 
 #layout-header
     background-color: #FAA
@@ -18,10 +19,19 @@ html, body
     left: 3em
     right: 3em
 
-#layout-content
+#layout-main
     background-color: #AFA
     position: fixed
     top: 9em
     bottom: 3em
     left: 3em
     right: 3em
+    padding: 2em
+    overflow: scroll
+
+#layout-form
+    background-color: #FCF
+    height: 120px
+
+#layout-content
+    background-color: #FFA

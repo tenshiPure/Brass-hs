@@ -14,3 +14,6 @@
     text-decoration: none
     display: block
     line-height: 2em
+
+.layout-tab--active
+    background-color: #EEF

@@ -1,6 +1,12 @@
-<div #layout-contents>
+<div #layout-form>
+    <form action=@{MessageCreateR groupId} method=post>
+        <textarea .message-form__body name=body placeholder=メッセージを入力>
+        <div .message-form__buttons>
+             <input .submit-button type=submit value=送信>
+
+<div #layout-content>
     $if null contents
-        <p .no-contents>
+        <span .no-contents>
             現在このグループにはメッセージが存在しません
     $else
         $forall (message, person) <- contents
@@ -14,10 +20,3 @@
                          #{format tz $ messageCreated message}
                     <p .media__body__text>
                         #{messageBody message}
-
-<div #layout-form>
-    <form action=@{MessageCreateR groupId} method=post>
-        <textarea name=body>
-        <div>
-            <span>
-                <input .submi-button type=submit value=送信>

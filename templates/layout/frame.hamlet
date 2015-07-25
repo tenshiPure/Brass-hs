@@ -6,6 +6,5 @@
 
     ^{tabWidget}
 
-<div id="layout-content">
-    content
-$#     ^{content}
+<div id="layout-main">
+    ^{mainWidget}

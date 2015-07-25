@@ -1,0 +1,12 @@
+#layout-form
+    text-align:center
+
+.message-form__body
+    margin-top: 1em
+    height: 60px
+    width: 95%
+    font-size: 1em
+
+.message-form__buttons .submit-button
+    float: right
+    margin-right: 1.5em

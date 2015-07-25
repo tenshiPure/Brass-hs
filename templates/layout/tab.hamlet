@@ -1,12 +1,12 @@
-<div .layout-tab>
+<div .layout-tab :page == PHome:.layout-tab--active>
     <a href=@{HomeR}>
         ホーム
-<div .layout-tab .layout-tab--active>
+<div .layout-tab :page == PMessage:.layout-tab--active>
     <a href=@{MessageListR currentGroupId}>
         チャット
-<div .layout-tab>
+<div .layout-tab :page == PSchedule:.layout-tab--active>
     <a href=@{ScheduleListR currentGroupId}>
         予定
-<div .layout-tab>
+<div .layout-tab :page == PLink:.layout-tab--active>
     <a href=@{LinkListR currentGroupId}>
         リンク

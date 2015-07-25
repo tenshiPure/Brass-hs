@@ -8,7 +8,7 @@ import Data.Time
 
 getMessageListR :: GroupId -> Handler Html
 getMessageListR groupId = do
-    messages <- fmap (fmap entityVal) $ runDB $ selectList [MessageGroupId ==. groupId] [Asc MessageId]
+    messages <- fmap (fmap entityVal) $ runDB $ selectList [MessageGroupId ==. groupId] [Desc MessageCreated, Desc MessageId]
     contents <- forM messages $ \message -> do
         let personId = messagePersonId message
         person <- runDB $ get404 personId

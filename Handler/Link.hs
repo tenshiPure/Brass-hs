@@ -16,7 +16,7 @@ categories = [("音楽", "notes.gif"),
 fLink :: GroupId -> PersonId -> Html -> MForm Handler (FormResult Link, Widget)
 fLink groupId personId extra = do
     (titleResult, titleView)       <- mreq textField (createSettings "link-form__title" [("placeholder", "タイトルを入力")]) Nothing
-    (urlResult, urlView)           <- mopt urlField (createSettings "link-form__url" [("placeholder", "URLを入力")]) Nothing
+    (urlResult, urlView)           <- mreq urlField (createSettings "link-form__url" [("placeholder", "URLを入力")]) Nothing
     (iconResult, iconView)         <- mreq (selectFieldList categories) (createSettings "link-form__category" []) Nothing
     (groupIdResult, groupIdView)   <- mreq hiddenField "" (Just groupId)
     (personIdResult, personIdView) <- mreq hiddenField "" (Just personId)
@@ -32,7 +32,7 @@ fLink groupId personId extra = do
 
 fComment :: LinkId -> PersonId -> Html -> MForm Handler (FormResult Comment, Widget)
 fComment linkId personId extra = do
-    (bodyResult, bodyView) <- mreq textareaField "" Nothing
+    (bodyResult, bodyView) <- mreq textareaField (createSettings "comment-form__body" [("placeholder", "コメントを入力")]) Nothing
     (linkIdResult, linkIdView) <- mreq hiddenField "" (Just linkId)
     (personIdResult, personIdView) <- mreq hiddenField "" (Just personId)
     let result = Comment

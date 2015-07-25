@@ -1,0 +1,3 @@
+$(function() {
+    $('#comment-form__body').focus();
+});

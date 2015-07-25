@@ -1,18 +1,19 @@
-<div #layout-contents>
+<div #layout-form>
+    <form action=@{LinkCommentCreateR groupId linkId} method=post enctype=#{enctype}>
+        ^{formWidget}
+
+<div #layout-content>
     <div .image-title>
         <img .image-title__image src=/static/image/icon/link/#{linkIcon link}>
         <div .image-title__text>
             #{linkTitle link}
     <div .link-url>
-        $maybe link <- linkUrl link
-            リンク先：
-            <a href=#{link} target=_blank>
-                #{link}
-        $nothing
-            リンク先：-
+        リンク先：
+        <a href=#{linkUrl link} target=_blank>
+            #{linkUrl link}
 
     $if null contents
-        <p .no-contents>
+        <span .no-contents>
             現在このリンクにはコメントが存在しません
     $else
         $forall (comment, person) <- contents
@@ -26,7 +27,3 @@
                         07/19
                     <p .media__body__text>
                         #{commentBody comment}
-
-<div #layout-form>
-    <form action=@{LinkCommentCreateR groupId linkId} method=post enctype=#{enctype}>
-        ^{formWidget}

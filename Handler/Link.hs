@@ -53,7 +53,7 @@ getLinkListR groupId = do
     personId <- requireAuthId
     (formWidget, enctype) <- generateFormPost $ fLink groupId personId
 
-    renderWithGroups $(widgetFile "link/list") "リンク 一覧" PLink groupId [$(widgetFile "widget/image-list")]
+    renderWithGroups $(widgetFile "link/list") "リンク 一覧" PLink ["リンク 一覧"] groupId [$(widgetFile "widget/image-list")]
 
 
 getLinkDetailR :: GroupId -> LinkId -> Handler Html
@@ -67,7 +67,7 @@ getLinkDetailR groupId linkId = do
     personId <- requireAuthId
     (formWidget, enctype) <- generateFormPost (fComment linkId personId)
 
-    renderWithGroups $(widgetFile "link/detail") "リンク 詳細" PLink groupId [$(widgetFile "widget/media")]
+    renderWithGroups $(widgetFile "link/detail") "リンク 詳細" PLink ["リンク 一覧", "リンク 詳細"] groupId [$(widgetFile "widget/media")]
 
 
 postLinkCreateR :: GroupId -> Handler Html

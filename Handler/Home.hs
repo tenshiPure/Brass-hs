@@ -19,4 +19,4 @@ getHomeR = do
 
 getHomeWithGroupIdR :: GroupId -> Handler Html
 getHomeWithGroupIdR groupId = do
-    renderWithGroups $(widgetFile "home/home") "ホーム" PHome groupId []
+    renderWithGroups $(widgetFile "home/home") "ホーム" PHome ["ホーム"] groupId []

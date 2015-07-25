@@ -24,7 +24,7 @@ getAdminInitR = do
     _ <- runDB $ insert $ Person "t-t.com" "田中" "default_1.png"
 
     _ <- runDB $ deleteWhere ([] :: [Filter Group])
-    _ <- runDB $ insert $ Group "東京ブラスオルケスター"           "tcbo.jpg"
+    _ <- runDB $ insert $ Group "東京シティブラスオルケスター"     "tcbo.jpg"
     _ <- runDB $ insert $ Group "江戸川管楽合奏団"                 "default_1.jpg"
     _ <- runDB $ insert $ Group "高輪台高等学校吹奏楽部"           "tokai.jpg"
     _ <- runDB $ insert $ Group "新交響楽団"                       "default_1.jpg"

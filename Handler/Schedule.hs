@@ -9,7 +9,7 @@ getScheduleListR :: GroupId -> Handler Html
 getScheduleListR groupId = do
     contents <- runDB $ selectList [ScheduleGroupId ==. groupId] [Asc ScheduleId]
 
-    renderWithGroups $(widgetFile "schedule/list") "予定 一覧" PSchedule groupId [$(widgetFile "widget/no-image-list")]
+    renderWithGroups $(widgetFile "schedule/list") "予定 一覧" PSchedule ["予定 一覧"] groupId [$(widgetFile "widget/no-image-list")]
 
 
 getScheduleDetailR :: GroupId -> ScheduleId -> Handler Html
@@ -22,7 +22,7 @@ getScheduleDetailR groupId scheduleId = do
 
     let contents = zip attendances persons
 
-    renderWithGroups $(widgetFile "schedule/detail") "予定 詳細" PSchedule groupId []
+    renderWithGroups $(widgetFile "schedule/detail") "予定 詳細" PSchedule ["予定 一覧", "予定 詳細"] groupId []
 
 
 fSchedule :: GroupId -> Maybe Schedule -> Form Schedule

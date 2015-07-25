@@ -7,15 +7,15 @@
             GMailでログイン
     <li>
         デバッグログイン
-        <form action=@{HomeDebugLoginR} method=post>
+        <form action=@{AdminDebugLoginR} method=post>
             <select name=person-id>
                 $forall Entity personId person <- persons
                     <option value=#{fromSqlKey personId}>
                         #{personName person}
             <input type=submit value=login>
     <li>
-        <a href=@{HomeInitDBR}>
+        <a href=@{AdminInitR}>
             DB初期化
     <li>
-        <a href=@{HomeWorkspaceR}>
+        <a href=@{AdminWorkspaceR}>
             ワークスペース

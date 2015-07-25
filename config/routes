@@ -5,6 +5,8 @@
 
 / RootR GET
 
+/home             HomeR            GET
+
 /persons                 PersonListR   GET
 /person/detail/#PersonId PersonDetailR GET
 /person/update           PersonUpdateR GET POST
@@ -35,7 +37,7 @@
 /messages/#GroupId       MessageListR   GET
 /message/create/#GroupId MessageCreateR     POST
 
-/home                    HomeR           GET
-/home/init-db            HomeInitDBR     GET
-/home/workspace          HomeWorkspaceR  GET
-/home/debug/login        HomeDebugLoginR     POST
+/admin/links      AdminLinksR      GET
+/admin/init       AdminInitR       GET
+/admin/workspace  AdminWorkspaceR  GET
+/admin/login      AdminDebugLoginR     POST

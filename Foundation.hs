@@ -159,7 +159,7 @@ unsafeHandler = Unsafe.fakeHandlerGetLogger appLogger
 
 
 -- page type
-data Page = PMessage | PSchedule | PLink deriving (Show, Eq)
+data Page = PHome | PMessage | PSchedule | PLink deriving (Show, Eq)
 
 
 -- require login, title and current group id.

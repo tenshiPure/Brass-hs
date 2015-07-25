@@ -1,3 +1,3 @@
 <div #icons>
-    <a href=@{HomeR}>
+    <a href=@{AdminLinksR}>
         <span .icon .icon--config>

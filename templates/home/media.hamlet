@@ -1,6 +1,0 @@
-<h1>
-    media
-<p>
-    1: #{show arg1}
-<p>
-    2: #{show arg2}

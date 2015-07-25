@@ -1,5 +1,0 @@
-<h1>Person Update
-<form method=post enctype=#{enctype}>
-    ^{widget}
-    <div>
-        <input type=submit value="Update Person">

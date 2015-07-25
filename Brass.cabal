@@ -23,14 +23,11 @@ library
                      Handler.Common
                      Handler.Root
                      Handler.Home
-                     Handler.Person
-                     Handler.Group
-                     Handler.Belong
+                     Handler.Admin
                      Handler.Schedule
                      Handler.Attendance
                      Handler.Link
                      Handler.Message
-                     Handler.Admin
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

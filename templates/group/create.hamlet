@@ -1,5 +1,0 @@
-<h1>Group Create
-
-<form action=@{GroupCreateR} method=post enctype=#{enctype}>
-    ^{widget}
-    <input type="submit" value="create">

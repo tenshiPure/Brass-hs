@@ -8,19 +8,6 @@
 /home             HomeR            GET
 /home/#GroupId    HomeWithGroupIdR GET
 
-/persons                 PersonListR   GET
-/person/detail/#PersonId PersonDetailR GET
-/person/update           PersonUpdateR GET POST
-
-/groups                GroupListR   GET
-/group/detail/#GroupId GroupDetailR GET
-/group/create          GroupCreateR GET POST
-/group/update/#GroupId GroupUpdateR GET POST
-/group/delete/#GroupId GroupDeleteR     POST
-
-/belong/create/#GroupId           BelongCreateR GET POST
-/belong/delete/#GroupId/#PersonId BelongDeleteR GET
-
 /schedules/#GroupId                   ScheduleListR GET
 /schedule/detail/#GroupId/#ScheduleId ScheduleDetailR GET
 /schedule/create/#GroupId             ScheduleCreateR GET POST

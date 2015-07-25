@@ -13,7 +13,7 @@
     list-style: none
 
 .image-list__item
-    line-height: 2em
+    line-height: 1em
     padding-top: 0.5em
     padding-bottom: 0.5em
     padding-left: 0.5em
@@ -25,15 +25,15 @@
     margin: -0.5em
 
 .image-list__item img
-    height: 2em
+    height: 1em
     float: left
     margin-right: 0.5em
 
 .image-list__item div
     white-space: nowrap;
 
-.image-list__item + .image-list__item
-    border-top: 1px solid #FFF
+.image-list__item
+    border-top: 1px solid #000
 
 .image-list__item a:hover
     background-color: #CCF

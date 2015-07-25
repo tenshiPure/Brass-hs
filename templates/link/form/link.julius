@@ -1,0 +1,3 @@
+$(function() {
+    $('#link-form__title').focus();
+});

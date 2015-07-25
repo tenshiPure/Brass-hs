@@ -12,11 +12,12 @@ categories = [("音楽", "notes.gif"),
               ("通知", "megaphone.png"),
               ("動画", "video.png")]
 
+
 fLink :: GroupId -> PersonId -> Html -> MForm Handler (FormResult Link, Widget)
 fLink groupId personId extra = do
-    (titleResult, titleView)       <- mreq textField "" Nothing
-    (urlResult, urlView)           <- mopt urlField "" Nothing
-    (iconResult, iconView)         <- mreq (selectFieldList categories) "" Nothing
+    (titleResult, titleView)       <- mreq textField (createSettings "link-form__title" [("placeholder", "タイトルを入力")]) Nothing
+    (urlResult, urlView)           <- mopt urlField (createSettings "link-form__url" [("placeholder", "URLを入力")]) Nothing
+    (iconResult, iconView)         <- mreq (selectFieldList categories) (createSettings "link-form__category" []) Nothing
     (groupIdResult, groupIdView)   <- mreq hiddenField "" (Just groupId)
     (personIdResult, personIdView) <- mreq hiddenField "" (Just personId)
     let result = Link

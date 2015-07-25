@@ -1,6 +1,10 @@
-<div #layout-contents>
+<div #layout-form>
+    <form action=@{LinkCreateR groupId} method=post enctype=#{enctype}>
+        ^{formWidget}
+
+<div #layout-content>
     $if null contents
-        <p .no-contents>
+        <span .no-contents>
             現在このグループにはリンクが存在しません
     $else
         <ul .image-list>
@@ -12,7 +16,3 @@
                             #{linkTitle $ entityVal link}
                             <span .position-right>
                                 コメント：#{commentNum}
-
-<div #layout-form>
-    <form action=@{LinkCreateR groupId} method=post enctype=#{enctype}>
-        ^{formWidget}

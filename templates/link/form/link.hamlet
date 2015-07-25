@@ -1,10 +1,22 @@
 <div>
-    タイトル：^{fvInput titleView}
+    <span .link-form__label>
+        タイトル
+    ^{fvInput titleView}
+
 <div>
-    URL：^{fvInput urlView}
+    <span .link-form__label>
+        URL
+    ^{fvInput urlView}
+
 <div>
-    ジャンル：^{fvInput iconView}
+    <span .link-form__label>
+        カテゴリー
+    ^{fvInput iconView}
+
 ^{fvInput groupIdView}
 ^{fvInput personIdView}
+
 #{extra}
-<input #submit .button type=submit value=送信>
+
+<div #link-form__buttons>
+    <input .submit-button type=submit value=送信>

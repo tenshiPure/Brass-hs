@@ -208,3 +208,13 @@ formatWithWeek timezone utctime = formated ++ " (" ++ week ++ ")"
             "5" -> "金"
             "6" -> "土"
             _   -> ""
+
+-- create with id ant attrs
+createSettings :: Text -> [(Text, Text)] -> FieldSettings master
+createSettings id' attrs = FieldSettings {
+                               fsLabel = "",
+                               fsId = Just id',
+                               fsName = Nothing,
+                               fsAttrs = attrs,
+                               fsTooltip = Nothing
+                           }

@@ -1,0 +1,11 @@
+<div #layout-header>
+    ^{headerWidget}
+
+<div #layout-selectors>
+    ^{groupWidget}
+
+    ^{tabWidget}
+
+<div id="layout-content">
+    content
+$#     ^{content}

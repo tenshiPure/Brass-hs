@@ -1,0 +1,27 @@
+html, body
+    padding: 0
+    margin: 0
+    height: 100%
+
+#layout-header
+    background-color: #FAA
+    position: fixed
+    top: 0px
+    height: 3em
+    width: 100%
+
+#layout-selectors
+    background-color: #AAF
+    position: fixed
+    top: 6em
+    height: 3em
+    left: 3em
+    right: 3em
+
+#layout-content
+    background-color: #AFA
+    position: fixed
+    top: 9em
+    bottom: 3em
+    left: 3em
+    right: 3em

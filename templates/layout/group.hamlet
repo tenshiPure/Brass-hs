@@ -1,0 +1,18 @@
+<select #layout-group>
+    $forall Entity groupId group <- groups
+        $case page
+            $of PHome
+                <option :currentGroupId == groupId:selected value=@{HomeR}>
+                    #{groupName group}
+
+            $of PMessage
+                <option :currentGroupId == groupId:selected value=@{MessageListR groupId}>
+                    #{groupName group}
+
+            $of PSchedule
+                <option :currentGroupId == groupId:selected value=@{ScheduleListR groupId}>
+                    #{groupName group}
+
+            $of PLink
+                <option :currentGroupId == groupId:selected value=@{LinkListR groupId}>
+                    #{groupName group}

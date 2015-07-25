@@ -1,0 +1,16 @@
+.layout-tab
+    background-color: #CCF
+    float: left
+    margin-right: 1em
+    font-size: 1em
+    text-align: center
+    width: 5em
+    margin-top: 1em
+    height: 2em
+    -webkit-border-top-left-radius: 10px
+    -webkit-border-top-right-radius: 10px
+
+.layout-tab > a
+    text-decoration: none
+    display: block
+    line-height: 2em

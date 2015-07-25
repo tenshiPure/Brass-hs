@@ -1,0 +1,6 @@
+$(function() {
+    $('#layout-group').change(function() {
+        var value = $(this).val();
+        top.location.href = value;
+    });
+});

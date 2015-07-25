@@ -176,8 +176,12 @@ renderWithGroups content title page currentGroupId widgets = do
         mapM_ toWidget widgets
         toWidget ($(widgetFile "widget/common") :: Widget)
 
+        let headerWidget = $(widgetFile "layout/header")
+        let groupWidget  = $(widgetFile "layout/group")
+        let tabWidget    = $(widgetFile "layout/tab")
+
         setTitle title
-        $(widgetFile "frame/groups")
+        $(widgetFile "layout/frame")
 
 
 -- 07/14 20:12:05

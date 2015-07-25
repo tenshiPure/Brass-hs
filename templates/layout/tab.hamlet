@@ -1,0 +1,12 @@
+<div .layout-tab>
+    <a href=@{HomeR}>
+        ホーム
+<div .layout-tab .layout-tab--active>
+    <a href=@{MessageListR currentGroupId}>
+        チャット
+<div .layout-tab>
+    <a href=@{ScheduleListR currentGroupId}>
+        予定
+<div .layout-tab>
+    <a href=@{LinkListR currentGroupId}>
+        リンク

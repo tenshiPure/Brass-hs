@@ -8,3 +8,6 @@
 
 <div id="layout-main">
     ^{mainWidget}
+
+<div id="layout-footer">
+    ^{footerWidget}

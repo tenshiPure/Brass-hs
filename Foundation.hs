@@ -159,7 +159,7 @@ unsafeHandler = Unsafe.fakeHandlerGetLogger appLogger
 
 
 -- page type
-data Page = PHome | PMessage | PSchedule | PLink deriving (Show, Eq)
+data Page = PMessage | PSchedule | PLink deriving (Show, Eq)
 
 
 -- require login, title and current group id.
@@ -179,6 +179,7 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
         let headerWidget = $(widgetFile "layout/header")
         let groupWidget  = $(widgetFile "layout/group")
         let tabWidget    = $(widgetFile "layout/tab")
+        let footerWidget = $(widgetFile "layout/footer")
 
         setTitle title
         $(widgetFile "layout/frame")

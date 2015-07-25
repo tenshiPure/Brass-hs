@@ -1,6 +1,3 @@
-<div .layout-tab :page == PHome:.layout-tab--active>
-    <a href=@{HomeR}>
-        ホーム
 <div .layout-tab :page == PMessage:.layout-tab--active>
     <a href=@{MessageListR currentGroupId}>
         チャット

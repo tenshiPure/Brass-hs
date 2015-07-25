@@ -1,1 +1,4 @@
-頭
+<div #layout-person>
+    <img #person__icon src=/static/image/icon/person/#{personIcon loginPerson}>
+    <div #person__name>
+        #{personName loginPerson}

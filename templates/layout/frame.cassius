@@ -10,6 +10,7 @@ html, body
     top: 0px
     height: 3em
     width: 100%
+    line-height: 1em
 
 #layout-selectors
     background-color: #AAF

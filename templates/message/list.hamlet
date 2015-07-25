@@ -1,7 +1,7 @@
 <div #layout-form>
     <form action=@{MessageCreateR groupId} method=post>
-        <textarea .message-form__body name=body placeholder=メッセージを入力>
-        <div .message-form__buttons>
+        <textarea #message-form__body name=body placeholder=メッセージを入力>
+        <div #message-form__buttons>
              <input .submit-button type=submit value=送信>
 
 <div #layout-content>

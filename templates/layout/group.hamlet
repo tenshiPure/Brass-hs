@@ -2,7 +2,7 @@
     $forall Entity groupId group <- groups
         $case page
             $of PHome
-                <option :currentGroupId == groupId:selected value=@{HomeR}>
+                <option :currentGroupId == groupId:selected value=@{HomeWithGroupIdR groupId}>
                     #{groupName group}
 
             $of PMessage

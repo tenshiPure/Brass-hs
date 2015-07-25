@@ -1,5 +1,5 @@
 <div .layout-tab :page == PHome:.layout-tab--active>
-    <a href=@{HomeR}>
+    <a href=@{HomeWithGroupIdR currentGroupId}>
         ホーム
 <div .layout-tab :page == PMessage:.layout-tab--active>
     <a href=@{MessageListR currentGroupId}>

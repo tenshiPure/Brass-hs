@@ -21,6 +21,7 @@ getAdminInitR = do
     _ <- runDB $ insert $ Person "m-y.com" "宮本" "default_2.png"
     _ <- runDB $ insert $ Person "o-j.com" "大瀧" "default_1.png"
     _ <- runDB $ insert $ Person "o-a.com" "大渕" "default_1.png"
+    _ <- runDB $ insert $ Person "t-t.com" "田中" "default_1.png"
 
     _ <- runDB $ deleteWhere ([] :: [Filter Group])
     _ <- runDB $ insert $ Group "東京ブラスオルケスター"           "tcbo.jpg"
@@ -152,5 +153,5 @@ postAdminDebugLoginR = do
     case mPersonIdText of
         (Just personIdText) -> do
             setSession "_ID" personIdText
-            redirect $ AdminLinksR
+            redirect $ HomeR
         Nothing -> error "login failed"

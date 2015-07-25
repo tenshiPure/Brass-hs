@@ -6,6 +6,7 @@
 / RootR GET
 
 /home             HomeR            GET
+/home/#GroupId    HomeWithGroupIdR GET
 
 /persons                 PersonListR   GET
 /person/detail/#PersonId PersonDetailR GET

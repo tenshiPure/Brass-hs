@@ -1,7 +1,7 @@
 <ul>
     <li>
-        <a href=/messages/1>
-            チャット
+        <a href=@{HomeR}>
+            ホーム
     <li>
         <a href=/auth/login>
             GMailでログイン

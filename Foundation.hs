@@ -191,3 +191,20 @@ format :: TimeZone -> UTCTime -> String
 format timezone utctime = formatTime defaultTimeLocale "%m/%d %H:%M:%S" zonedTime
     where
         zonedTime = utcToZonedTime timezone utctime
+
+
+-- 07/14 20:12:05 (火)
+formatWithWeek :: TimeZone -> UTCTime -> String
+formatWithWeek timezone utctime = formated ++ " (" ++ week ++ ")"
+    where
+        formated = format timezone utctime
+        zonedTime = utcToZonedTime timezone utctime
+        week = case (formatTime defaultTimeLocale "%w" zonedTime) of
+            "0" -> "日"
+            "1" -> "月"
+            "2" -> "火"
+            "3" -> "水"
+            "4" -> "木"
+            "5" -> "金"
+            "6" -> "土"
+            _   -> ""

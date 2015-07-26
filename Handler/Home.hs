@@ -20,7 +20,7 @@ getHomeR = do
 
 getHomeWithGroupIdR :: GroupId -> Handler Html
 getHomeWithGroupIdR groupId = do
-    events <- fmap (fmap entityVal) $ runDB $ selectList [EventGroupId ==. groupId] [Desc EventId]
+    events <- fmap (fmap entityVal) $ runDB $ selectList [] [Desc EventId]
 
     contents <- forM events $ \event -> do
         let personId = eventPersonId event

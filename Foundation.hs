@@ -227,3 +227,11 @@ createSettings id' attrs = FieldSettings {
                                fsAttrs = attrs,
                                fsTooltip = Nothing
                            }
+
+
+-- insert to event table with many many arguments
+writeEvent :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Int -> Text -> Text -> Text -> Text -> GroupId -> PersonId -> HandlerT site IO ()
+writeEvent page parentId parentContent childId childContent groupId personId = do
+    now <- liftIO getCurrentTime
+    _ <- runDB $ insert $ Event now page parentId parentContent childId childContent groupId personId
+    return ()

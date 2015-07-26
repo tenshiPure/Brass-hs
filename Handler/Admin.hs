@@ -145,52 +145,7 @@ getAdminInitR = do
 
 getAdminWorkspaceR :: Handler Html
 getAdminWorkspaceR = do
-    now <- liftIO getCurrentTime
-    _ <- runDB $ deleteWhere ([] :: [Filter EventLog])
-    _ <- runDB $ insert $ EventLog now 1 1 "Lorem ipsum dolor sit amet..." Nothing Nothing        (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ EventLog now 2 1 "深川二中"                      Nothing Nothing        (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ EventLog now 3 1 "深川二中"                      (Just 1) (Just "参加") (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ EventLog now 4 1 "録音"                          Nothing Nothing        (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ EventLog now 5 7 "録音"                          (Just 9) (Just "乙")   (toSqlKey 3 :: GroupId) (toSqlKey 1 :: PersonId)
-
-    events <- runDB $ selectList [] [Desc EventLogId]
-
-    defaultLayout [whamlet|
-        $forall Entity eid e <- events
-            $case (eventLogPage e)
-                $of 1
-                    <p>
-                        <a href=/messages/#{fromSqlKey $ eventLogGroupId e}#message-#{eventLogParentId e}>
-                            #{eventLogParentContent e}
-                        と発言しました
-                $of 2
-                    <p>
-                        <a href=/schedules/#{fromSqlKey $ eventLogGroupId e}#schedule-#{eventLogParentId e}>
-                            #{eventLogParentContent e}
-                        を作成しました
-                $of 3
-                    <p>
-                        <a href=/schedules/#{fromSqlKey $ eventLogGroupId e}#schedule-#{eventLogParentId e}>
-                            #{eventLogParentContent e}
-                        に
-                        <a href=/schedule/detail/#{fromSqlKey $ eventLogGroupId e}/#{eventLogParentId e}#attendance-#{fromMaybe 0 $ eventLogChildId e}>
-                            #{fromMaybe "" $ eventLogChildContent e}
-                        と登録しました
-                $of 4
-                    <p>
-                        <a href=/links/#{fromSqlKey $ eventLogGroupId e}#link-#{eventLogParentId e}>
-                            #{eventLogParentContent e}
-                        を作成しました
-                $of 5
-                    <p>
-                        <a href=/links/#{fromSqlKey $ eventLogGroupId e}#link-#{eventLogParentId e}>
-                            #{eventLogParentContent e}
-                        に
-                        <a href=/link/detail/#{fromSqlKey $ eventLogGroupId e}/#{eventLogParentId e}#comment-#{fromMaybe 0 $ eventLogChildId e}>
-                            #{fromMaybe "" $ eventLogChildContent e}
-                        とコメントしました
-                $of _
-    |]
+    defaultLayout [whamlet| hello |]
 
 
 postAdminDebugLoginR :: Handler Html

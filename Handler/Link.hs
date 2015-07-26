@@ -79,7 +79,7 @@ postLinkCreateR groupId = do
         FormSuccess link -> do
             linkId <- runDB $ insert link
 
-            writeEvent (linkTitle link) groupId personId (Just linkId) Nothing
+            writeEvent 4 (pack $ show $ fromSqlKey linkId) (linkTitle link) "" "" groupId personId
 
             redirect $ LinkListR groupId
 
@@ -94,19 +94,9 @@ postLinkCommentCreateR groupId linkId = do
         FormSuccess comment -> do
             commentId <- runDB $ insert comment
 
-            writeEvent (unTextarea $ commentBody comment) groupId personId (Just linkId) (Just commentId)
+            link <- runDB $ get404 linkId
+            writeEvent 5 (pack $ show $ fromSqlKey linkId) (linkTitle link) (pack $ show $ fromSqlKey commentId) (unTextarea $ commentBody comment) groupId personId
 
             redirect $ LinkDetailR groupId linkId
 
         _ -> error "todo"
-
-
-writeEvent :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Text -> GroupId -> PersonId -> Maybe LinkId -> Maybe CommentId -> HandlerT site IO ()
-writeEvent body groupId personId mLinkId mCommentId = do
-    now <- liftIO getCurrentTime
-    _ <- runDB $ insert $ Event content now groupId personId Nothing Nothing Nothing mLinkId mCommentId
-    return ()
-    where
-        content = if (length body) > 25
-                      then (take 25 body) ++ "..."
-                      else body

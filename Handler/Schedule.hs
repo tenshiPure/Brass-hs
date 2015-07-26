@@ -2,6 +2,7 @@ module Handler.Schedule where
 
 
 import Import
+import Database.Persist.Sql(fromSqlKey)
 
 
 presenceTypes :: [(Text, Int)]
@@ -79,7 +80,11 @@ postScheduleCreateR groupId = do
     ((res, _), _) <- runFormPost (fSchedule groupId)
     case res of
         FormSuccess schedule -> do
-            _ <- runDB $ insert schedule
+            scheduleId <- runDB $ insert schedule
+
+            personId <- requireAuthId
+            writeEvent 2 (pack $ show $ fromSqlKey scheduleId) (fromMaybe "" $ schedulePlace schedule) "" "" groupId personId
+
             redirect $ ScheduleListR groupId
 
         _ -> error "todo"
@@ -91,7 +96,11 @@ postScheduleAttendanceCreateR groupId scheduleId = do
     ((res, _), _) <- runFormPost (fAttendance personId scheduleId)
     case res of
         FormSuccess attendance -> do
-            _ <- runDB $ insert attendance
+            attendanceId <- runDB $ insert attendance
+
+            schedule <- runDB $ get404 scheduleId
+            writeEvent 3 (pack $ show $ fromSqlKey scheduleId) (fromMaybe "" $ schedulePlace schedule) (pack $ show $ fromSqlKey attendanceId) (fromInt $ attendancePresence attendance) groupId personId
+
             redirect $ ScheduleDetailR groupId scheduleId
 
         _ -> error "todo"

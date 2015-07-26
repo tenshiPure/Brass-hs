@@ -44,22 +44,11 @@ Comment
     personId PersonId
 
 Event
-    content      Text
-    created      UTCTime
-    groupId      GroupId
-    personId     PersonId
-    messageId    MessageId    Maybe
-    scheduleId   ScheduleId   Maybe
-    attendanceId AttendanceId Maybe
-    linkId       LinkId       Maybe
-    commentId    CommentId    Maybe
-
-EventLog
     created       UTCTime
     page          Int
-    parentId      Int
+    parentId      Text
     parentContent Text
-    childId       Int  Maybe
-    childContent  Text Maybe
+    childId       Text
+    childContent  Text
     groupId       GroupId
     personId      PersonId

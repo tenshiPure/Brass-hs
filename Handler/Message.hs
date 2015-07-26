@@ -32,18 +32,7 @@ postMessageCreateR groupId = do
 
             messageId <- runDB $ insert $ Message body now groupId personId
 
-            writeEvent body groupId personId messageId
+            writeEvent 1 (pack $ show $ fromSqlKey messageId) (body) "" "" groupId personId
 
             redirect $ MessageListR groupId
         Nothing -> redirect $ MessageListR groupId
-
-
-writeEvent :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Text -> GroupId -> PersonId -> MessageId -> HandlerT site IO ()
-writeEvent body groupId personId messageId = do
-    now <- liftIO getCurrentTime
-    _ <- runDB $ insert $ Event content now groupId personId (Just messageId) Nothing Nothing Nothing Nothing
-    return ()
-    where
-        content = if (length body) > 25
-                      then (take 25 body) ++ "..."
-                      else body

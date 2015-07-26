@@ -3,25 +3,37 @@
         <span .no-contents>
             現在このグループにはイベントが存在しません
     $else
-        $forall (event, person) <- contents
-            <p>
-                <img src=/static/image/icon/person/#{personIcon person}>
-                $maybe messageId <- eventMessageId event
-                    <a href="@{MessageListR groupId}#message-#{fromSqlKey messageId}">
-                        チャット
-                    で発言しました
-                $nothing
-                    $maybe linkId <- eventLinkId event
-                        <a href=@{LinkListR (eventGroupId event)}#link-#{fromSqlKey linkId}>
-                            リンク
-                        $maybe commentId <- eventCommentId event
-                            に
-                            <a href=@{LinkDetailR (eventGroupId event) linkId}#comment-#{fromSqlKey commentId}>
-                                コメント
-                            しました
-                        $nothing
-                            を作成しました
+        $forall event <- events
+            $if (eventPage event) == 1
                 <p>
-                        #{eventContent event}
-                    
-                <hr>
+                    <a href=/messages/#{fromSqlKey $ eventGroupId event}#message-#{eventParentId event}>
+                        #{eventParentContent event}
+                    と発言しました
+            $elseif (eventPage event) == 2
+                <p>
+                    <a href=/schedules/#{fromSqlKey $ eventGroupId event}#schedule-#{eventParentId event}>
+                        #{eventParentContent event}
+                    を作成しました
+            $elseif (eventPage event) == 3
+                <p>
+                    <a href=/schedules/#{fromSqlKey $ eventGroupId event}#schedule-#{eventParentId event}>
+                        #{eventParentContent event}
+                    に
+                    <a href=/schedule/detail/#{fromSqlKey $ eventGroupId event}/#{eventParentId event}#attendance-#{eventChildId event}>
+                        #{eventChildContent event}
+                    と登録しました
+            $elseif (eventPage event) == 4
+                <p>
+                    <a href=/links/#{fromSqlKey $ eventGroupId event}#link-#{eventParentId event}>
+                        #{eventParentContent event}
+                    を作成しました
+            $else
+                <p>
+                    <a href=/links/#{fromSqlKey $ eventGroupId event}#link-#{eventParentId event}>
+                        #{eventParentContent event}
+                    に
+                    <a href=/link/detail/#{fromSqlKey $ eventGroupId event}/#{eventParentId event}#comment-#{eventChildId event}>
+                        #{eventChildContent event}
+                    とコメントしました
+
+            <hr>

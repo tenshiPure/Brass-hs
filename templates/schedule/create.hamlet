@@ -1,5 +1,0 @@
-<h1>Schedule Create
-<form method=post enctype=#{enctype}>
-    ^{widget}
-    <div>
-        <input type=submit value="Create">

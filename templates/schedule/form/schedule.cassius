@@ -1,19 +1,19 @@
-#link-form__title
+#schedule-form__day
     margin-top: 0.5em
     font-size: 1em
-    width: 80%
+    width: 50%
 
-#link-form__url
+#schedule-form__place
     margin-top: 0.5em
     font-size: 1em
-    width: 80%
+    width: 50%
 
-#link-form__category
+#schedule-form__note
     margin-top: 0.5em
     font-size: 1em
-    width: 5em
+    width: 50%
 
-#link-form__buttons .submit-button
+#schedule-form__buttons .submit-button
     float: right
     margin-top: -1em
     margin-right: 1.5em

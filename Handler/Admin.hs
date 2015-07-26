@@ -129,10 +129,10 @@ getAdminInitR = do
     _ <- runDB $ insert $ Comment (Textarea "疲れた")         (toSqlKey 7 :: LinkId) (toSqlKey 1 :: PersonId)
 
     _ <- runDB $ deleteWhere ([] :: [Filter Schedule])
-    _ <- runDB $ insert $ Schedule (fromGregorian 2015 07 05) (Just "深川二中") (Just "中島先生レッスン")                                      (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Schedule (fromGregorian 2015 07 12) (Just "青少年センター") Nothing                                                  (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Schedule (fromGregorian 2015 07 19) Nothing                 (Just "場所未定")                                        (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Schedule (fromGregorian 2015 07 26) (Just "青少年センター") (Just "午前中は分奏、午後はウエストサイドと幻想4,5です") (toSqlKey 1 :: GroupId)
+    _ <- runDB $ insert $ Schedule "20150705" (Just "深川二中") (Just "中島先生レッスン")                                      (toSqlKey 1 :: GroupId)
+    _ <- runDB $ insert $ Schedule "20150705" (Just "青少年センター") Nothing                                                  (toSqlKey 1 :: GroupId)
+    _ <- runDB $ insert $ Schedule "20150705" Nothing                 (Just "場所未定")                                        (toSqlKey 1 :: GroupId)
+    _ <- runDB $ insert $ Schedule "20150705" (Just "青少年センター") (Just "午前中は分奏、午後はウエストサイドと幻想4,5です") (toSqlKey 1 :: GroupId)
 
     _ <- runDB $ deleteWhere ([] :: [Filter Attendance])
     _ <- runDB $ insert $ Attendance (toSqlKey 1 :: PersonId) (toSqlKey 1 :: ScheduleId) 1 Nothing

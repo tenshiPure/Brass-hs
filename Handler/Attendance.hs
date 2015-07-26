@@ -53,22 +53,3 @@ postAttendanceCreateR groupId scheduleId = do
             redirect $ ScheduleDetailR groupId scheduleId
 
         _ -> redirect $ ScheduleDetailR groupId scheduleId
-
-
-getAttendanceUpdateR :: GroupId -> ScheduleId -> AttendanceId -> Handler Html
-getAttendanceUpdateR groupId scheduleId attendanceId = do
-    attendance <- runDB $ get404 attendanceId
-    (widget, enctype) <- generateFormPost (fAttendance' $ Just attendance)
-
-    defaultLayout $(widgetFile "attendance/update")
-
-
-postAttendanceUpdateR :: GroupId -> ScheduleId -> AttendanceId -> Handler Html
-postAttendanceUpdateR groupId scheduleId attendanceId = do
-    ((res, widget), enctype) <- runFormPost (fAttendance' Nothing)
-    case res of
-        FormSuccess attendance -> do
-            runDB $ replace attendanceId attendance
-            redirect $ ScheduleDetailR groupId scheduleId
-
-        _ -> redirect $ ScheduleDetailR groupId scheduleId

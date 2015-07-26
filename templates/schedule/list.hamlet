@@ -1,6 +1,6 @@
 <div #layout-form>
-    <form action=# method=post enctype=#>
-$#         ^{formWidget}
+    <form action=@{ScheduleCreateR groupId} method=post enctype=#{enctype}>
+        ^{formWidget}
 
 <div #layout-content>
     $if null contents

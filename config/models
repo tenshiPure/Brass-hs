@@ -17,7 +17,7 @@ Belong
     deriving Show
 
 Schedule
-    day      Day
+    day      Text
     place    Text Maybe
     note     Text Maybe
     groupId  GroupId

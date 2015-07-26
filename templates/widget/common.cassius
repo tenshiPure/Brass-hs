@@ -36,6 +36,17 @@
     color:#e0ebf5
 
 /*
+ * ラベル
+ */
+.form-label
+    display: block
+    float: left
+    width: 5em
+    margin-top: 0.5em
+    margin-left: 1em
+    margin-right: 1em
+
+/*
  * ポジション
  */
 .position-right

@@ -3,7 +3,7 @@
 <div #layout-content>
     <div .schedule>
         <span .schedule__day>
-            #{show $ scheduleDay schedule}
+            #{scheduleDay schedule}
         <span .schedule__place>
             $maybe place <- schedulePlace schedule
                 #{place}

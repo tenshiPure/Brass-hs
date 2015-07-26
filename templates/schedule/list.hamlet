@@ -12,6 +12,6 @@
                 <li .no-image-list__item>
                     <a href=@{ScheduleDetailR groupId scheduleId}>
                         <div>
-                            #{show $ scheduleDay schedule} 
+                            #{scheduleDay schedule} 
                             $maybe place <- schedulePlace schedule
                                 #{place}

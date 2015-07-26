@@ -53,3 +53,13 @@ Event
     attendanceId AttendanceId Maybe
     linkId       LinkId       Maybe
     commentId    CommentId    Maybe
+
+EventLog
+    created       UTCTime
+    page          Int
+    parentId      Int
+    parentContent Text
+    childId       Int  Maybe
+    childContent  Text Maybe
+    groupId       GroupId
+    personId      PersonId

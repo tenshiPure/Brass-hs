@@ -107,6 +107,16 @@ getAdminInitR = do
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 1 :: PersonId)
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
+    _ <- runDB $ deleteWhere ([] :: [Filter Schedule])
+    _ <- runDB $ insert $ Schedule "20150705" (Just "深川二中") (Just "中島先生レッスン")                                      (toSqlKey 1 :: GroupId)
+    _ <- runDB $ insert $ Schedule "20150705" (Just "青少年センター") Nothing                                                  (toSqlKey 1 :: GroupId)
+    _ <- runDB $ insert $ Schedule "20150705" Nothing                 (Just "場所未定")                                        (toSqlKey 1 :: GroupId)
+    _ <- runDB $ insert $ Schedule "20150705" (Just "青少年センター") (Just "午前中は分奏、午後はウエストサイドと幻想4,5です") (toSqlKey 1 :: GroupId)
+
+    _ <- runDB $ deleteWhere ([] :: [Filter Attendance])
+    _ <- runDB $ insert $ Attendance 1 Nothing                 (toSqlKey 1 :: PersonId) (toSqlKey 1 :: ScheduleId) 
+    _ <- runDB $ insert $ Attendance 4 (Just "15時頃帰ります") (toSqlKey 2 :: PersonId) (toSqlKey 1 :: ScheduleId) 
+
     let url = "https://www.google.co.jp/"
     _ <- runDB $ deleteWhere ([] :: [Filter Link])
     _ <- runDB $ insert $ Link "東ブラのブログ"   url "notes.gif"     (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
@@ -128,16 +138,6 @@ getAdminInitR = do
     _ <- runDB $ insert $ Comment (Textarea "乙でしたー")     (toSqlKey 7 :: LinkId) (toSqlKey 4 :: PersonId)
     _ <- runDB $ insert $ Comment (Textarea "疲れた")         (toSqlKey 7 :: LinkId) (toSqlKey 1 :: PersonId)
 
-    _ <- runDB $ deleteWhere ([] :: [Filter Schedule])
-    _ <- runDB $ insert $ Schedule "20150705" (Just "深川二中") (Just "中島先生レッスン")                                      (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Schedule "20150705" (Just "青少年センター") Nothing                                                  (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Schedule "20150705" Nothing                 (Just "場所未定")                                        (toSqlKey 1 :: GroupId)
-    _ <- runDB $ insert $ Schedule "20150705" (Just "青少年センター") (Just "午前中は分奏、午後はウエストサイドと幻想4,5です") (toSqlKey 1 :: GroupId)
-
-    _ <- runDB $ deleteWhere ([] :: [Filter Attendance])
-    _ <- runDB $ insert $ Attendance 1 Nothing                 (toSqlKey 1 :: PersonId) (toSqlKey 1 :: ScheduleId) 
-    _ <- runDB $ insert $ Attendance 4 (Just "15時頃帰ります") (toSqlKey 2 :: PersonId) (toSqlKey 1 :: ScheduleId) 
-
     _ <- runDB $ deleteWhere ([] :: [Filter Event])
 
     redirect $ AdminLinksR
@@ -145,7 +145,52 @@ getAdminInitR = do
 
 getAdminWorkspaceR :: Handler Html
 getAdminWorkspaceR = do
-    defaultLayout [whamlet| workspace |]
+    now <- liftIO getCurrentTime
+    _ <- runDB $ deleteWhere ([] :: [Filter EventLog])
+    _ <- runDB $ insert $ EventLog now 1 1 "Lorem ipsum dolor sit amet..." Nothing Nothing        (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ EventLog now 2 1 "深川二中"                      Nothing Nothing        (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ EventLog now 3 1 "深川二中"                      (Just 1) (Just "参加") (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ EventLog now 4 1 "録音"                          Nothing Nothing        (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ EventLog now 5 7 "録音"                          (Just 9) (Just "乙")   (toSqlKey 3 :: GroupId) (toSqlKey 1 :: PersonId)
+
+    events <- runDB $ selectList [] [Desc EventLogId]
+
+    defaultLayout [whamlet|
+        $forall Entity eid e <- events
+            $case (eventLogPage e)
+                $of 1
+                    <p>
+                        <a href=/messages/#{fromSqlKey $ eventLogGroupId e}#message-#{eventLogParentId e}>
+                            #{eventLogParentContent e}
+                        と発言しました
+                $of 2
+                    <p>
+                        <a href=/schedules/#{fromSqlKey $ eventLogGroupId e}#schedule-#{eventLogParentId e}>
+                            #{eventLogParentContent e}
+                        を作成しました
+                $of 3
+                    <p>
+                        <a href=/schedules/#{fromSqlKey $ eventLogGroupId e}#schedule-#{eventLogParentId e}>
+                            #{eventLogParentContent e}
+                        に
+                        <a href=/schedule/detail/#{fromSqlKey $ eventLogGroupId e}/#{eventLogParentId e}#attendance-#{fromMaybe 0 $ eventLogChildId e}>
+                            #{fromMaybe "" $ eventLogChildContent e}
+                        と登録しました
+                $of 4
+                    <p>
+                        <a href=/links/#{fromSqlKey $ eventLogGroupId e}#link-#{eventLogParentId e}>
+                            #{eventLogParentContent e}
+                        を作成しました
+                $of 5
+                    <p>
+                        <a href=/links/#{fromSqlKey $ eventLogGroupId e}#link-#{eventLogParentId e}>
+                            #{eventLogParentContent e}
+                        に
+                        <a href=/link/detail/#{fromSqlKey $ eventLogGroupId e}/#{eventLogParentId e}#comment-#{fromMaybe 0 $ eventLogChildId e}>
+                            #{fromMaybe "" $ eventLogChildContent e}
+                        とコメントしました
+                $of _
+    |]
 
 
 postAdminDebugLoginR :: Handler Html

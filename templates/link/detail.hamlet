@@ -16,8 +16,8 @@
         <span .no-contents>
             現在このリンクにはコメントが存在しません
     $else
-        $forall (comment, person) <- contents
-            <div .media>
+        $forall (Entity commentId comment, person) <- contents
+            <div #comment-#{fromSqlKey commentId} .media>
                 <div .media__image>
                     <img src=/static/image/icon/person/#{personIcon person}>
                 <div .media__body>

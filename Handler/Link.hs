@@ -2,6 +2,7 @@ module Handler.Link where
 
 
 import Import
+import Database.Persist.Sql(fromSqlKey)
 
 
 categories :: [(Text, Text)]
@@ -45,7 +46,7 @@ fComment linkId personId extra = do
 
 getLinkListR :: GroupId -> Handler Html
 getLinkListR groupId = do
-    links <- runDB $ selectList [LinkGroupId ==. groupId] [Asc LinkId]
+    links <- runDB $ selectList [LinkGroupId ==. groupId] [Desc LinkId]
     contents <- forM links $ \link -> do
         commentNum <- runDB $ count [CommentLinkId ==. entityKey link]
         return (link, commentNum)
@@ -59,9 +60,9 @@ getLinkListR groupId = do
 getLinkDetailR :: GroupId -> LinkId -> Handler Html
 getLinkDetailR groupId linkId = do
     link <- runDB $ get404 linkId
-    comments <- fmap (fmap entityVal) $ runDB $ selectList [CommentLinkId ==. linkId] [Asc CommentId]
+    comments <- runDB $ selectList [CommentLinkId ==. linkId] [Desc CommentId]
     contents <- forM comments $ \comment -> do
-        person <- runDB $ get404 (commentPersonId comment)
+        person <- runDB $ get404 (commentPersonId $ entityVal comment)
         return (comment, person)
 
     personId <- requireAuthId
@@ -93,7 +94,7 @@ postLinkCommentCreateR groupId linkId = do
         FormSuccess comment -> do
             commentId <- runDB $ insert comment
 
-            writeEvent "なんらかのコメント" groupId personId (Just linkId) (Just commentId)
+            writeEvent (unTextarea $ commentBody comment) groupId personId (Just linkId) (Just commentId)
 
             redirect $ LinkDetailR groupId linkId
 
@@ -103,5 +104,9 @@ postLinkCommentCreateR groupId linkId = do
 writeEvent :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Text -> GroupId -> PersonId -> Maybe LinkId -> Maybe CommentId -> HandlerT site IO ()
 writeEvent body groupId personId mLinkId mCommentId = do
     now <- liftIO getCurrentTime
-    _ <- runDB $ insert $ Event body now groupId personId Nothing Nothing Nothing mLinkId mCommentId
+    _ <- runDB $ insert $ Event content now groupId personId Nothing Nothing Nothing mLinkId mCommentId
     return ()
+    where
+        content = if (length body) > 25
+                      then (take 25 body) ++ "..."
+                      else body

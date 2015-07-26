@@ -8,11 +8,11 @@
             現在このグループにはリンクが存在しません
     $else
         <ul .image-list>
-            $forall (link, commentNum) <- contents
-                <li .image-list__item>
-                    <a href=@{LinkDetailR groupId (entityKey link)}>
-                        <img src=/static/image/icon/link/#{linkIcon $ entityVal link}>
+            $forall (Entity linkId link, commentNum) <- contents
+                <li #link-#{fromSqlKey linkId} .image-list__item>
+                    <a href=@{LinkDetailR groupId linkId}>
+                        <img src=/static/image/icon/link/#{linkIcon link}>
                         <div>
-                            #{linkTitle $ entityVal link}
+                            #{linkTitle link}
                             <span .position-right>
                                 コメント：#{commentNum}

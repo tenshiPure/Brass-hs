@@ -3,6 +3,7 @@ module Handler.Home where
 
 import Import
 
+import Database.Persist.Sql(fromSqlKey)
 
 getHomeR :: Handler Html
 getHomeR = do
@@ -19,7 +20,7 @@ getHomeR = do
 
 getHomeWithGroupIdR :: GroupId -> Handler Html
 getHomeWithGroupIdR groupId = do
-    events <- fmap (fmap entityVal) $ runDB $ selectList [EventGroupId ==. groupId] [Desc EventCreated, Desc EventId]
+    events <- fmap (fmap entityVal) $ runDB $ selectList [EventGroupId ==. groupId] [Desc EventId]
 
     contents <- forM events $ \event -> do
         let personId = eventPersonId event

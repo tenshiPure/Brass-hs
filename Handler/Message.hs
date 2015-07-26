@@ -4,13 +4,14 @@ module Handler.Message where
 import Import
 import Data.Time
 
+import Database.Persist.Sql(fromSqlKey)
 
 
 getMessageListR :: GroupId -> Handler Html
 getMessageListR groupId = do
-    messages <- fmap (fmap entityVal) $ runDB $ selectList [MessageGroupId ==. groupId] [Desc MessageCreated, Desc MessageId]
+    messages <- runDB $ selectList [MessageGroupId ==. groupId] [Desc MessageId]
     contents <- forM messages $ \message -> do
-        let personId = messagePersonId message
+        let personId = messagePersonId $ entityVal message
         person <- runDB $ get404 personId
         return (message, person)
 
@@ -40,5 +41,9 @@ postMessageCreateR groupId = do
 writeEvent :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Text -> GroupId -> PersonId -> MessageId -> HandlerT site IO ()
 writeEvent body groupId personId messageId = do
     now <- liftIO getCurrentTime
-    _ <- runDB $ insert $ Event (take 25 body) now groupId personId (Just messageId) Nothing Nothing Nothing Nothing
+    _ <- runDB $ insert $ Event content now groupId personId (Just messageId) Nothing Nothing Nothing Nothing
     return ()
+    where
+        content = if (length body) > 25
+                      then (take 25 body) ++ "..."
+                      else body

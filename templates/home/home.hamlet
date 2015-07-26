@@ -3,37 +3,39 @@
         <span .no-contents>
             現在このグループにはイベントが存在しません
     $else
-        $forall event <- events
-            $if (eventPage event) == 1
-                <p>
-                    <a href=/messages/#{fromSqlKey $ eventGroupId event}#message-#{eventParentId event}>
-                        #{eventParentContent event}
-                    と発言しました
-            $elseif (eventPage event) == 2
-                <p>
-                    <a href=/schedules/#{fromSqlKey $ eventGroupId event}#schedule-#{eventParentId event}>
-                        #{eventParentContent event}
-                    を作成しました
-            $elseif (eventPage event) == 3
-                <p>
-                    <a href=/schedules/#{fromSqlKey $ eventGroupId event}#schedule-#{eventParentId event}>
-                        #{eventParentContent event}
-                    に
-                    <a href=/schedule/detail/#{fromSqlKey $ eventGroupId event}/#{eventParentId event}#attendance-#{eventChildId event}>
-                        #{eventChildContent event}
-                    と登録しました
-            $elseif (eventPage event) == 4
-                <p>
-                    <a href=/links/#{fromSqlKey $ eventGroupId event}#link-#{eventParentId event}>
-                        #{eventParentContent event}
-                    を作成しました
-            $else
-                <p>
-                    <a href=/links/#{fromSqlKey $ eventGroupId event}#link-#{eventParentId event}>
-                        #{eventParentContent event}
-                    に
-                    <a href=/link/detail/#{fromSqlKey $ eventGroupId event}/#{eventParentId event}#comment-#{eventChildId event}>
-                        #{eventChildContent event}
-                    とコメントしました
-
-            <hr>
+        $forall (event, person) <- contents
+            <div .media>
+                <div .media__image>
+                    <img .message-image src=/static/image/icon/person/#{personIcon person}>
+                <div .media__body>
+                    <span .media__body__by>
+                        #{personName person}
+                    <span .media__body__at>
+                         #{format tz $ eventCreated event}
+                    <p .media__body__text .no-break .event-item>
+                        $if (eventPage event) == 1
+                            <a href=/messages/#{fromSqlKey $ eventGroupId event}#message-#{eventParentId event}>
+                                #{eventParentContent event}
+                            と発言しました
+                        $elseif (eventPage event) == 2
+                            <a href=/schedules/#{fromSqlKey $ eventGroupId event}#schedule-#{eventParentId event}>
+                                #{eventParentContent event}
+                            を作成しました
+                        $elseif (eventPage event) == 3
+                            <a href=/schedules/#{fromSqlKey $ eventGroupId event}#schedule-#{eventParentId event}>
+                                #{eventParentContent event}
+                            に
+                            <a href=/schedule/detail/#{fromSqlKey $ eventGroupId event}/#{eventParentId event}#attendance-#{eventChildId event}>
+                                #{eventChildContent event}
+                            と登録しました
+                        $elseif (eventPage event) == 4
+                            <a href=/links/#{fromSqlKey $ eventGroupId event}#link-#{eventParentId event}>
+                                #{eventParentContent event}
+                            を作成しました
+                        $else
+                            <a href=/links/#{fromSqlKey $ eventGroupId event}#link-#{eventParentId event}>
+                                #{eventParentContent event}
+                            に
+                            <a href=/link/detail/#{fromSqlKey $ eventGroupId event}/#{eventParentId event}#comment-#{eventChildId event}>
+                                #{eventChildContent event}
+                            とコメントしました

@@ -1,0 +1,11 @@
+.event-item a:link
+    color: #00F
+    text-decoration: none
+
+.event-item a:visited
+    color: #00F
+    text-decoration: none
+
+.event-item a:hover
+    color: #00F
+    text-decoration: underline

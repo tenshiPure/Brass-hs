@@ -2,7 +2,7 @@ module Handler.Home where
 
 
 import Import
-
+import Data.Time
 import Database.Persist.Sql(fromSqlKey)
 
 getHomeR :: Handler Html
@@ -27,4 +27,6 @@ getHomeWithGroupIdR groupId = do
         person <- runDB $ get404 personId
         return (event, person)
 
-    renderWithGroups $(widgetFile "home/home") "ホーム" PHome ["ホーム"] groupId []
+    tz <- liftIO getCurrentTimeZone
+
+    renderWithGroups $(widgetFile "home/home") "ホーム" PHome ["ホーム"] groupId [$(widgetFile "widget/media")]

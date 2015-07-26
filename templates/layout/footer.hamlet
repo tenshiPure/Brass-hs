@@ -1,3 +1,10 @@
-<div #icons>
-    <a href=@{AdminLinksR}>
-        <span .icon .icon--config>
+<div #footer-links>
+    <span>
+        <a href=# .immutable-anchor>
+            page-help
+    <span>
+        <a href=# .immutable-anchor>
+            todo
+    <span>
+        <a href=@{AdminLinksR} .immutable-anchor>
+            admin

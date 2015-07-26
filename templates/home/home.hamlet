@@ -12,30 +12,30 @@
                         #{personName person}
                     <span .media__body__at>
                          #{format tz $ eventCreated event}
-                    <p .media__body__text .no-break .event-item>
+                    <p .media__body__text .no-break>
                         $if (eventPage event) == 1
-                            <a href=/messages/#{fromSqlKey $ eventGroupId event}#message-#{eventParentId event}>
+                            <a href=/messages/#{fromSqlKey $ eventGroupId event}#message-#{eventParentId event} .immutable-anchor>
                                 #{eventParentContent event}
                             と発言しました
                         $elseif (eventPage event) == 2
-                            <a href=/schedules/#{fromSqlKey $ eventGroupId event}#schedule-#{eventParentId event}>
+                            <a href=/schedules/#{fromSqlKey $ eventGroupId event}#schedule-#{eventParentId event} .immutable-anchor>
                                 #{eventParentContent event}
                             を作成しました
                         $elseif (eventPage event) == 3
-                            <a href=/schedules/#{fromSqlKey $ eventGroupId event}#schedule-#{eventParentId event}>
+                            <a href=/schedules/#{fromSqlKey $ eventGroupId event}#schedule-#{eventParentId event} .immutable-anchor>
                                 #{eventParentContent event}
                             に
-                            <a href=/schedule/detail/#{fromSqlKey $ eventGroupId event}/#{eventParentId event}#attendance-#{eventChildId event}>
+                            <a href=/schedule/detail/#{fromSqlKey $ eventGroupId event}/#{eventParentId event}#attendance-#{eventChildId event} .immutable-anchor>
                                 #{eventChildContent event}
                             と登録しました
                         $elseif (eventPage event) == 4
-                            <a href=/links/#{fromSqlKey $ eventGroupId event}#link-#{eventParentId event}>
+                            <a href=/links/#{fromSqlKey $ eventGroupId event}#link-#{eventParentId event} .immutable-anchor>
                                 #{eventParentContent event}
                             を作成しました
                         $else
-                            <a href=/links/#{fromSqlKey $ eventGroupId event}#link-#{eventParentId event}>
+                            <a href=/links/#{fromSqlKey $ eventGroupId event}#link-#{eventParentId event} .immutable-anchor>
                                 #{eventParentContent event}
                             に
-                            <a href=/link/detail/#{fromSqlKey $ eventGroupId event}/#{eventParentId event}#comment-#{eventChildId event}>
+                            <a href=/link/detail/#{fromSqlKey $ eventGroupId event}/#{eventParentId event}#comment-#{eventChildId event} .immutable-anchor>
                                 #{eventChildContent event}
                             とコメントしました

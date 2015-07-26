@@ -1,13 +1,6 @@
-#icons
+#footer-links
     float: right
+    line-height: 4em
 
-.icon
-    display: inline-block
-    background-image: url(/static/css/sprite-sheet.png)
-    margin-left: 0.5em
-    margin-top: 0.5em
-
-.icon--config
-    width: 32px
-    height: 32px
-    background-position: -940px 2px
+#footer-links span
+    margin-left: 1em

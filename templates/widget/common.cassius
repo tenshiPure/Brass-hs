@@ -58,3 +58,18 @@
  */
 .no-break
     white-space: nowrap
+
+/*
+ * 普遍のアンカー
+ */
+.immutable-anchor:link
+    color: #00F
+    text-decoration: none
+
+.immutable-anchor:visited
+    color: #00F
+    text-decoration: none
+
+.immutable-anchor:hover
+    color: #00F
+    text-decoration: underline

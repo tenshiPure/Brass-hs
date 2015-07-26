@@ -45,13 +45,13 @@ getAdminInitR = do
 
     _ <- runDB $ deleteWhere ([] :: [Filter Person])
     _ <- runDB $ insert $ Person "s-r.com" "ほげ" "hoge.png"
-    _ <- runDB $ insert $ Person "m-i.com" "松本" "default_1.png"
-    _ <- runDB $ insert $ Person "t-h.com" "千葉" "default_2.png"
-    _ <- runDB $ insert $ Person "i-k.com" "伊藤" "default_1.png"
-    _ <- runDB $ insert $ Person "m-y.com" "宮本" "default_2.png"
-    _ <- runDB $ insert $ Person "o-j.com" "大瀧" "default_1.png"
-    _ <- runDB $ insert $ Person "o-a.com" "大渕" "default_1.png"
-    _ <- runDB $ insert $ Person "t-t.com" "田中" "default_1.png"
+    _ <- runDB $ insert $ Person "m-i.com" "松本" "m-i.jpg"
+    _ <- runDB $ insert $ Person "t-h.com" "千葉" "t-h.jpg"
+    _ <- runDB $ insert $ Person "i-k.com" "伊藤" "i-k.png"
+    _ <- runDB $ insert $ Person "m-y.com" "宮本" "m-y.jpg"
+    _ <- runDB $ insert $ Person "o-j.com" "大瀧" "o-j.jpg"
+    _ <- runDB $ insert $ Person "o-a.com" "大渕" "o-a.jpg"
+    _ <- runDB $ insert $ Person "t-t.com" "田中" "t-t.png"
 
     _ <- runDB $ deleteWhere ([] :: [Filter Belong])
     _ <- runDB $ insert $ Belong (toSqlKey  1 :: GroupId) (toSqlKey 1 :: PersonId)
@@ -97,12 +97,10 @@ getAdminInitR = do
     _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
     _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
-    _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
-    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Message shortBody now (toSqlKey 1 :: GroupId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 6 :: PersonId)
+    _ <- runDB $ insert $ Message longBody  now (toSqlKey 1 :: GroupId) (toSqlKey 6 :: PersonId)
     _ <- runDB $ insert $ Message longBody  now (toSqlKey 3 :: GroupId) (toSqlKey 1 :: PersonId)
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 1 :: PersonId)
     _ <- runDB $ insert $ Message shortBody now (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)

@@ -22,12 +22,23 @@ getMessageListR groupId = do
 
 postMessageCreateR :: GroupId -> Handler Html
 postMessageCreateR groupId = do
-    personId <- requireAuthId
     mBody <- lookupPostParam "body"
 
     case mBody of
         (Just body) -> do
+            personId <- requireAuthId
             now <- liftIO getCurrentTime
+
             _ <- runDB $ insert $ Message body now groupId personId
+
+            writeEvent "やったー" groupId personId
+
             redirect $ MessageListR groupId
         Nothing -> redirect $ MessageListR groupId
+
+
+writeEvent :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Text -> GroupId -> PersonId -> HandlerT site IO ()
+writeEvent content groupId personId = do
+    now <- liftIO getCurrentTime
+    _ <- runDB $ insert $ Event content now groupId personId
+    return ()

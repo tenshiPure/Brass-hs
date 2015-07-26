@@ -1,2 +1,8 @@
-<div>
-    home
+<div #layout-content>
+    $if null contents
+        <span .no-contents>
+            現在このグループにはイベントが存在しません
+    $else
+        $forall event <- contents
+            <p>
+                #{eventContent event}

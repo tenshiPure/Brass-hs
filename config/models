@@ -45,3 +45,9 @@ Message
     created  UTCTime
     groupId  GroupId
     personId PersonId
+
+Event
+    content  Text
+    created  UTCTime
+    groupId  GroupId
+    personId PersonId

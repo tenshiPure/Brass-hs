@@ -19,4 +19,5 @@ getHomeR = do
 
 getHomeWithGroupIdR :: GroupId -> Handler Html
 getHomeWithGroupIdR groupId = do
+    contents <- fmap (fmap entityVal) $ runDB $ selectList [EventGroupId ==. groupId] [Desc EventCreated, Desc EventId]
     renderWithGroups $(widgetFile "home/home") "ホーム" PHome ["ホーム"] groupId []

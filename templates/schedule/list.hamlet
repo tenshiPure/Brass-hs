@@ -1,6 +1,10 @@
-<div #layout-contents>
+<div #layout-form>
+    <form action=# method=post enctype=#>
+$#         ^{formWidget}
+
+<div #layout-content>
     $if null contents
-        <p .no-contents>
+        <span .no-contents>
             現在このグループには予定が存在しません
     $else
         <ul .no-image-list>
@@ -11,7 +15,3 @@
                             #{show $ scheduleDay schedule} 
                             $maybe place <- schedulePlace schedule
                                 #{place}
-
-<div #layout-form>
-    <form action=# method=post enctype=#>
-$#         ^{formWidget}

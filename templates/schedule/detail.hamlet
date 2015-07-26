@@ -1,18 +1,18 @@
-<div #layout-contents>
+<div #layout-form>
+
+<div #layout-content>
     <div .schedule>
         <span .schedule__day>
             #{show $ scheduleDay schedule}
         <span .schedule__place>
-            場所：
             $maybe place <- schedulePlace schedule
                 #{place}
         <div .schedule__note>
-            備考：
             $maybe note <- scheduleNote schedule
                 #{note}
 
     $if null contents
-        <p .no-contents>
+        <span .no-contents>
             現在この予定には出欠が存在しません
     $else
         <ul .attendance-list>
@@ -25,4 +25,3 @@
                     <span .attendance__item__note>
                         $maybe note <- attendanceNote $ entityVal attendance
                             #{note}
-<div #layout-form>

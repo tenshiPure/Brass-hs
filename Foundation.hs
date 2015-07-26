@@ -189,7 +189,6 @@ renderWithGroups mainWidget title page navs currentGroupId widgets = do
         $(widgetFile "layout/frame")
 
 
--- createNav :: GroupId -> [Text] -> IO Text
 createNav :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Key Group -> [Text] -> HandlerT site IO Text
 createNav currentGroupId navs = do
     currentGroup <- runDB $ get404 currentGroupId

@@ -1,20 +1,23 @@
+Group
+    name     Text
+    icon     Text
+
 Person
     mail         Text
     name         Text
     icon         Text
     UniquePerson mail
-    deriving   Show
-    deriving   Typeable
-
-Group
-    name     Text
-    icon     Text
-    deriving Show
+    deriving     Typeable
 
 Belong
-    personId PersonId
     groupId  GroupId
-    deriving Show
+    personId PersonId
+
+Message
+    body     Text
+    created  UTCTime
+    groupId  GroupId
+    personId PersonId
 
 Schedule
     day      Text
@@ -23,10 +26,10 @@ Schedule
     groupId  GroupId
 
 Attendance
-    scheduleId ScheduleId
-    personId   PersonId
     presence   Int
     note       Text Maybe
+    personId   PersonId
+    scheduleId ScheduleId
 
 Link
     title    Text
@@ -38,12 +41,6 @@ Link
 Comment
     body     Textarea
     linkId   LinkId
-    personId PersonId
-
-Message
-    body     Text
-    created  UTCTime
-    groupId  GroupId
     personId PersonId
 
 Event

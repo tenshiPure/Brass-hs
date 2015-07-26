@@ -13,16 +13,6 @@ getAdminLinksR = do
 
 getAdminInitR :: Handler Html
 getAdminInitR = do
-    _ <- runDB $ deleteWhere ([] :: [Filter Person])
-    _ <- runDB $ insert $ Person "s-r.com" "ほげ" "hoge.png"
-    _ <- runDB $ insert $ Person "m-i.com" "松本" "default_1.png"
-    _ <- runDB $ insert $ Person "t-h.com" "千葉" "default_2.png"
-    _ <- runDB $ insert $ Person "i-k.com" "伊藤" "default_1.png"
-    _ <- runDB $ insert $ Person "m-y.com" "宮本" "default_2.png"
-    _ <- runDB $ insert $ Person "o-j.com" "大瀧" "default_1.png"
-    _ <- runDB $ insert $ Person "o-a.com" "大渕" "default_1.png"
-    _ <- runDB $ insert $ Person "t-t.com" "田中" "default_1.png"
-
     _ <- runDB $ deleteWhere ([] :: [Filter Group])
     _ <- runDB $ insert $ Group "東京シティブラスオルケスター"     "tcbo.jpg"
     _ <- runDB $ insert $ Group "江戸川管楽合奏団"                 "default_1.jpg"
@@ -53,41 +43,51 @@ getAdminInitR = do
     _ <- runDB $ insert $ Group "ダミーグループ - 16"              "default_1.jpg"
     _ <- runDB $ insert $ Group "ダミーグループ - 17"              "default_1.jpg"
 
+    _ <- runDB $ deleteWhere ([] :: [Filter Person])
+    _ <- runDB $ insert $ Person "s-r.com" "ほげ" "hoge.png"
+    _ <- runDB $ insert $ Person "m-i.com" "松本" "default_1.png"
+    _ <- runDB $ insert $ Person "t-h.com" "千葉" "default_2.png"
+    _ <- runDB $ insert $ Person "i-k.com" "伊藤" "default_1.png"
+    _ <- runDB $ insert $ Person "m-y.com" "宮本" "default_2.png"
+    _ <- runDB $ insert $ Person "o-j.com" "大瀧" "default_1.png"
+    _ <- runDB $ insert $ Person "o-a.com" "大渕" "default_1.png"
+    _ <- runDB $ insert $ Person "t-t.com" "田中" "default_1.png"
+
     _ <- runDB $ deleteWhere ([] :: [Filter Belong])
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey  1 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey  3 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey  7 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 12 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 13 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 14 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 15 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 16 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 17 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 18 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 19 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 20 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 21 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 22 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 23 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 24 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 25 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 26 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 27 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 1 :: PersonId) (toSqlKey 28 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 2 :: PersonId) (toSqlKey  1 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 2 :: PersonId) (toSqlKey  4 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 3 :: PersonId) (toSqlKey  1 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 3 :: PersonId) (toSqlKey  2 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 4 :: PersonId) (toSqlKey  1 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 4 :: PersonId) (toSqlKey  2 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 4 :: PersonId) (toSqlKey  7 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 5 :: PersonId) (toSqlKey  1 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 5 :: PersonId) (toSqlKey  2 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 5 :: PersonId) (toSqlKey  7 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 6 :: PersonId) (toSqlKey  1 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 6 :: PersonId) (toSqlKey  3 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 7 :: PersonId) (toSqlKey  3 :: GroupId)
-    _ <- runDB $ insert $ Belong (toSqlKey 7 :: PersonId) (toSqlKey  5 :: GroupId)
+    _ <- runDB $ insert $ Belong (toSqlKey  1 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  3 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  7 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 12 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 13 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 14 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 15 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 16 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 17 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 18 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 19 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 20 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 21 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 22 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 23 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 24 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 25 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 26 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 27 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey 28 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  1 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  4 :: GroupId) (toSqlKey 2 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  1 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  2 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  1 :: GroupId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  2 :: GroupId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  7 :: GroupId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  1 :: GroupId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  2 :: GroupId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  7 :: GroupId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  1 :: GroupId) (toSqlKey 6 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  3 :: GroupId) (toSqlKey 6 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  3 :: GroupId) (toSqlKey 7 :: PersonId)
+    _ <- runDB $ insert $ Belong (toSqlKey  5 :: GroupId) (toSqlKey 7 :: PersonId)
 
     now <- liftIO getCurrentTime
     let longBody = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -135,8 +135,8 @@ getAdminInitR = do
     _ <- runDB $ insert $ Schedule "20150705" (Just "青少年センター") (Just "午前中は分奏、午後はウエストサイドと幻想4,5です") (toSqlKey 1 :: GroupId)
 
     _ <- runDB $ deleteWhere ([] :: [Filter Attendance])
-    _ <- runDB $ insert $ Attendance (toSqlKey 1 :: ScheduleId) (toSqlKey 1 :: PersonId) 1 Nothing
-    _ <- runDB $ insert $ Attendance (toSqlKey 1 :: ScheduleId) (toSqlKey 2 :: PersonId) 4 (Just "15時頃帰ります")
+    _ <- runDB $ insert $ Attendance 1 Nothing                 (toSqlKey 1 :: PersonId) (toSqlKey 1 :: ScheduleId) 
+    _ <- runDB $ insert $ Attendance 4 (Just "15時頃帰ります") (toSqlKey 2 :: PersonId) (toSqlKey 1 :: ScheduleId) 
 
     redirect $ AdminLinksR
 

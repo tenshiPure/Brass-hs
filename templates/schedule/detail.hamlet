@@ -1,4 +1,6 @@
 <div #layout-form>
+    <form action=@{ScheduleAttendanceCreateR groupId scheduleId} method=post enctype=#{enctype}>
+        ^{formWidget}
 
 <div #layout-content>
     <div .schedule>

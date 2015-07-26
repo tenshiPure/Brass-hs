@@ -8,11 +8,10 @@
 /home             HomeR            GET
 /home/#GroupId    HomeWithGroupIdR GET
 
-/schedules/#GroupId                   ScheduleListR   GET
-/schedule/detail/#GroupId/#ScheduleId ScheduleDetailR GET
-/schedule/create/#GroupId             ScheduleCreateR     POST
-
-/attendance/create/#GroupId/#ScheduleId               AttendanceCreateR GET POST
+/schedules/#GroupId                     ScheduleListR   GET
+/schedule/detail/#GroupId/#ScheduleId   ScheduleDetailR GET
+/schedule/create/#GroupId               ScheduleCreateR     POST
+/attendance/create/#GroupId/#ScheduleId ScheduleAttendanceCreateR     POST
 
 /links/#GroupId               LinkListR   GET
 /link/detail/#GroupId/#LinkId LinkDetailR GET

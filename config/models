@@ -23,8 +23,8 @@ Schedule
     groupId  GroupId
 
 Attendance
-    personId   PersonId
     scheduleId ScheduleId
+    personId   PersonId
     presence   Int
     note       Text Maybe
 

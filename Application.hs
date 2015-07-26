@@ -35,7 +35,6 @@ import Handler.Root
 import Handler.Home
 import Handler.Admin
 import Handler.Schedule
-import Handler.Attendance
 import Handler.Link
 import Handler.Message
 

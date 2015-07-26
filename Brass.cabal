@@ -25,7 +25,6 @@ library
                      Handler.Home
                      Handler.Admin
                      Handler.Schedule
-                     Handler.Attendance
                      Handler.Link
                      Handler.Message
 

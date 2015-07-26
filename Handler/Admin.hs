@@ -135,8 +135,8 @@ getAdminInitR = do
     _ <- runDB $ insert $ Schedule "20150705" (Just "青少年センター") (Just "午前中は分奏、午後はウエストサイドと幻想4,5です") (toSqlKey 1 :: GroupId)
 
     _ <- runDB $ deleteWhere ([] :: [Filter Attendance])
-    _ <- runDB $ insert $ Attendance (toSqlKey 1 :: PersonId) (toSqlKey 1 :: ScheduleId) 1 Nothing
-    _ <- runDB $ insert $ Attendance (toSqlKey 2 :: PersonId) (toSqlKey 1 :: ScheduleId) 4 (Just "15時頃帰ります")
+    _ <- runDB $ insert $ Attendance (toSqlKey 1 :: ScheduleId) (toSqlKey 1 :: PersonId) 1 Nothing
+    _ <- runDB $ insert $ Attendance (toSqlKey 1 :: ScheduleId) (toSqlKey 2 :: PersonId) 4 (Just "15時頃帰ります")
 
     redirect $ AdminLinksR
 

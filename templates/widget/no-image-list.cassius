@@ -27,8 +27,8 @@
 .no-image-list__item div
     white-space: nowrap
 
-.no-image-list__item + .no-image-list__item
-    border-top: 1px solid #FFF
+.no-image-list__item
+    border-top: 1px solid #000
 
 .no-image-list__item a:hover
     background-color: #CCF

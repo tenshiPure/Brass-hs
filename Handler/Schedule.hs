@@ -2,7 +2,21 @@ module Handler.Schedule where
 
 
 import Import
-import Handler.Attendance(fromInt)
+
+
+presenceTypes :: [(Text, Int)]
+presenceTypes = [(fromInt 1, 1),
+                 (fromInt 2, 2),
+                 (fromInt 3, 3),
+                 (fromInt 4, 4)]
+
+fromInt :: Int -> Text
+fromInt n = case n of
+    1 -> "参加"
+    2 -> "欠席"
+    3 -> "遅刻"
+    4 -> "早退"
+    _ -> ""
 
 
 getScheduleListR :: GroupId -> Handler Html
@@ -24,6 +38,9 @@ getScheduleDetailR groupId scheduleId = do
 
     let contents = zip attendances persons
 
+    personId <- requireAuthId
+    (formWidget, enctype) <- generateFormPost (fAttendance scheduleId personId)
+
     renderWithGroups $(widgetFile "schedule/detail") "予定 詳細" PSchedule ["予定 一覧", "予定 詳細"] groupId []
 
 
@@ -42,12 +59,39 @@ fSchedule groupId extra = do
     return (result, widget)
 
 
+fAttendance :: ScheduleId -> PersonId -> Html -> MForm Handler (FormResult Attendance, Widget)
+fAttendance scheduleId personId extra = do
+    (scheduleIdResult, scheduleIdView) <- mreq hiddenField "" (Just scheduleId)
+    (personIdResult, personIdView)     <- mreq hiddenField "" (Just personId)
+    (presenceResult, presenceView)     <- mreq (selectFieldList presenceTypes) (createSettings "attendance-form__presence" []) Nothing
+    (noteResult, noteView)             <- mopt textField (createSettings "attendance-form__note" [("placeholder", "備考を入力（任意）")]) Nothing
+    let result = Attendance
+           <$> scheduleIdResult
+           <*> personIdResult
+           <*> presenceResult
+           <*> noteResult
+        widget = $(widgetFile "schedule/form/attendance")
+    return (result, widget)
+
+
 postScheduleCreateR :: GroupId -> Handler Html
 postScheduleCreateR groupId = do
-    ((res, formWidget), enctype) <- runFormPost (fSchedule groupId)
+    ((res, _), _) <- runFormPost (fSchedule groupId)
     case res of
         FormSuccess schedule -> do
             _ <- runDB $ insert schedule
             redirect $ ScheduleListR groupId
+
+        _ -> error "todo"
+
+
+postScheduleAttendanceCreateR :: GroupId -> ScheduleId -> Handler Html
+postScheduleAttendanceCreateR groupId scheduleId = do
+    personId <- requireAuthId
+    ((res, _), _) <- runFormPost (fAttendance scheduleId personId)
+    case res of
+        FormSuccess attendance -> do
+            _ <- runDB $ insert attendance
+            redirect $ ScheduleDetailR groupId scheduleId
 
         _ -> error "todo"

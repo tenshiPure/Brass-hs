@@ -24,7 +24,7 @@
     height: 100%
     font-size: 1em
     overflow: scroll
-    padding-left: 0.5em
+    padding-left: 0
     margin: 0
 
 .attendance-list li
@@ -34,7 +34,7 @@
     line-height: 2em
     padding-top: 0.5em
     padding-bottom: 0.5em
-    padding-left: 0.5em
+    padding-left: 1em
 
 .attendance__item__name
     margin-right: 1em
@@ -45,5 +45,5 @@
 .attendance__item__note
     overflow: hidden
 
-.attendance__item + .attendance__item
-    border-top: 1px solid #FFF
+.attendance__item
+    border-top: 1px solid #000

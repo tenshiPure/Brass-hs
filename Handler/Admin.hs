@@ -45,12 +45,12 @@ getAdminInitR = do
 
     _ <- runDB $ deleteWhere ([] :: [Filter Person])
     _ <- runDB $ insert $ Person "s-r.com" "ほげ" "hoge.png"
-    _ <- runDB $ insert $ Person "m-i.com" "松本" "m-i.jpg"
-    _ <- runDB $ insert $ Person "t-h.com" "千葉" "t-h.jpg"
+    _ <- runDB $ insert $ Person "m-i.com" "松本" "m-i.png"
+    _ <- runDB $ insert $ Person "t-h.com" "千葉" "t-h.png"
     _ <- runDB $ insert $ Person "i-k.com" "伊藤" "i-k.png"
-    _ <- runDB $ insert $ Person "m-y.com" "宮本" "m-y.jpg"
-    _ <- runDB $ insert $ Person "o-j.com" "大瀧" "o-j.jpg"
-    _ <- runDB $ insert $ Person "o-a.com" "大渕" "o-a.jpg"
+    _ <- runDB $ insert $ Person "m-y.com" "宮本" "m-y.png"
+    _ <- runDB $ insert $ Person "o-j.com" "大瀧" "o-j.png"
+    _ <- runDB $ insert $ Person "o-a.com" "大渕" "o-a.png"
     _ <- runDB $ insert $ Person "t-t.com" "田中" "t-t.png"
 
     _ <- runDB $ deleteWhere ([] :: [Filter Belong])

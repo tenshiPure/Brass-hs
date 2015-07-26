@@ -29,16 +29,16 @@ postMessageCreateR groupId = do
             personId <- requireAuthId
             now <- liftIO getCurrentTime
 
-            _ <- runDB $ insert $ Message body now groupId personId
+            messageId <- runDB $ insert $ Message body now groupId personId
 
-            writeEvent "やったー" groupId personId
+            writeEvent body groupId personId messageId
 
             redirect $ MessageListR groupId
         Nothing -> redirect $ MessageListR groupId
 
 
-writeEvent :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Text -> GroupId -> PersonId -> HandlerT site IO ()
-writeEvent content groupId personId = do
+writeEvent :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Text -> GroupId -> PersonId -> MessageId -> HandlerT site IO ()
+writeEvent body groupId personId messageId = do
     now <- liftIO getCurrentTime
-    _ <- runDB $ insert $ Event content now groupId personId
+    _ <- runDB $ insert $ Event (take 25 body) now groupId personId (Just messageId) Nothing Nothing Nothing Nothing
     return ()

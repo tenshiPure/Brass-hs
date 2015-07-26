@@ -44,7 +44,12 @@ Comment
     personId PersonId
 
 Event
-    content  Text
-    created  UTCTime
-    groupId  GroupId
-    personId PersonId
+    content      Text
+    created      UTCTime
+    groupId      GroupId
+    personId     PersonId
+    messageId    MessageId    Maybe
+    scheduleId   ScheduleId   Maybe
+    attendanceId AttendanceId Maybe
+    linkId       LinkId       Maybe
+    commentId    CommentId    Maybe

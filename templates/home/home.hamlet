@@ -3,6 +3,8 @@
         <span .no-contents>
             現在このグループにはイベントが存在しません
     $else
-        $forall event <- contents
+        $forall (event, person) <- contents
             <p>
-                #{eventContent event}
+                <img src=/static/image/icon/person/#{personIcon person}>
+                    #{eventContent event}
+                <hr>

@@ -76,7 +76,10 @@ postLinkCreateR groupId = do
     ((res, _), _) <- runFormPost $ fLink groupId personId
     case res of
         FormSuccess link -> do
-            _ <- runDB $ insert link
+            linkId <- runDB $ insert link
+
+            writeEvent (linkTitle link) groupId personId (Just linkId) Nothing
+
             redirect $ LinkListR groupId
 
         _ -> error "todo"
@@ -88,7 +91,17 @@ postLinkCommentCreateR groupId linkId = do
     ((res, _), _) <- runFormPost (fComment linkId personId)
     case res of
         FormSuccess comment -> do
-            _ <- runDB $ insert comment
+            commentId <- runDB $ insert comment
+
+            writeEvent "なんらかのコメント" groupId personId (Just linkId) (Just commentId)
+
             redirect $ LinkDetailR groupId linkId
 
         _ -> error "todo"
+
+
+writeEvent :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Text -> GroupId -> PersonId -> Maybe LinkId -> Maybe CommentId -> HandlerT site IO ()
+writeEvent body groupId personId mLinkId mCommentId = do
+    now <- liftIO getCurrentTime
+    _ <- runDB $ insert $ Event body now groupId personId Nothing Nothing Nothing mLinkId mCommentId
+    return ()

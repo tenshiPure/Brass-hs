@@ -184,6 +184,8 @@ renderWithGroups mainWidget title page navs currentGroupId widgets = do
         let tabWidget    = $(widgetFile "layout/tab")
         let navWidget    = $(widgetFile "layout/nav")
 
+        let modalGroupCreateWidget = $(widgetFile "modal/group-create")
+
         setTitle title
         $(widgetFile "layout/frame")
 

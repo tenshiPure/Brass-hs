@@ -6,6 +6,12 @@
 
     ^{tabWidget}
 
-<div id="layout-main">
+<div #layout-main>
+    <a #modal-group-create-open>
+        ＋
+
     ^{navWidget}
     ^{mainWidget}
+
+<div #layout-modals>
+    ^{modalGroupCreateWidget}

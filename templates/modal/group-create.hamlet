@@ -1,0 +1,4 @@
+<div #modal-group-create>
+    グループ作るよぉぉぉ
+    <a #modal-close .button-link>
+        閉じる

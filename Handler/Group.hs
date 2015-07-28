@@ -9,7 +9,11 @@ postGroupCreateR = do
     ((res, _), _) <- runFormPost $ fGroup
     case res of
         FormSuccess entity -> do
-            _ <- runDB $ insert entity
+            groupId <- runDB $ insert entity
+
+            personId <- requireAuthId
+            _ <- runDB $ insert $ Belong groupId personId 
+
             redirect $ HomeR
 
         _ -> error "todo"

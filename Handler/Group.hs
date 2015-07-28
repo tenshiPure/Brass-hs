@@ -17,3 +17,13 @@ postGroupCreateR = do
             redirect $ HomeR
 
         _ -> error "todo"
+
+
+getGroupUpdateR :: GroupId -> Handler Html
+getGroupUpdateR groupId = do
+    error "todo"
+
+
+postGroupUpdateR :: GroupId -> Handler Html
+postGroupUpdateR groupId = do
+    error "todo"

@@ -1,5 +1,5 @@
 <div #modal-group-create>
-    <form method=post action=@{GroupCreateR} enctype=groupCreateEnctype>
+    <form method=post action=@{GroupCreateR} enctype=#{groupCreateEnctype}>
         ^{groupCreateWidget}
 
     <a #modal-close .button-link>

@@ -160,7 +160,7 @@ unsafeHandler = Unsafe.fakeHandlerGetLogger appLogger
 
 -- page type
 -- todo これからタイトル作るのが良いかも
-data Page = PHome | PMessage | PSchedule | PLink deriving (Show, Eq)
+data Page = PHome | PMessage | PSchedule | PLink | PManage deriving (Show, Eq)
 
 
 -- require login, title and current group id.

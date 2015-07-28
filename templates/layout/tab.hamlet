@@ -10,3 +10,6 @@
 <div .layout-tab :page == PLink:.layout-tab--active>
     <a href=@{LinkListR currentGroupId}>
         リンク
+<div .layout-tab :page == PManage:.layout-tab--active>
+    <a href=@{GroupUpdateR currentGroupId}>
+        管理

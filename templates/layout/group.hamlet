@@ -16,3 +16,7 @@
             $of PLink
                 <option :currentGroupId == groupId:selected value=@{LinkListR groupId}>
                     #{groupName group}
+
+            $of PManage
+                <option :currentGroupId == groupId:selected value=@{GroupUpdateR groupId}>
+                    #{groupName group}

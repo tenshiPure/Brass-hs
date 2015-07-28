@@ -4,15 +4,14 @@
 <div #layout-selectors>
     ^{groupWidget}
 
+    <a #modal-group-create-open style="float: left;">
+        ＋
+
     ^{tabWidget}
 
     ^{dropdownWidget}
 
 <div #layout-main>
-    <a #modal-group-create-open>
-        ＋
-
-    ^{navWidget}
     ^{mainWidget}
 
 <div #layout-modals>

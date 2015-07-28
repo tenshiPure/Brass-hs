@@ -21,14 +21,14 @@ postGroupCreateR = do
 
 getGroupManageR :: GroupId -> Handler Html
 getGroupManageR groupId = do
-    error "todo"
+    error $ "todo" ++ (show groupId)
 
 
 getGroupUpdateR :: GroupId -> Handler Html
 getGroupUpdateR groupId = do
-    error "todo"
+    error $ "todo" ++ (show groupId)
 
 
 postGroupUpdateR :: GroupId -> Handler Html
 postGroupUpdateR groupId = do
-    error "todo"
+    error $ "todo" ++ (show groupId)

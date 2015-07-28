@@ -26,7 +26,7 @@ getScheduleListR groupId = do
 
     (formWidget, enctype) <- generateFormPost (fSchedule groupId)
 
-    renderWithGroups $(widgetFile "schedule/list") "予定 一覧" PSchedule ["予定 一覧"] groupId [$(widgetFile "widget/no-image-list")]
+    renderWithGroups $(widgetFile "schedule/list") "予定 一覧" PSchedule groupId [$(widgetFile "widget/no-image-list")]
 
 
 getScheduleDetailR :: GroupId -> ScheduleId -> Handler Html
@@ -42,7 +42,7 @@ getScheduleDetailR groupId scheduleId = do
     personId <- requireAuthId
     (formWidget, enctype) <- generateFormPost (fAttendance personId scheduleId)
 
-    renderWithGroups $(widgetFile "schedule/detail") "予定 詳細" PSchedule ["予定 一覧", "予定 詳細"] groupId []
+    renderWithGroups $(widgetFile "schedule/detail") "予定 詳細" PSchedule groupId []
 
 
 fSchedule :: GroupId -> Html -> MForm Handler (FormResult Schedule, Widget)

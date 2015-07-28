@@ -29,4 +29,4 @@ getHomeWithGroupIdR groupId = do
 
     tz <- liftIO getCurrentTimeZone
 
-    renderWithGroups $(widgetFile "home/home") "ホーム" PHome ["ホーム"] groupId [$(widgetFile "widget/media")]
+    renderWithGroups $(widgetFile "home/home") "ホーム" PHome groupId [$(widgetFile "widget/media")]

@@ -164,16 +164,14 @@ data Page = PHome | PMessage | PSchedule | PLink deriving (Show, Eq)
 
 
 -- require login, title and current group id.
-renderWithGroups :: Widget -> Html -> Page -> [Text] -> GroupId -> [Widget] -> Handler Html
-renderWithGroups mainWidget title page navs currentGroupId widgets = do
+renderWithGroups :: Widget -> Html -> Page -> GroupId -> [Widget] -> Handler Html
+renderWithGroups mainWidget title page currentGroupId widgets = do
     loginPersonId <- requireAuthId
     loginPerson <- runDB $ get404 loginPersonId
 
     belongs <- runDB $ selectList [BelongPersonId ==. loginPersonId] [Asc BelongId]
     let belongGroupIds = map (belongGroupId . entityVal) belongs
     groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
-
-    nav <- createNav currentGroupId navs
 
     (groupCreateWidget, groupCreateEnctype) <- generateFormPost $ fGroup
 
@@ -184,19 +182,12 @@ renderWithGroups mainWidget title page navs currentGroupId widgets = do
         let headerWidget   = $(widgetFile "layout/header")
         let groupWidget    = $(widgetFile "layout/group")
         let tabWidget      = $(widgetFile "layout/tab")
-        let navWidget      = $(widgetFile "layout/nav")
         let dropdownWidget = $(widgetFile "layout/dropdown")
 
         let modalGroupCreateWidget = $(widgetFile "modal/group-create")
 
         setTitle title
         $(widgetFile "layout/frame")
-
-
-createNav :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Key Group -> [Text] -> HandlerT site IO Text
-createNav currentGroupId navs = do
-    currentGroup <- runDB $ get404 currentGroupId
-    return $ concat $ intersperse " > " $ (groupName currentGroup) : navs
 
 
 -- 07/14 20:12:05

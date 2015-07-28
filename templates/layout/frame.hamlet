@@ -6,6 +6,8 @@
 
     ^{tabWidget}
 
+    ^{dropdownWidget}
+
 <div #layout-main>
     <a #modal-group-create-open>
         ＋

@@ -19,6 +19,11 @@ postGroupCreateR = do
         _ -> error "todo"
 
 
+getGroupManageR :: GroupId -> Handler Html
+getGroupManageR groupId = do
+    error "todo"
+
+
 getGroupUpdateR :: GroupId -> Handler Html
 getGroupUpdateR groupId = do
     error "todo"

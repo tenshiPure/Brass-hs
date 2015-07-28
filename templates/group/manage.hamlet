@@ -1,0 +1,10 @@
+<div #layout-content>
+    <ul>
+        <li>
+            グループの情報を変更する
+        <li>
+            このグループに招待する
+        <li>
+            招待リンク：/localhost:3000/group/hoge/fuga
+        <li>
+            このグループから抜ける

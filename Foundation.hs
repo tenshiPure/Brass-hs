@@ -160,7 +160,7 @@ unsafeHandler = Unsafe.fakeHandlerGetLogger appLogger
 
 -- page type
 -- todo これからタイトル作るのが良いかも
-data Page = PHome | PMessage | PSchedule | PLink | PManage deriving (Show, Eq)
+data Page = PHome | PMessage | PSchedule | PLink deriving (Show, Eq)
 
 
 -- require login, title and current group id.
@@ -181,10 +181,11 @@ renderWithGroups mainWidget title page navs currentGroupId widgets = do
         mapM_ toWidget widgets
         toWidget ($(widgetFile "widget/common") :: Widget)
 
-        let headerWidget = $(widgetFile "layout/header")
-        let groupWidget  = $(widgetFile "layout/group")
-        let tabWidget    = $(widgetFile "layout/tab")
-        let navWidget    = $(widgetFile "layout/nav")
+        let headerWidget   = $(widgetFile "layout/header")
+        let groupWidget    = $(widgetFile "layout/group")
+        let tabWidget      = $(widgetFile "layout/tab")
+        let navWidget      = $(widgetFile "layout/nav")
+        let dropdownWidget = $(widgetFile "layout/dropdown")
 
         let modalGroupCreateWidget = $(widgetFile "modal/group-create")
 

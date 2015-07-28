@@ -9,6 +9,7 @@
 /home/#GroupId    HomeWithGroupIdR GET
 
 /group/create          GroupCreateR     POST
+/group/manage/#GroupId GroupManageR GET
 /group/update/#GroupId GroupUpdateR GET POST
 
 /schedules/#GroupId                     ScheduleListR   GET

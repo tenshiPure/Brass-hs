@@ -17,7 +17,6 @@ getMessageListR groupId = do
     tz <- liftIO getCurrentTimeZone
 
     renderWithGroups $(widgetFile "message/list") "チャット" PMessage ["チャット"] groupId [$(widgetFile "widget/media")]
-        
 
 
 postMessageCreateR :: GroupId -> Handler Html

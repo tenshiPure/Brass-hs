@@ -1,6 +1,0 @@
-#footer-links
-    float: right
-    line-height: 4em
-
-#footer-links span
-    margin-left: 1em

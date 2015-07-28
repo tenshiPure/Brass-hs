@@ -9,6 +9,3 @@
 <div id="layout-main">
     ^{navWidget}
     ^{mainWidget}
-
-<div id="layout-footer">
-    ^{footerWidget}

@@ -183,7 +183,6 @@ renderWithGroups mainWidget title page navs currentGroupId widgets = do
         let groupWidget  = $(widgetFile "layout/group")
         let tabWidget    = $(widgetFile "layout/tab")
         let navWidget    = $(widgetFile "layout/nav")
-        let footerWidget = $(widgetFile "layout/footer")
 
         setTitle title
         $(widgetFile "layout/frame")

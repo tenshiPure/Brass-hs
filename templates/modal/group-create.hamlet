@@ -1,4 +1,6 @@
 <div #modal-group-create>
-    グループ作るよぉぉぉ
+    <form method=post action=@{GroupCreateR} enctype=groupCreateEnctype>
+        ^{groupCreateWidget}
+
     <a #modal-close .button-link>
         閉じる

@@ -1,0 +1,14 @@
+<div>
+    <span .form-label>
+        グループ名
+    ^{fvInput nameView}
+
+<div>
+    <span .form-label>
+        アイコンパス
+    ^{fvInput iconView}
+
+#{extra}
+
+<div #group-form__buttons>
+    <input .submit-button type=submit value=送信>

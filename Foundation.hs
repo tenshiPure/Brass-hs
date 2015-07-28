@@ -175,6 +175,8 @@ renderWithGroups mainWidget title page navs currentGroupId widgets = do
 
     nav <- createNav currentGroupId navs
 
+    (groupCreateWidget, groupCreateEnctype) <- generateFormPost $ fGroup
+
     defaultLayout $ do
         mapM_ toWidget widgets
         toWidget ($(widgetFile "widget/common") :: Widget)
@@ -236,3 +238,14 @@ writeEvent page parentId parentContent childId childContent groupId personId = d
     now <- liftIO getCurrentTime
     _ <- runDB $ insert $ Event now page parentId parentContent childId childContent groupId personId
     return ()
+
+
+fGroup :: Html -> MForm Handler (FormResult Group, Widget)
+fGroup extra = do
+    (nameResult, nameView) <- mreq textField "" Nothing
+    (iconResult, iconView) <- mreq textField "" Nothing
+    let result = Group
+           <$> nameResult
+           <*> iconResult
+        widget = $(widgetFile "group/form/group")
+    return (result, widget)

@@ -34,6 +34,7 @@ import Handler.Common
 import Handler.Root
 import Handler.Home
 import Handler.Admin
+import Handler.Group
 import Handler.Schedule
 import Handler.Link
 import Handler.Message

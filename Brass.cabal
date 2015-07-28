@@ -24,6 +24,7 @@ library
                      Handler.Root
                      Handler.Home
                      Handler.Admin
+                     Handler.Group
                      Handler.Schedule
                      Handler.Link
                      Handler.Message

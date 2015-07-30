@@ -1,0 +1,35 @@
+.select-menu
+    display: block
+    position: relative
+    margin-top: 1em
+    height: 2em
+
+.select-menu a
+    text-decoration: none
+
+.select-menu__label
+    border: solid #ddd 1px
+    display: inline-block
+    color: #262626
+    cursor: default
+    text-align: right
+
+.select-menu__items
+    border: solid #bbb 1px
+    width: 200px
+    position: absolute
+    z-index: 100
+    right: 0
+    top: 28px
+    background: #fff
+    overflow: auto
+    display: none
+
+.select-menu__item
+    border-bottom: solid #bbb 1px
+    padding: 5px 8px
+    display: block
+
+.select-menu__item:hover
+    color: #666
+    background: #eee

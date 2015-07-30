@@ -9,7 +9,8 @@
 
     ^{tabWidget}
 
-    ^{dropdownWidget}
+    <div #layout-group-manage>
+        ^{groupManageWidget}
 
 <div #layout-main>
     ^{mainWidget}

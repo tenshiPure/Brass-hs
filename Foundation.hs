@@ -179,10 +179,10 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
         mapM_ toWidget widgets
         toWidget ($(widgetFile "widget/common") :: Widget)
 
-        let headerWidget   = $(widgetFile "layout/header")
-        let groupWidget    = $(widgetFile "layout/group")
-        let tabWidget      = $(widgetFile "layout/tab")
-        let dropdownWidget = $(widgetFile "layout/dropdown")
+        let headerWidget      = $(widgetFile "layout/header")
+        let groupWidget       = $(widgetFile "layout/group")
+        let tabWidget         = $(widgetFile "layout/tab")
+        let groupManageWidget = $(widgetFile "layout/group-manage")
 
         let modalGroupCreateWidget = $(widgetFile "modal/group-create")
 

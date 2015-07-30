@@ -46,7 +46,6 @@ html, body
     height: 3em
 
 
-#layout-dropdown
+#layout-group-manage
     float: right
     margin-right: 2em
-    z-index: 100

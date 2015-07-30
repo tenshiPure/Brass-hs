@@ -1,0 +1,12 @@
+<div .select-menu>
+    <span .select-menu__label>
+        ＋
+    <div .select-menu__items>
+        <a href="/項目1" .select-menu__item>
+            グループ情報を変更する
+        <a href="/項目2" .select-menu__item>
+            このグループに招待する
+        <a href="/項目3" .select-menu__item>
+            招待リンク
+        <a href="/項目4" .select-menu__item>
+            このグループから抜ける

@@ -1,0 +1,11 @@
+$(function(){
+    $('.select-menu__label').click(function() {
+        $('.select-menu__items').toggle();
+
+        return false;
+    });
+
+    $('body').click(function() {
+        $('.select-menu__items').hide();
+    });
+});

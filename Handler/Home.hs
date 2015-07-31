@@ -2,7 +2,6 @@ module Handler.Home where
 
 
 import Import
-import Data.Time
 import Database.Persist.Sql(fromSqlKey)
 
 getHomeR :: Handler Html
@@ -20,13 +19,37 @@ getHomeR = do
 
 getHomeWithGroupIdR :: GroupId -> Handler Html
 getHomeWithGroupIdR groupId = do
-    events <- fmap (fmap entityVal) $ runDB $ selectList [] [Desc EventId]
+    messages <- runDB $ selectList [MessageGroupId ==. groupId] [Desc MessageId]
 
-    contents <- forM events $ \event -> do
-        let personId = eventPersonId event
-        person <- runDB $ get404 personId
-        return (event, person)
 
-    tz <- liftIO getCurrentTimeZone
+    now <- liftIO getCurrentTime
 
-    renderWithGroups $(widgetFile "home/home") "ホーム" PHome groupId [$(widgetFile "widget/media")]
+    let eventLogs = map (toEventLog now) messages
+
+    defaultLayout [whamlet|
+        $forall eventLog <- eventLogs
+            $case eventLog
+                $of MessageEventLog groupId messageId body _
+                    <p>
+                        チャットで
+                        <a href=@{MessageListR groupId}#message-#{messageId}>
+                            #{body}
+                        と発言しました
+    |]
+
+--     tz <- liftIO getCurrentTimeZone
+
+--     renderWithGroups $(widgetFile "home/home") "ホーム" PHome groupId [$(widgetFile "widget/media")]
+
+
+data EventLog = MessageEventLog { groupId :: GroupId, messageId :: Int64, body :: Text, now :: UTCTime }
+--            | LinkEventLog { linkId :: String, title :: String , now :: Int, groupId :: Int}
+--            | CommentEventLog { linkId :: String, commentId :: String, linkTitle :: String, body :: String , now :: Int, groupId :: Int}
+           deriving (Show)
+
+
+toEventLog :: UTCTime -> Entity Message -> EventLog
+toEventLog now message = MessageEventLog (messageGroupId $ entityVal message) (fromSqlKey $ entityKey message) (messageBody $ entityVal message) now
+--         (MessageEvent id body _ _) -> putStrLn $ "チャットで<a href=/messages/" ++ id ++ ">" ++ body ++ "と発言しました"
+--         (LinkEvent id title _ _) -> putStrLn $ "リンク<a href=/links/" ++ id ++ ">" ++ title ++ "を作成しました"
+--         (CommentEvent lid cid title body _ _) -> putStrLn $ "リンク<a href=/links/" ++ lid ++ ">" ++ title ++ "に<a href=/comments/" ++ cid ++ ">" ++ body ++ "とコメントしました"

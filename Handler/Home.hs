@@ -25,9 +25,11 @@ getHomeWithGroupIdR groupId = do
 
 
 
---     eventLogs <- mapM toEventLog messages
---     eventLogs <- mapM toEventLog links
-    eventLogs <- mapM toEventLog comments
+    messageEventLogs <- mapM messageToEventLog messages
+    linkEventLogs <- mapM linkToEventLog links
+    commentEventLogs <- mapM commentToEventLog comments
+
+    let eventLogs = sortBy (\x y -> compare (now x) (now y)) $ messageEventLogs ++ linkEventLogs ++ commentEventLogs
 
     defaultLayout [whamlet|
         $forall eventLog <- eventLogs
@@ -65,22 +67,22 @@ data EventLog = MessageEventLog { groupId :: GroupId, person :: Person, messageI
               | CommentEventLog { groupId :: GroupId, person :: Person, linkId' :: LinkId, linkId    :: Int64, title :: Text, commentId :: Int64, body :: Text , now :: UTCTime }
 
 
--- toEventLog :: Entity Message -> HandlerT App IO EventLog
--- toEventLog message = do
---     now <- liftIO getCurrentTime
---     person <- runDB $ get404 (messagePersonId $ entityVal message)
---     return $ MessageEventLog (messageGroupId $ entityVal message) person (fromSqlKey $ entityKey message) (messageBody $ entityVal message) now
+messageToEventLog :: Entity Message -> HandlerT App IO EventLog
+messageToEventLog message = do
+    now <- liftIO getCurrentTime
+    person <- runDB $ get404 (messagePersonId $ entityVal message)
+    return $ MessageEventLog (messageGroupId $ entityVal message) person (fromSqlKey $ entityKey message) (messageBody $ entityVal message) now
 
 
--- toEventLog :: Entity Link -> HandlerT App IO EventLog
--- toEventLog link = do
---     now <- liftIO getCurrentTime
---     person <- runDB $ get404 (linkPersonId $ entityVal link)
---     return $ LinkEventLog (linkGroupId $ entityVal link) person (fromSqlKey $ entityKey link) (linkTitle $ entityVal link) now
+linkToEventLog :: Entity Link -> HandlerT App IO EventLog
+linkToEventLog link = do
+    now <- liftIO getCurrentTime
+    person <- runDB $ get404 (linkPersonId $ entityVal link)
+    return $ LinkEventLog (linkGroupId $ entityVal link) person (fromSqlKey $ entityKey link) (linkTitle $ entityVal link) now
 
 
-toEventLog :: Entity Comment -> HandlerT App IO EventLog
-toEventLog comment = do
+commentToEventLog :: Entity Comment -> HandlerT App IO EventLog
+commentToEventLog comment = do
     now <- liftIO getCurrentTime
     person <- runDB $ get404 (commentPersonId $ entityVal comment)
     link <- runDB $ get404 (commentLinkId $ entityVal comment)

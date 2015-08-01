@@ -1,6 +1,8 @@
 <div #layout-form>
     <form action=@{LinkCommentCreateR groupId linkId} method=post enctype=#{enctype}>
         ^{formWidget}
+        <div #message-form__buttons>
+             <input .submit-button type=submit value=送信>
 
 <div #layout-content>
     <div .image-title>

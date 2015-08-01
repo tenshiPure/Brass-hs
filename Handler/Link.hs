@@ -15,35 +15,22 @@ categories = [("音楽", "notes.gif"),
 
 
 fLink :: GroupId -> PersonId -> Html -> MForm Handler (FormResult Link, Widget)
-fLink groupId personId extra = do
-    (titleResult, titleView)       <- mreq textField (createSettings "link-form__title" [("placeholder", "タイトルを入力")]) Nothing
-    (urlResult, urlView)           <- mreq urlField (createSettings "link-form__url" [("placeholder", "URLを入力")]) Nothing
-    (iconResult, iconView)         <- mreq (selectFieldList categories) (createSettings "link-form__category" []) Nothing
-    (groupIdResult, groupIdView)   <- mreq hiddenField "" (Just groupId)
-    (personIdResult, personIdView) <- mreq hiddenField "" (Just personId)
-    let result = Link
-           <$> titleResult
-           <*> urlResult
-           <*> iconResult
-           <*> groupIdResult
-           <*> personIdResult
-        widget = $(widgetFile "link/form/link")
-    return (result, widget)
+fLink groupId personId = renderDivs $ Link
+    <$> areq textField                    (createSettings "link-form__title"    [("placeholder", "タイトルを入力")]) Nothing
+    <*> areq urlField                     (createSettings "link-form__url"      [("placeholder", "URLを入力")])      Nothing
+    <*> areq (selectFieldList categories) (createSettings "link-form__category" [])                                  Nothing
+    <*> lift (liftIO getCurrentTime)
+    <*> areq hiddenField "" (Just groupId)
+    <*> areq hiddenField "" (Just personId)
 
 
 fComment :: LinkId -> GroupId -> PersonId -> Html -> MForm Handler (FormResult Comment, Widget)
-fComment linkId groupId personId extra = do
-    (bodyResult, bodyView)         <- mreq textareaField (createSettings "comment-form__body" [("placeholder", "コメントを入力")]) Nothing
-    (linkIdResult, linkIdView)     <- mreq hiddenField "" (Just linkId)
-    (groupIdResult, groupIdView)   <- mreq hiddenField "" (Just groupId)
-    (personIdResult, personIdView) <- mreq hiddenField "" (Just personId)
-    let result = Comment
-           <$> bodyResult
-           <*> linkIdResult
-           <*> groupIdResult
-           <*> personIdResult
-        widget = $(widgetFile "link/form/comment")
-    return (result, widget)
+fComment linkId groupId personId = renderDivs $ Comment
+    <$> areq textareaField (createSettings "comment-form__body" [("placeholder", "コメントを入力")]) Nothing
+    <*> lift (liftIO getCurrentTime)
+    <*> areq hiddenField "" (Just linkId)
+    <*> areq hiddenField "" (Just groupId)
+    <*> areq hiddenField "" (Just personId)
 
 
 getLinkListR :: GroupId -> Handler Html
@@ -68,7 +55,7 @@ getLinkDetailR groupId linkId = do
         return (comment, person)
 
     personId <- requireAuthId
-    (formWidget, enctype) <- generateFormPost (fComment linkId groupId personId)
+    (formWidget, enctype) <- generateFormPost $ fComment linkId groupId personId
 
     renderWithGroups $(widgetFile "link/detail") "リンク 詳細" PLink groupId [$(widgetFile "widget/media")]
 
@@ -79,10 +66,7 @@ postLinkCreateR groupId = do
     ((res, _), _) <- runFormPost $ fLink groupId personId
     case res of
         FormSuccess link -> do
-            linkId <- runDB $ insert link
-
-            writeEvent 4 (pack $ show $ fromSqlKey linkId) (linkTitle link) "" "" groupId personId
-
+            _ <- runDB $ insert link
             redirect $ LinkListR groupId
 
         _ -> error "todo"
@@ -91,14 +75,10 @@ postLinkCreateR groupId = do
 postLinkCommentCreateR :: GroupId -> LinkId -> Handler Html
 postLinkCommentCreateR groupId linkId = do
     personId <- requireAuthId
-    ((res, _), _) <- runFormPost (fComment linkId groupId personId)
+    ((res, _), _) <- runFormPost $ fComment linkId groupId personId
     case res of
         FormSuccess comment -> do
-            commentId <- runDB $ insert comment
-
-            link <- runDB $ get404 linkId
-            writeEvent 5 (pack $ show $ fromSqlKey linkId) (linkTitle link) (pack $ show $ fromSqlKey commentId) (unTextarea $ commentBody comment) groupId personId
-
+            _ <- runDB $ insert comment
             redirect $ LinkDetailR groupId linkId
 
         _ -> error "todo"

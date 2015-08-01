@@ -1,6 +1,8 @@
 <div #layout-form>
     <form action=@{ScheduleAttendanceCreateR groupId scheduleId} method=post enctype=#{enctype}>
         ^{formWidget}
+        <div #message-form__buttons>
+             <input .submit-button type=submit value=送信>
 
 <div #layout-content>
     <div .schedule>

@@ -6,8 +6,19 @@ import Data.Time
 import Database.Persist.Sql(fromSqlKey)
 
 
+fMessage :: GroupId -> PersonId -> Html -> MForm Handler (FormResult Message, Widget)
+fMessage groupId personId = renderDivs $ Message
+    <$> areq textareaField (createSettings "message-form__body" [("placeholder", "内容を入力")]) Nothing
+    <*> lift (liftIO getCurrentTime)
+    <*> areq hiddenField "" (Just groupId)
+    <*> areq hiddenField "" (Just personId)
+
+
 getMessageListR :: GroupId -> Handler Html
 getMessageListR groupId = do
+    authId <- requireAuthId
+    (formWidget, enctype) <- generateFormPost $ fMessage groupId authId
+
     messages <- runDB $ selectList [MessageGroupId ==. groupId] [Desc MessageId]
     contents <- forM messages $ \message -> do
         let personId = messagePersonId $ entityVal message
@@ -21,16 +32,11 @@ getMessageListR groupId = do
 
 postMessageCreateR :: GroupId -> Handler Html
 postMessageCreateR groupId = do
-    mBody <- lookupPostParam "body"
-
-    case mBody of
-        (Just body) -> do
-            personId <- requireAuthId
-            now <- liftIO getCurrentTime
-
-            messageId <- runDB $ insert $ Message body now groupId personId
-
-            writeEvent 1 (pack $ show $ fromSqlKey messageId) (body) "" "" groupId personId
-
+    authId <- requireAuthId
+    ((res, _), _) <- runFormPost $ fMessage groupId authId
+    case res of
+        FormSuccess message -> do
+            _ <- runDB $ insert message
             redirect $ MessageListR groupId
-        Nothing -> redirect $ MessageListR groupId
+
+        _ -> error "todo"

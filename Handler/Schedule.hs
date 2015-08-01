@@ -24,7 +24,8 @@ getScheduleListR :: GroupId -> Handler Html
 getScheduleListR groupId = do
     contents <- runDB $ selectList [ScheduleGroupId ==. groupId] [Asc ScheduleId]
 
-    (formWidget, enctype) <- generateFormPost (fSchedule groupId)
+    authId <- requireAuthId
+    (formWidget, enctype) <- generateFormPost $ fSchedule groupId authId
 
     renderWithGroups $(widgetFile "schedule/list") "予定 一覧" PSchedule groupId [$(widgetFile "widget/no-image-list")]
 
@@ -40,46 +41,35 @@ getScheduleDetailR groupId scheduleId = do
     let contents = zip attendances persons
 
     personId <- requireAuthId
-    (formWidget, enctype) <- generateFormPost (fAttendance scheduleId groupId personId)
+    (formWidget, enctype) <- generateFormPost $ fAttendance scheduleId groupId personId
 
     renderWithGroups $(widgetFile "schedule/detail") "予定 詳細" PSchedule groupId []
 
 
-fSchedule :: GroupId -> Html -> MForm Handler (FormResult Schedule, Widget)
-fSchedule groupId extra = do
-    (dayResult, dayView)         <- mreq textField (createSettings "schedule-form__day"   [("placeholder", "日付を入力")]) Nothing
-    (placeResult, placeView)     <- mopt textField (createSettings "schedule-form__place" [("placeholder", "場所を入力（任意）")]) Nothing
-    (noteResult, noteView)       <- mopt textField (createSettings "schedule-form__note"  [("placeholder", "備考を入力（任意）")]) Nothing
-    (groupIdResult, groupIdView) <- mreq hiddenField "" (Just groupId)
-    let result = Schedule
-           <$> dayResult
-           <*> placeResult
-           <*> noteResult
-           <*> groupIdResult
-        widget = $(widgetFile "schedule/form/schedule")
-    return (result, widget)
+fSchedule :: GroupId -> PersonId -> Html -> MForm Handler (FormResult Schedule, Widget)
+fSchedule groupId personId = renderDivs $ Schedule
+    <$> areq textField (createSettings "schedule-form__day"   [("placeholder", "日付を入力")])         Nothing
+    <*> aopt textField (createSettings "schedule-form__place" [("placeholder", "場所を入力（任意）")]) Nothing
+    <*> aopt textField (createSettings "schedule-form__note"  [("placeholder", "備考を入力（任意）")]) Nothing
+    <*> lift (liftIO getCurrentTime)
+    <*> areq hiddenField "" (Just groupId)
+    <*> areq hiddenField "" (Just personId)
 
 
 fAttendance :: ScheduleId -> GroupId -> PersonId -> Html -> MForm Handler (FormResult Attendance, Widget)
-fAttendance scheduleId groupId personId extra = do
-    (presenceResult, presenceView)     <- mreq (selectFieldList presenceTypes) (createSettings "attendance-form__presence" []) Nothing
-    (noteResult, noteView)             <- mopt textField (createSettings "attendance-form__note" [("placeholder", "備考を入力（任意）")]) Nothing
-    (scheduleIdResult, scheduleIdView) <- mreq hiddenField "" (Just scheduleId)
-    (groupIdResult, groupIdView)       <- mreq hiddenField "" (Just groupId)
-    (personIdResult, personIdView)     <- mreq hiddenField "" (Just personId)
-    let result = Attendance
-           <$> presenceResult
-           <*> noteResult
-           <*> scheduleIdResult
-           <*> groupIdResult
-           <*> personIdResult
-        widget = $(widgetFile "schedule/form/attendance")
-    return (result, widget)
+fAttendance scheduleId groupId personId = renderDivs $ Attendance
+    <$> areq (selectFieldList presenceTypes) (createSettings "attendance-form__presence" [])                                      Nothing
+    <*> aopt textField                       (createSettings "attendance-form__note"     [("placeholder", "備考を入力（任意）")]) Nothing
+    <*> lift (liftIO getCurrentTime)
+    <*> areq hiddenField "" (Just scheduleId)
+    <*> areq hiddenField "" (Just groupId)
+    <*> areq hiddenField "" (Just personId)
 
 
 postScheduleCreateR :: GroupId -> Handler Html
 postScheduleCreateR groupId = do
-    ((res, _), _) <- runFormPost (fSchedule groupId)
+    authId <- requireAuthId
+    ((res, _), _) <- runFormPost $ fSchedule groupId authId
     case res of
         FormSuccess schedule -> do
             scheduleId <- runDB $ insert schedule
@@ -95,7 +85,7 @@ postScheduleCreateR groupId = do
 postScheduleAttendanceCreateR :: GroupId -> ScheduleId -> Handler Html
 postScheduleAttendanceCreateR groupId scheduleId = do
     personId <- requireAuthId
-    ((res, _), _) <- runFormPost (fAttendance scheduleId groupId personId)
+    ((res, _), _) <- runFormPost $ fAttendance scheduleId groupId personId
     case res of
         FormSuccess attendance -> do
             attendanceId <- runDB $ insert attendance

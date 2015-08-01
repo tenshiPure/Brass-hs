@@ -14,7 +14,7 @@ Belong
     personId PersonId
 
 Message
-    body     Text
+    body     Textarea
     created  UTCTime
     groupId  GroupId
     personId PersonId
@@ -23,11 +23,14 @@ Schedule
     day      Text
     place    Text Maybe
     note     Text Maybe
+    created  UTCTime
     groupId  GroupId
+    personId PersonId
 
 Attendance
     presence   Int
     note       Text Maybe
+    created    UTCTime
     scheduleId ScheduleId
     groupId    GroupId
     personId   PersonId
@@ -36,11 +39,13 @@ Link
     title    Text
     url      Text
     icon     Text
+    created  UTCTime
     groupId  GroupId
     personId PersonId
 
 Comment
     body     Textarea
+    created  UTCTime
     linkId   LinkId
     groupId  GroupId
     personId PersonId

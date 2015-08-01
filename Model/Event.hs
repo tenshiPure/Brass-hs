@@ -14,7 +14,7 @@ messageToEventLog :: Entity Message -> HandlerT App IO EventLog
 messageToEventLog message = do
     now <- liftIO getCurrentTime
     person <- runDB $ get404 (messagePersonId $ entityVal message)
-    return $ MessageEventLog (messageGroupId $ entityVal message) person (fromSqlKey $ entityKey message) (messageBody $ entityVal message) now
+    return $ MessageEventLog (messageGroupId $ entityVal message) person (fromSqlKey $ entityKey message) (unTextarea $ messageBody $ entityVal message) now
 
 
 linkToEventLog :: Entity Link -> HandlerT App IO EventLog

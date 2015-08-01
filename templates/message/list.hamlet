@@ -1,6 +1,6 @@
 <div #layout-form>
-    <form action=@{MessageCreateR groupId} method=post>
-        <textarea #message-form__body name=body placeholder=メッセージを入力>
+    <form method=post action=@{MessageCreateR groupId} enctype=#{enctype}>
+        ^{formWidget}
         <div #message-form__buttons>
              <input .submit-button type=submit value=送信>
 

@@ -11,12 +11,27 @@
                         <a href=@{MessageListR groupId}#message-#{toIntId messageId}>
                             #{body}
                         と発言しました
+                $of ScheduleEventLog groupId person scheduleId day _
+                    <p>
+                        #{personName person}が予定に
+                        <a href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
+                            #{day}
+                        を追加しました
+                $of AttendanceEventLog groupId person scheduleId day attendanceId presence _
+                    <p>
+                        #{personName person}が予定
+                        <a href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
+                            #{day}
+                        に
+                        <a href=@{ScheduleDetailR groupId scheduleId}#attendance-#{toIntId attendanceId}>
+                            #{fromInt presence}
+                        と回答しました
                 $of LinkEventLog groupId person linkId title _
                     <p>
                         #{personName person}がリンクに
                         <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
                             #{title}
-                        を作成しました
+                        を追加しました
                 $of CommentEventLog groupId person linkId title commentId body _
                     <p>
                         #{personName person}がリンク

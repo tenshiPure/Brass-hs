@@ -127,6 +127,8 @@ getAdminInitR = do
     _ <- runDB $ insert $ Link "録音（7/20）"     url "video.png"     created (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
     _ <- runDB $ deleteWhere ([] :: [Filter Comment])
+    _ <- runDB $ insert $ Comment (Textarea longBody)         created (toSqlKey 1 :: LinkId) (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea shortBody)        created (toSqlKey 1 :: LinkId) (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
     _ <- runDB $ insert $ Comment (Textarea longBody)         created (toSqlKey 2 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
     _ <- runDB $ insert $ Comment (Textarea longBody)         created (toSqlKey 2 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
     _ <- runDB $ insert $ Comment (Textarea shortBody)        created (toSqlKey 2 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)

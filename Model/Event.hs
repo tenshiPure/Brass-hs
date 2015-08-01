@@ -2,11 +2,14 @@ module Model.Event where
 
 
 import Import
+import Handler.Schedule(fromInt)
 
 
-data EventLog = MessageEventLog { groupId :: GroupId, person :: Person, messageId :: MessageId, body  :: Text, created :: UTCTime }
-              | LinkEventLog    { groupId :: GroupId, person :: Person, linkId    :: LinkId, title :: Text, created :: UTCTime }
-              | CommentEventLog { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, commentId :: CommentId, body :: Text , created :: UTCTime }
+data EventLog = MessageEventLog    { groupId :: GroupId, person :: Person, messageId :: MessageId, body  :: Text, created :: UTCTime }
+              | ScheduleEventLog   { groupId :: GroupId, person :: Person, scheduleId :: ScheduleId, day :: Text, created :: UTCTime }
+              | AttendanceEventLog { groupId :: GroupId, person :: Person, scheduleId :: ScheduleId, day :: Text, attendanceId :: AttendanceId, presence :: Int , created :: UTCTime }
+              | LinkEventLog       { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, created :: UTCTime }
+              | CommentEventLog    { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, commentId :: CommentId, body :: Text , created :: UTCTime }
 
 
 messageToEventLog :: Entity Message -> HandlerT App IO EventLog
@@ -31,6 +34,23 @@ commentToEventLog comment = do
     link <- runDB $ get404 linkId
 
     return $ CommentEventLog (commentGroupId $ entityVal comment) person linkId (linkTitle link) (entityKey comment) (cut 30 (commentBody $ entityVal comment)) (commentCreated $ entityVal comment)
+
+
+scheduleToEventLog :: Entity Schedule -> HandlerT App IO EventLog
+scheduleToEventLog schedule = do
+    person <- runDB $ get404 (schedulePersonId $ entityVal schedule)
+
+    return $ ScheduleEventLog (scheduleGroupId $ entityVal schedule) person (entityKey schedule) (scheduleDay $ entityVal schedule) (scheduleCreated $ entityVal schedule)
+
+
+attendanceToEventLog :: Entity Attendance -> HandlerT App IO EventLog
+attendanceToEventLog attendance = do
+    person <- runDB $ get404 (attendancePersonId $ entityVal attendance)
+
+    let scheduleId = attendanceScheduleId $ entityVal attendance
+    schedule <- runDB $ get404 scheduleId
+
+    return $ AttendanceEventLog (attendanceGroupId $ entityVal attendance) person scheduleId (scheduleDay $ schedule) (entityKey attendance) (attendancePresence $ entityVal attendance) (attendanceCreated $ entityVal attendance)
 
 
 cut :: Int -> Textarea -> Text

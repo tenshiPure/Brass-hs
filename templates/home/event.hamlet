@@ -1,0 +1,28 @@
+<div #layout-content>
+    $if null contents
+        <span .no-contents>
+            現在このグループにはイベントが存在しません
+    $else
+        $forall eventLog <- contents
+            $case eventLog
+                $of MessageEventLog groupId person messageId body _
+                    <p>
+                        #{personName person}がチャットで
+                        <a href=@{MessageListR groupId}#message-#{messageId}>
+                            #{body}
+                        と発言しました
+                $of LinkEventLog groupId person linkId title _
+                    <p>
+                        #{personName person}がリンクに
+                        <a href=@{LinkListR groupId}#link-#{linkId}>
+                            #{title}
+                        を作成しました
+                $of CommentEventLog groupId person linkId' linkId title commentId body _
+                    <p>
+                        #{personName person}がリンク
+                        <a href=@{LinkListR groupId}#link-#{linkId}>
+                            #{title}
+                        に
+                        <a href=@{LinkDetailR groupId linkId'}#comment-#{commentId}>
+                            #{body}
+                        とコメントしました

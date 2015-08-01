@@ -28,6 +28,7 @@ library
                      Handler.Schedule
                      Handler.Link
                      Handler.Message
+                     Model.Event
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

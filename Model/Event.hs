@@ -2,7 +2,6 @@ module Model.Event where
 
 
 import Import
-import Handler.Schedule(fromInt)
 
 
 data EventLog = MessageEventLog    { groupId :: GroupId, person :: Person, messageId :: MessageId, body  :: Text, created :: UTCTime }

@@ -7,37 +7,37 @@
             $case eventLog
                 $of MessageEventLog groupId person messageId body _
                     <p>
-                        #{personName person}がチャットで
+                        <img src=/static/image/icon/person/#{personIcon person}>
+                        <img src=/static/image/icon/event/chat_1.png>
                         <a href=@{MessageListR groupId}#message-#{toIntId messageId}>
                             #{body}
-                        と発言しました
                 $of ScheduleEventLog groupId person scheduleId day _
                     <p>
-                        #{personName person}が予定に
+                        <img src=/static/image/icon/person/#{personIcon person}>
+                        <img src=/static/image/icon/event/schedule.jpg>
                         <a href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
                             #{day}
-                        を追加しました
                 $of AttendanceEventLog groupId person scheduleId day attendanceId presence _
                     <p>
-                        #{personName person}が予定
+                        <img src=/static/image/icon/person/#{personIcon person}>
+                        <img src=/static/image/icon/event/schedule.jpg>
                         <a href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
                             #{day}
-                        に
+                        <img src=/static/image/icon/event/balloon.png>
                         <a href=@{ScheduleDetailR groupId scheduleId}#attendance-#{toIntId attendanceId}>
                             #{fromInt presence}
-                        と回答しました
                 $of LinkEventLog groupId person linkId title _
                     <p>
-                        #{personName person}がリンクに
+                        <img src=/static/image/icon/person/#{personIcon person}>
+                        <img src=/static/image/icon/event/link.png>
                         <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
                             #{title}
-                        を追加しました
                 $of CommentEventLog groupId person linkId title commentId body _
                     <p>
-                        #{personName person}がリンク
+                        <img src=/static/image/icon/person/#{personIcon person}>
+                        <img src=/static/image/icon/event/link.png>
                         <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
                             #{title}
-                        に
+                        <img src=/static/image/icon/event/balloon.png>
                         <a href=@{LinkDetailR groupId linkId}#comment-#{toIntId commentId}>
                             #{body}
-                        とコメントしました

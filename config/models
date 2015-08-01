@@ -49,13 +49,3 @@ Comment
     linkId   LinkId
     groupId  GroupId
     personId PersonId
-
-Event
-    created       UTCTime
-    page          Int
-    parentId      Text
-    parentContent Text
-    childId       Text
-    childContent  Text
-    groupId       GroupId
-    personId      PersonId

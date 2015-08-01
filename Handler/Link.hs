@@ -2,7 +2,6 @@ module Handler.Link where
 
 
 import Import
-import Database.Persist.Sql(fromSqlKey)
 
 
 categories :: [(Text, Text)]

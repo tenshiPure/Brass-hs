@@ -3,7 +3,6 @@ module Handler.Message where
 
 import Import
 import Data.Time
-import Database.Persist.Sql(fromSqlKey)
 
 
 fMessage :: GroupId -> PersonId -> Html -> MForm Handler (FormResult Message, Widget)

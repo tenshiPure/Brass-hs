@@ -11,7 +11,7 @@
     $else
         <ul .image-list>
             $forall (Entity linkId link, commentNum) <- contents
-                <li #link-#{fromSqlKey linkId} .image-list__item>
+                <li #link-#{toIntId linkId} .image-list__item>
                     <a href=@{LinkDetailR groupId linkId}>
                         <img src=/static/image/icon/link/#{linkIcon link}>
                         <div>

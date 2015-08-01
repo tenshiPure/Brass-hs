@@ -10,7 +10,7 @@
             現在このグループにはメッセージが存在しません
     $else
         $forall (Entity messageId message, person) <- contents
-            <div #message-#{fromSqlKey messageId} .media>
+            <div #message-#{toIntId messageId} .media>
                 <div .media__image>
                     <img .message-image src=/static/image/icon/person/#{personIcon person}>
                 <div .media__body>

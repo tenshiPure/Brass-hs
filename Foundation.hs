@@ -1,7 +1,7 @@
 module Foundation where
 
 import Import.NoFoundation
-import Database.Persist.Sql (ConnectionPool, runSqlPool)
+import Database.Persist.Sql (ConnectionPool, runSqlPool, fromSqlKey)
 import Text.Hamlet          (hamletFile)
 import Text.Jasmine         (minifym)
 import Yesod.Auth.BrowserId (authBrowserId)
@@ -224,14 +224,6 @@ createSettings id' attrs = FieldSettings {
                            }
 
 
--- insert to event table with many many arguments
-writeEvent :: (YesodPersist site, YesodPersistBackend site ~ SqlBackend) => Int -> Text -> Text -> Text -> Text -> GroupId -> PersonId -> HandlerT site IO ()
-writeEvent page parentId parentContent childId childContent groupId personId = do
-    now <- liftIO getCurrentTime
-    _ <- runDB $ insert $ Event now page parentId parentContent childId childContent groupId personId
-    return ()
-
-
 fGroup :: Html -> MForm Handler (FormResult Group, Widget)
 fGroup extra = do
     (nameResult, nameView) <- mreq textField "" Nothing
@@ -241,3 +233,7 @@ fGroup extra = do
            <*> iconResult
         widget = $(widgetFile "group/form/group")
     return (result, widget)
+
+
+toIntId :: ToBackendKey SqlBackend record => Key record -> Int64
+toIntId = fromSqlKey

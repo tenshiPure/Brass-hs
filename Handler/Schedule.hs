@@ -40,7 +40,7 @@ getScheduleDetailR groupId scheduleId = do
     let contents = zip attendances persons
 
     personId <- requireAuthId
-    (formWidget, enctype) <- generateFormPost (fAttendance personId scheduleId)
+    (formWidget, enctype) <- generateFormPost (fAttendance scheduleId groupId personId)
 
     renderWithGroups $(widgetFile "schedule/detail") "予定 詳細" PSchedule groupId []
 
@@ -60,17 +60,19 @@ fSchedule groupId extra = do
     return (result, widget)
 
 
-fAttendance :: PersonId -> ScheduleId -> Html -> MForm Handler (FormResult Attendance, Widget)
-fAttendance personId scheduleId extra = do
+fAttendance :: ScheduleId -> GroupId -> PersonId -> Html -> MForm Handler (FormResult Attendance, Widget)
+fAttendance scheduleId groupId personId extra = do
     (presenceResult, presenceView)     <- mreq (selectFieldList presenceTypes) (createSettings "attendance-form__presence" []) Nothing
     (noteResult, noteView)             <- mopt textField (createSettings "attendance-form__note" [("placeholder", "備考を入力（任意）")]) Nothing
-    (personIdResult, personIdView)     <- mreq hiddenField "" (Just personId)
     (scheduleIdResult, scheduleIdView) <- mreq hiddenField "" (Just scheduleId)
+    (groupIdResult, groupIdView)       <- mreq hiddenField "" (Just groupId)
+    (personIdResult, personIdView)     <- mreq hiddenField "" (Just personId)
     let result = Attendance
            <$> presenceResult
            <*> noteResult
-           <*> personIdResult
            <*> scheduleIdResult
+           <*> groupIdResult
+           <*> personIdResult
         widget = $(widgetFile "schedule/form/attendance")
     return (result, widget)
 
@@ -93,7 +95,7 @@ postScheduleCreateR groupId = do
 postScheduleAttendanceCreateR :: GroupId -> ScheduleId -> Handler Html
 postScheduleAttendanceCreateR groupId scheduleId = do
     personId <- requireAuthId
-    ((res, _), _) <- runFormPost (fAttendance personId scheduleId)
+    ((res, _), _) <- runFormPost (fAttendance scheduleId groupId personId)
     case res of
         FormSuccess attendance -> do
             attendanceId <- runDB $ insert attendance

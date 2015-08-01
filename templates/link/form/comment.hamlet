@@ -1,6 +1,7 @@
 ^{fvInput bodyView}
 
 ^{fvInput linkIdView}
+^{fvInput groupIdView}
 ^{fvInput personIdView}
 
 #{extra}

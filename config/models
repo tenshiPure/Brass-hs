@@ -28,8 +28,9 @@ Schedule
 Attendance
     presence   Int
     note       Text Maybe
-    personId   PersonId
     scheduleId ScheduleId
+    groupId    GroupId
+    personId   PersonId
 
 Link
     title    Text
@@ -41,6 +42,7 @@ Link
 Comment
     body     Textarea
     linkId   LinkId
+    groupId  GroupId
     personId PersonId
 
 Event

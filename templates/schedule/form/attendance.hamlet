@@ -9,6 +9,7 @@
     ^{fvInput noteView}
 
 ^{fvInput scheduleIdView}
+^{fvInput groupIdView}
 ^{fvInput personIdView}
 
 #{extra}

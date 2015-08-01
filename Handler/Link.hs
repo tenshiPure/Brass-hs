@@ -31,14 +31,16 @@ fLink groupId personId extra = do
     return (result, widget)
 
 
-fComment :: LinkId -> PersonId -> Html -> MForm Handler (FormResult Comment, Widget)
-fComment linkId personId extra = do
-    (bodyResult, bodyView) <- mreq textareaField (createSettings "comment-form__body" [("placeholder", "コメントを入力")]) Nothing
-    (linkIdResult, linkIdView) <- mreq hiddenField "" (Just linkId)
+fComment :: LinkId -> GroupId -> PersonId -> Html -> MForm Handler (FormResult Comment, Widget)
+fComment linkId groupId personId extra = do
+    (bodyResult, bodyView)         <- mreq textareaField (createSettings "comment-form__body" [("placeholder", "コメントを入力")]) Nothing
+    (linkIdResult, linkIdView)     <- mreq hiddenField "" (Just linkId)
+    (groupIdResult, groupIdView)   <- mreq hiddenField "" (Just groupId)
     (personIdResult, personIdView) <- mreq hiddenField "" (Just personId)
     let result = Comment
            <$> bodyResult
            <*> linkIdResult
+           <*> groupIdResult
            <*> personIdResult
         widget = $(widgetFile "link/form/comment")
     return (result, widget)
@@ -66,7 +68,7 @@ getLinkDetailR groupId linkId = do
         return (comment, person)
 
     personId <- requireAuthId
-    (formWidget, enctype) <- generateFormPost (fComment linkId personId)
+    (formWidget, enctype) <- generateFormPost (fComment linkId groupId personId)
 
     renderWithGroups $(widgetFile "link/detail") "リンク 詳細" PLink groupId [$(widgetFile "widget/media")]
 
@@ -89,7 +91,7 @@ postLinkCreateR groupId = do
 postLinkCommentCreateR :: GroupId -> LinkId -> Handler Html
 postLinkCommentCreateR groupId linkId = do
     personId <- requireAuthId
-    ((res, _), _) <- runFormPost (fComment linkId personId)
+    ((res, _), _) <- runFormPost (fComment linkId groupId personId)
     case res of
         FormSuccess comment -> do
             commentId <- runDB $ insert comment

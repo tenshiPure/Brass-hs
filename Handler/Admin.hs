@@ -112,8 +112,8 @@ getAdminInitR = do
     _ <- runDB $ insert $ Schedule "20150705" (Just "青少年センター") (Just "午前中は分奏、午後はウエストサイドと幻想4,5です") (toSqlKey 1 :: GroupId)
 
     _ <- runDB $ deleteWhere ([] :: [Filter Attendance])
-    _ <- runDB $ insert $ Attendance 1 Nothing                 (toSqlKey 1 :: PersonId) (toSqlKey 1 :: ScheduleId) 
-    _ <- runDB $ insert $ Attendance 4 (Just "15時頃帰ります") (toSqlKey 2 :: PersonId) (toSqlKey 1 :: ScheduleId) 
+    _ <- runDB $ insert $ Attendance 1 Nothing                 (toSqlKey 1 :: ScheduleId) (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Attendance 4 (Just "15時頃帰ります") (toSqlKey 1 :: ScheduleId) (toSqlKey 1 :: GroupId) (toSqlKey 2 :: PersonId)
 
     let url = "https://www.google.co.jp/"
     _ <- runDB $ deleteWhere ([] :: [Filter Link])
@@ -126,15 +126,15 @@ getAdminInitR = do
     _ <- runDB $ insert $ Link "録音（7/20）"     url "video.png"     (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
 
     _ <- runDB $ deleteWhere ([] :: [Filter Comment])
-    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 2 :: LinkId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 2 :: LinkId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea shortBody)        (toSqlKey 2 :: LinkId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 2 :: LinkId) (toSqlKey 3 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea "アップしました") (toSqlKey 7 :: LinkId) (toSqlKey 4 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea "あざますー")     (toSqlKey 7 :: LinkId) (toSqlKey 5 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea "お疲れ様でした") (toSqlKey 7 :: LinkId) (toSqlKey 1 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea "乙でしたー")     (toSqlKey 7 :: LinkId) (toSqlKey 4 :: PersonId)
-    _ <- runDB $ insert $ Comment (Textarea "疲れた")         (toSqlKey 7 :: LinkId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 2 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 2 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea shortBody)        (toSqlKey 2 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea longBody)         (toSqlKey 2 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 3 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "アップしました") (toSqlKey 7 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "あざますー")     (toSqlKey 7 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 5 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "お疲れ様でした") (toSqlKey 7 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "乙でしたー")     (toSqlKey 7 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 4 :: PersonId)
+    _ <- runDB $ insert $ Comment (Textarea "疲れた")         (toSqlKey 7 :: LinkId) (toSqlKey 7 :: GroupId) (toSqlKey 1 :: PersonId)
 
     _ <- runDB $ deleteWhere ([] :: [Filter Event])
 

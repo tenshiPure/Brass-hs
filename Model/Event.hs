@@ -2,34 +2,40 @@ module Model.Event where
 
 
 import Import
-import Database.Persist.Sql(toSqlKey, fromSqlKey)
 
 
-data EventLog = MessageEventLog { groupId :: GroupId, person :: Person, messageId :: Int64, body  :: Text, now :: UTCTime }
-              | LinkEventLog    { groupId :: GroupId, person :: Person, linkId    :: Int64, title :: Text, now :: UTCTime }
-              | CommentEventLog { groupId :: GroupId, person :: Person, linkId' :: LinkId, linkId    :: Int64, title :: Text, commentId :: Int64, body :: Text , now :: UTCTime }
+data EventLog = MessageEventLog { groupId :: GroupId, person :: Person, messageId :: MessageId, body  :: Text, created :: UTCTime }
+              | LinkEventLog    { groupId :: GroupId, person :: Person, linkId    :: LinkId, title :: Text, created :: UTCTime }
+              | CommentEventLog { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, commentId :: CommentId, body :: Text , created :: UTCTime }
 
 
 messageToEventLog :: Entity Message -> HandlerT App IO EventLog
 messageToEventLog message = do
-    now <- liftIO getCurrentTime
     person <- runDB $ get404 (messagePersonId $ entityVal message)
-    return $ MessageEventLog (messageGroupId $ entityVal message) person (fromSqlKey $ entityKey message) (unTextarea $ messageBody $ entityVal message) now
+
+    return $ MessageEventLog (messageGroupId $ entityVal message) person (entityKey message) (cut 50 (messageBody $ entityVal message)) (messageCreated $ entityVal message)
 
 
 linkToEventLog :: Entity Link -> HandlerT App IO EventLog
 linkToEventLog link = do
-    now <- liftIO getCurrentTime
     person <- runDB $ get404 (linkPersonId $ entityVal link)
-    return $ LinkEventLog (linkGroupId $ entityVal link) person (fromSqlKey $ entityKey link) (linkTitle $ entityVal link) now
+
+    return $ LinkEventLog (linkGroupId $ entityVal link) person (entityKey link) (linkTitle $ entityVal link) (linkCreated $ entityVal link)
 
 
 commentToEventLog :: Entity Comment -> HandlerT App IO EventLog
 commentToEventLog comment = do
-    now <- liftIO getCurrentTime
     person <- runDB $ get404 (commentPersonId $ entityVal comment)
-    link <- runDB $ get404 (commentLinkId $ entityVal comment)
-    let groupId = toSqlKey 1 :: GroupId
-    let linkId = toSqlKey 1 :: LinkId
 
-    return $ CommentEventLog groupId person linkId (fromSqlKey $ commentLinkId $ entityVal comment) (linkTitle link) (fromSqlKey $ entityKey comment) (unTextarea $ commentBody $ entityVal comment) now
+    let linkId = commentLinkId $ entityVal comment
+    link <- runDB $ get404 linkId
+
+    return $ CommentEventLog (commentGroupId $ entityVal comment) person linkId (linkTitle link) (entityKey comment) (cut 30 (commentBody $ entityVal comment)) (commentCreated $ entityVal comment)
+
+
+cut :: Int -> Textarea -> Text
+cut n body = if length text < n
+             then text
+             else take n text ++ "..."
+    where
+        text = unTextarea body

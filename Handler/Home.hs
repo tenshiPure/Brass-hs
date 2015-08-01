@@ -21,13 +21,13 @@ getHomeR = do
 getHomeWithGroupIdR :: GroupId -> Handler Html
 getHomeWithGroupIdR groupId = do
     messages <- runDB $ selectList [MessageGroupId ==. groupId] [Desc MessageId]
-    links <- runDB $ selectList [LinkGroupId ==. groupId] [Desc LinkId]
-    comments <- runDB $ selectList [] [Desc CommentId]
+    links    <- runDB $ selectList [LinkGroupId ==. groupId]    [Desc LinkId]
+    comments <- runDB $ selectList [CommentGroupId ==. groupId] [Desc CommentId]
 
     messageEventLogs <- mapM messageToEventLog messages
-    linkEventLogs <- mapM linkToEventLog links
+    linkEventLogs    <- mapM linkToEventLog    links
     commentEventLogs <- mapM commentToEventLog comments
 
-    let contents = sortBy (\x y -> compare (now x) (now y)) $ messageEventLogs ++ linkEventLogs ++ commentEventLogs
+    let contents = sortBy (\x y -> compare (created y) (created x)) $ messageEventLogs ++ linkEventLogs ++ commentEventLogs
 
     renderWithGroups $(widgetFile "home/event") "ホーム" PHome groupId [$(widgetFile "widget/media")]

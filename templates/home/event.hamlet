@@ -8,21 +8,21 @@
                 $of MessageEventLog groupId person messageId body _
                     <p>
                         #{personName person}がチャットで
-                        <a href=@{MessageListR groupId}#message-#{messageId}>
+                        <a href=@{MessageListR groupId}#message-#{toIntId messageId}>
                             #{body}
                         と発言しました
                 $of LinkEventLog groupId person linkId title _
                     <p>
                         #{personName person}がリンクに
-                        <a href=@{LinkListR groupId}#link-#{linkId}>
+                        <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
                             #{title}
                         を作成しました
-                $of CommentEventLog groupId person linkId' linkId title commentId body _
+                $of CommentEventLog groupId person linkId title commentId body _
                     <p>
                         #{personName person}がリンク
-                        <a href=@{LinkListR groupId}#link-#{linkId}>
+                        <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
                             #{title}
                         に
-                        <a href=@{LinkDetailR groupId linkId'}#comment-#{commentId}>
+                        <a href=@{LinkDetailR groupId linkId}#comment-#{toIntId commentId}>
                             #{body}
                         とコメントしました

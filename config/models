@@ -6,6 +6,7 @@ Group
 GroupLog
     name     Text
     icon     Text
+    action   Int
     created  UTCTime
     groupId  GroupId
     personId PersonId

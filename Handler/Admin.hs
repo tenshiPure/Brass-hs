@@ -46,7 +46,7 @@ getAdminInitR = do
     _ <- runDB $ insert $ Group "ダミーグループ - 17"              "default_1.jpg"
 
     _ <- runDB $ deleteWhere ([] :: [Filter GroupLog])
-    _ <- runDB $ insert $ GroupLog "東京シティブラスオルケスター" "tcbo.jpg" created (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
+    _ <- runDB $ insert $ GroupLog "東京シティブラスオルケスター" "tcbo.jpg" 0 created (toSqlKey 1 :: GroupId) (toSqlKey 1 :: PersonId)
 
     _ <- runDB $ deleteWhere ([] :: [Filter Person])
     _ <- runDB $ insert $ Person "s-r.com" "ほげ" "hoge.png"

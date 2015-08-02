@@ -17,7 +17,11 @@ groupToEventLog :: Entity GroupLog -> HandlerT App IO EventLog
 groupToEventLog groupLog = do
     person <- runDB $ get404 (groupLogPersonId $ entityVal groupLog)
 
-    return $ GroupEventLog person ((groupLogName $ entityVal groupLog) ++ " に変更しました") (groupLogIcon $ entityVal groupLog) (groupLogCreated $ entityVal groupLog)
+    return $ case (groupLogAction $ entityVal groupLog) of
+        0 -> GroupEventLog person ((groupLogName $ entityVal groupLog) ++ " を作成しました") (groupLogIcon $ entityVal groupLog) (groupLogCreated $ entityVal groupLog)
+        _ -> GroupEventLog person ((groupLogName $ entityVal groupLog) ++ " に変更しました") (groupLogIcon $ entityVal groupLog) (groupLogCreated $ entityVal groupLog)
+
+    
 
 
 belongToEventLog :: Entity BelongLog -> HandlerT App IO EventLog

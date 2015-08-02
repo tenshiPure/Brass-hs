@@ -14,10 +14,10 @@ postGroupCreateR currentGroupId = do
             case mGroupId of
                 (Just groupId) -> do
                     authId <- requireAuthId
-                    createBelong groupId authId
-
                     now <- liftIO getCurrentTime
-                    _ <- runDB $ insert $ GroupLog (groupName entity) (groupIcon entity) now groupId authId
+
+                    _ <- runDB $ insert $ GroupLog (groupName entity) (groupIcon entity) 0 now groupId authId
+                    createBelong groupId authId
 
                     setSuccessInformation $ (groupName entity) ++ " を作成しました"
 
@@ -48,9 +48,9 @@ postGroupUpdateR currentGroupId = do
                 Nothing -> do
                     _ <- runDB $ replace currentGroupId entity
 
-                    _ <- runDB $ insert $ GroupLog (groupName entity) (groupIcon entity) now currentGroupId authId
+                    _ <- runDB $ insert $ GroupLog (groupName entity) (groupIcon entity) 1 now currentGroupId authId
 
-                    setSuccessInformation $ (groupName entity) ++ " を更新しました"
+                    setSuccessInformation $ (groupName entity) ++ " に変更しました"
 
                     redirect $ HomeWithGroupIdR currentGroupId
 
@@ -61,9 +61,9 @@ postGroupUpdateR currentGroupId = do
                         True -> do
                             _ <- runDB $ replace currentGroupId entity
 
-                            _ <- runDB $ insert $ GroupLog (groupName entity) (groupIcon entity) now currentGroupId authId
+                            _ <- runDB $ insert $ GroupLog (groupName entity) (groupIcon entity) 1 now currentGroupId authId
 
-                            setSuccessInformation $ (groupName entity) ++ " を更新しました"
+                            setSuccessInformation $ (groupName entity) ++ " に変更しました"
 
                             redirect $ HomeWithGroupIdR currentGroupId
 

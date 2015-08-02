@@ -270,6 +270,7 @@ deleteBelong groupId personId = do
     return ()
 
 
+-- 遷移してしまい結果が把握しづらい場合
 setSuccessInformation :: MonadHandler m => Text -> m ()
 setSuccessInformation information = do
     setSession "information-type" "success"
@@ -278,6 +279,7 @@ setSuccessInformation information = do
     return ()
 
 
+-- 通常操作で起き得る異常系
 setWarningInformation :: MonadHandler m => Text -> m ()
 setWarningInformation information = do
     setSession "information-type" "warning"
@@ -286,6 +288,7 @@ setWarningInformation information = do
     return ()
 
 
+-- 通常操作で起き得ない異常系
 setErrorInformation :: MonadHandler m => Text -> m ()
 setErrorInformation information = do
     setSession "information-type" "error"

@@ -4,8 +4,8 @@ module Handler.Group where
 import Import
 
 
-postGroupCreateR :: Handler Html
-postGroupCreateR = do
+postGroupCreateR :: GroupId -> Handler Html
+postGroupCreateR currentGroupId = do
     ((res, _), _) <- runFormPost $ fGroup
     case res of
         FormSuccess entity -> do
@@ -25,7 +25,10 @@ postGroupCreateR = do
 
                     redirect $ HomeR
 
-        _ -> error "todo"
+        _ -> do
+            setErrorInformation "不正な入力値のため作成できませんでした"
+
+            redirect $ HomeWithGroupIdR currentGroupId
 
 
 getGroupManageR :: GroupId -> Handler Html

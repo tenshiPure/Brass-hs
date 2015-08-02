@@ -8,7 +8,7 @@
 /home             HomeR            GET
 /home/#GroupId    HomeWithGroupIdR GET
 
-/group/create                  GroupCreateR      POST
+/group/create/#GroupId         GroupCreateR      POST
 /group/manage/#GroupId         GroupManageR  GET
 /group/update/#GroupId         GroupUpdateR  GET POST
 /group/delete/#GroupId         GroupDeleteR  GET

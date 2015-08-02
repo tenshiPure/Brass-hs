@@ -181,10 +181,13 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
             (groupCreateWidget, groupCreateEnctype) <- generateFormPost $ fGroup
 
             defaultLayout $ do
+                (mInformationType, mInformationBody) <- getInformation
+
                 mapM_ toWidget widgets
                 toWidget ($(widgetFile "widget/common") :: Widget)
 
                 let headerWidget      = $(widgetFile "layout/header")
+                let informationWidget = $(widgetFile "layout/information")
                 let groupWidget       = $(widgetFile "layout/group")
                 let tabWidget         = $(widgetFile "layout/tab")
                 let groupManageWidget = $(widgetFile "layout/group-manage")
@@ -192,13 +195,11 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
                 let modalGroupCreateWidget = $(widgetFile "modal/group-create")
                 let modalInviteLinkWidget = $(widgetFile "modal/invite-link")
 
-                (mMessageType, mMessageBody) <- getMessageWithType
-
                 setTitle title
                 $(widgetFile "layout/frame")
 
         Nothing  -> do
-            setErrorMessage "所属していないグループ、もしくは存在しないグループへアクセスしたため転送されました"
+            setErrorInformation "所属していないグループ、もしくは存在しないグループへアクセスしたため転送されました"
             redirect $ HomeR
 
 
@@ -269,28 +270,36 @@ deleteBelong groupId personId = do
     return ()
 
 
-setSuccessMessage :: MonadHandler m => Text -> m ()
-setSuccessMessage message = do
-    setSession "message-type" "success"
-    setSession "message-body" message
+setSuccessInformation :: MonadHandler m => Text -> m ()
+setSuccessInformation information = do
+    setSession "information-type" "success"
+    setSession "information-body" information
 
     return ()
 
 
-setErrorMessage :: MonadHandler m => Text -> m ()
-setErrorMessage message = do
-    setSession "message-type" "error"
-    setSession "message-body" message
+setWarningInformation :: MonadHandler m => Text -> m ()
+setWarningInformation information = do
+    setSession "information-type" "warning"
+    setSession "information-body" information
 
     return ()
 
 
-getMessageWithType :: MonadHandler m => m (Maybe Text, Maybe Text)
-getMessageWithType = do
-    mMessageType <- lookupSession "message-type"
-    mMessageBody <- lookupSession "message-body"
+setErrorInformation :: MonadHandler m => Text -> m ()
+setErrorInformation information = do
+    setSession "information-type" "error"
+    setSession "information-body" information
 
-    _ <- deleteSession "message-type"
-    _ <- deleteSession "message-body"
+    return ()
 
-    return (mMessageType, mMessageBody)
+
+getInformation :: MonadHandler m => m (Maybe Text, Maybe Text)
+getInformation = do
+    mInformationType <- lookupSession "information-type"
+    mInformationBody <- lookupSession "information-body"
+
+    _ <- deleteSession "information-type"
+    _ <- deleteSession "information-body"
+
+    return (mInformationType, mInformationBody)

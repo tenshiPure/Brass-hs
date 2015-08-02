@@ -13,7 +13,6 @@ html, body
     line-height: 1em
 
 #layout-message
-    background-color: #FAF
     position: fixed
     top: 4em
     height: 2em

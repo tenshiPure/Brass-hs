@@ -1,0 +1,16 @@
+.information
+    border: 2px solid #000
+    border-radius: 5px
+    padding: 5px 8px
+
+.success-information
+    border-color: #9CC
+    background-color: rgba(0, 255, 255, 0.2)
+
+.warning-information
+    border-color: #CC9
+    background-color: rgba(255, 255, 0, 0.2)
+
+.error-information
+    border-color: #C99
+    background-color: rgba(255, 0, 0, 0.2)

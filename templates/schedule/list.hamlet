@@ -11,7 +11,7 @@
     $else
         <ul .no-image-list>
             $forall Entity scheduleId schedule <- contents
-                <li .no-image-list__item>
+                <li #schedule-#{toIntId scheduleId} .no-image-list__item>
                     <a href=@{ScheduleDetailR groupId scheduleId}>
                         <div>
                             #{scheduleDay schedule} 

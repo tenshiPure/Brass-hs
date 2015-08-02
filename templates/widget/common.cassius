@@ -60,16 +60,7 @@
     white-space: nowrap
 
 /*
- * 普遍のアンカー
+ * アンカーされたコンテンツ
  */
-.immutable-anchor:link
-    color: #00F
-    text-decoration: none
-
-.immutable-anchor:visited
-    color: #00F
-    text-decoration: none
-
-.immutable-anchor:hover
-    color: #00F
-    text-decoration: underline
+.anchored
+    background-color: #CFF

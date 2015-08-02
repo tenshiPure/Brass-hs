@@ -21,7 +21,7 @@
     $else
         <ul .attendance-list>
             $forall (attendance, person) <- contents
-                <li .attendance__item>
+                <li #attendance-#{toIntId $ entityKey attendance} .attendance__item>
                     <span .attendance__item__name>
                         #{personName person}
                     <span .attendance__item__presence>

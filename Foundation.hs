@@ -167,28 +167,36 @@ data Page = PHome | PMessage | PSchedule | PLink deriving (Show, Eq)
 renderWithGroups :: Widget -> Html -> Page -> GroupId -> [Widget] -> Handler Html
 renderWithGroups mainWidget title page currentGroupId widgets = do
     authId <- requireAuthId
-    loginPerson <- runDB $ get404 authId
 
-    belongs <- runDB $ selectList [BelongPersonId ==. authId] [Asc BelongId]
-    let belongGroupIds = map (belongGroupId . entityVal) belongs
-    groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
+    mBelong <- runDB $ selectFirst [BelongGroupId ==. currentGroupId, BelongPersonId ==. authId] [Asc BelongId]
 
-    (groupCreateWidget, groupCreateEnctype) <- generateFormPost $ fGroup
+    case mBelong of
+        (Just _) -> do
+            loginPerson <- runDB $ get404 authId
 
-    defaultLayout $ do
-        mapM_ toWidget widgets
-        toWidget ($(widgetFile "widget/common") :: Widget)
+            belongs <- runDB $ selectList [BelongPersonId ==. authId] [Asc BelongId]
+            let belongGroupIds = map (belongGroupId . entityVal) belongs
+            groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
 
-        let headerWidget      = $(widgetFile "layout/header")
-        let groupWidget       = $(widgetFile "layout/group")
-        let tabWidget         = $(widgetFile "layout/tab")
-        let groupManageWidget = $(widgetFile "layout/group-manage")
+            (groupCreateWidget, groupCreateEnctype) <- generateFormPost $ fGroup
 
-        let modalGroupCreateWidget = $(widgetFile "modal/group-create")
-        let modalInviteLinkWidget = $(widgetFile "modal/invite-link")
+            defaultLayout $ do
+                mapM_ toWidget widgets
+                toWidget ($(widgetFile "widget/common") :: Widget)
 
-        setTitle title
-        $(widgetFile "layout/frame")
+                let headerWidget      = $(widgetFile "layout/header")
+                let groupWidget       = $(widgetFile "layout/group")
+                let tabWidget         = $(widgetFile "layout/tab")
+                let groupManageWidget = $(widgetFile "layout/group-manage")
+
+                let modalGroupCreateWidget = $(widgetFile "modal/group-create")
+                let modalInviteLinkWidget = $(widgetFile "modal/invite-link")
+
+                setTitle title
+                $(widgetFile "layout/frame")
+
+        Nothing  -> do
+            redirect $ HomeR
 
 
 -- 07/14 20:12:05

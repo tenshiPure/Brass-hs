@@ -56,40 +56,41 @@ getAdminInitR = do
     _ <- runDB $ insert $ Person "t-t.com" "田中" "t-t.png"
 
     _ <- runDB $ deleteWhere ([] :: [Filter Belong])
-    _ <- runDB $ insert $ Belong created created (toSqlKey  1 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  3 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  7 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 12 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 13 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 14 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 15 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 16 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 17 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 18 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 19 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 20 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 21 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 22 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 23 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 24 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 25 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 26 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 27 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey 28 :: GroupId) (toSqlKey 1 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  1 :: GroupId) (toSqlKey 2 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  4 :: GroupId) (toSqlKey 2 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  1 :: GroupId) (toSqlKey 3 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  2 :: GroupId) (toSqlKey 3 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  1 :: GroupId) (toSqlKey 4 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  2 :: GroupId) (toSqlKey 4 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  7 :: GroupId) (toSqlKey 4 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  1 :: GroupId) (toSqlKey 5 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  2 :: GroupId) (toSqlKey 5 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  7 :: GroupId) (toSqlKey 5 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  1 :: GroupId) (toSqlKey 6 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  3 :: GroupId) (toSqlKey 6 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  3 :: GroupId) (toSqlKey 7 :: PersonId) False
-    _ <- runDB $ insert $ Belong created created (toSqlKey  5 :: GroupId) (toSqlKey 7 :: PersonId) False
+    _ <- runDB $ deleteWhere ([] :: [Filter BelongLog])
+    createBelong (toSqlKey  1 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey  3 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey  7 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 12 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 13 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 14 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 15 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 16 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 17 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 18 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 19 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 20 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 21 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 22 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 23 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 24 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 25 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 26 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 27 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey 28 :: GroupId) (toSqlKey 1 :: PersonId)
+    createBelong (toSqlKey  1 :: GroupId) (toSqlKey 2 :: PersonId)
+    createBelong (toSqlKey  4 :: GroupId) (toSqlKey 2 :: PersonId)
+    createBelong (toSqlKey  1 :: GroupId) (toSqlKey 3 :: PersonId)
+    createBelong (toSqlKey  2 :: GroupId) (toSqlKey 3 :: PersonId)
+    createBelong (toSqlKey  1 :: GroupId) (toSqlKey 4 :: PersonId)
+    createBelong (toSqlKey  2 :: GroupId) (toSqlKey 4 :: PersonId)
+    createBelong (toSqlKey  7 :: GroupId) (toSqlKey 4 :: PersonId)
+    createBelong (toSqlKey  1 :: GroupId) (toSqlKey 5 :: PersonId)
+    createBelong (toSqlKey  2 :: GroupId) (toSqlKey 5 :: PersonId)
+    createBelong (toSqlKey  7 :: GroupId) (toSqlKey 5 :: PersonId)
+    createBelong (toSqlKey  1 :: GroupId) (toSqlKey 6 :: PersonId)
+    createBelong (toSqlKey  3 :: GroupId) (toSqlKey 6 :: PersonId)
+    createBelong (toSqlKey  3 :: GroupId) (toSqlKey 7 :: PersonId)
+    createBelong (toSqlKey  5 :: GroupId) (toSqlKey 7 :: PersonId)
 
     let longBody = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     let shortBody = "Lorem ipsum dolor sit amet"

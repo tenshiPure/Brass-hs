@@ -12,16 +12,13 @@ data EventLog = BelongEventLog     { person :: Person, icon :: Text, body :: Tex
               | CommentEventLog    { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, commentId :: CommentId, body :: Text , at :: UTCTime }
 
 
-belongToEventLog :: Entity Belong -> HandlerT App IO EventLog
-belongToEventLog belong = do
-    person <- runDB $ get404 (belongPersonId $ entityVal belong)
+belongToEventLog :: Entity BelongLog -> HandlerT App IO EventLog
+belongToEventLog belongLog = do
+    person <- runDB $ get404 (belongLogPersonId $ entityVal belongLog)
 
-    let created = belongCreated $ entityVal belong
-    let updated = belongUpdated $ entityVal belong
-
-    return $ case created == updated of
-        True  -> BelongEventLog person "chat_1.png" "追加" created
-        False -> BelongEventLog person "chat_2.png" "削除" updated
+    return $ case (belongLogAction $ entityVal belongLog) of
+        0 -> BelongEventLog person "chat_1.png" "追加" (belongLogCreated $ entityVal belongLog)
+        _ -> BelongEventLog person "chat_2.png" "削除" (belongLogCreated $ entityVal belongLog)
 
 
 messageToEventLog :: Entity Message -> HandlerT App IO EventLog

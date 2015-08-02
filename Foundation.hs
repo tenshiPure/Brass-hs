@@ -169,7 +169,7 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
     authId <- requireAuthId
     loginPerson <- runDB $ get404 authId
 
-    belongs <- runDB $ selectList [BelongPersonId ==. authId, BelongDeleted ==. False] [Asc BelongId]
+    belongs <- runDB $ selectList [BelongPersonId ==. authId] [Asc BelongId]
     let belongGroupIds = map (belongGroupId . entityVal) belongs
     groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
 
@@ -238,3 +238,21 @@ fGroup extra = do
 
 toIntId :: ToBackendKey SqlBackend record => Key record -> Int64
 toIntId = fromSqlKey
+
+
+createBelong :: (YesodAuth master, YesodPersist master, AuthId master ~ Key Person, YesodPersistBackend master ~ SqlBackend) => GroupId -> PersonId -> HandlerT master IO ()
+createBelong groupId personId = do
+    now <- liftIO getCurrentTime
+    _ <- runDB $ insert $ Belong groupId personId
+    _ <- runDB $ insert $ BelongLog 0 now groupId personId
+
+    return ()
+
+
+deleteBelong :: (YesodAuth master, YesodPersist master, AuthId master ~ Key Person, YesodPersistBackend master ~ SqlBackend) => GroupId -> PersonId -> HandlerT master IO ()
+deleteBelong groupId personId = do
+    now <- liftIO getCurrentTime
+    _ <- runDB $ deleteWhere [BelongGroupId ==. groupId, BelongPersonId ==. personId]
+    _ <- runDB $ insert $ BelongLog 1 now groupId personId
+
+    return ()

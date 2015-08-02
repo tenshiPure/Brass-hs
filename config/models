@@ -10,12 +10,15 @@ Person
     deriving     Typeable
 
 Belong
-    created  UTCTime
-    updated  UTCTime
     groupId  GroupId
     personId PersonId
-    deleted  Bool
     deriving Show
+
+BelongLog
+    action   Int
+    created  UTCTime
+    groupId  GroupId
+    personId PersonId
 
 Message
     body     Textarea

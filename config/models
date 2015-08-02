@@ -1,6 +1,7 @@
 Group
-    name     Text
-    icon     Text
+    name        Text
+    icon        Text
+    UniqueGroup name
 
 Person
     mail         Text

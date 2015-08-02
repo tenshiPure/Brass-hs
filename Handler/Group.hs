@@ -9,14 +9,21 @@ postGroupCreateR = do
     ((res, _), _) <- runFormPost $ fGroup
     case res of
         FormSuccess entity -> do
-            groupId <- runDB $ insert entity
+            mGroupId <- runDB $ insertUnique entity
 
-            authId <- requireAuthId
-            createBelong groupId authId
+            case mGroupId of
+                (Just groupId) -> do
+                    authId <- requireAuthId
+                    createBelong groupId authId
 
-            setSuccessInformation $ (groupName entity) ++ " を作成しました"
+                    setSuccessInformation $ (groupName entity) ++ " を作成しました"
 
-            redirect $ HomeWithGroupIdR groupId
+                    redirect $ HomeWithGroupIdR groupId
+
+                Nothing -> do
+                    setWarningInformation $ (groupName entity) ++ " は同名のグループが既に存在するため作成できませんでした"
+
+                    redirect $ HomeR
 
         _ -> error "todo"
 

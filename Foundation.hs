@@ -199,7 +199,7 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
                 $(widgetFile "layout/frame")
 
         Nothing  -> do
-            setErrorInformation "所属していないグループ、もしくは存在しないグループへアクセスしたため転送されました"
+            setWarningInformation "所属していないグループ、もしくは存在しないグループへアクセスしたため転送されました"
             redirect $ HomeR
 
 

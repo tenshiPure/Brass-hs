@@ -178,7 +178,9 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
             let belongGroupIds = map (belongGroupId . entityVal) belongs
             groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
 
-            (groupCreateWidget, groupCreateEnctype) <- generateFormPost $ fGroup
+            currentGroup <- runDB $ get404 currentGroupId
+            (groupCreateWidget, groupCreateEnctype) <- generateFormPost $ fGroup Nothing
+            (groupUpdateWidget, groupUpdateEnctype) <- generateFormPost $ fGroup (Just currentGroup)
 
             defaultLayout $ do
                 (mInformationType, mInformationBody) <- getInformation
@@ -193,6 +195,7 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
                 let groupManageWidget = $(widgetFile "layout/group-manage")
 
                 let modalGroupCreateWidget = $(widgetFile "modal/group-create")
+                let modalGroupUpdateWidget = $(widgetFile "modal/group-update")
                 let modalInviteLinkWidget = $(widgetFile "modal/invite-link")
 
                 setTitle title
@@ -237,10 +240,10 @@ createSettings id' attrs = FieldSettings {
                            }
 
 
-fGroup :: Html -> MForm Handler (FormResult Group, Widget)
-fGroup extra = do
-    (nameResult, nameView) <- mreq textField "" Nothing
-    (iconResult, iconView) <- mreq textField "" Nothing
+fGroup :: Maybe Group -> Html -> MForm Handler (FormResult Group, Widget)
+fGroup mGroup extra = do
+    (nameResult, nameView) <- mreq textField "" (groupName <$> mGroup)
+    (iconResult, iconView) <- mreq textField "" (groupIcon <$> mGroup)
     let result = Group
            <$> nameResult
            <*> iconResult

@@ -6,7 +6,7 @@ import Import
 
 postGroupCreateR :: GroupId -> Handler Html
 postGroupCreateR currentGroupId = do
-    ((res, _), _) <- runFormPost $ fGroup
+    ((res, _), _) <- runFormPost $ fGroup Nothing
     case res of
         FormSuccess entity -> do
             mGroupId <- runDB $ insertUnique entity
@@ -31,19 +31,41 @@ postGroupCreateR currentGroupId = do
             redirect $ HomeWithGroupIdR currentGroupId
 
 
-getGroupManageR :: GroupId -> Handler Html
-getGroupManageR groupId = do
-    error $ "todo" ++ (show groupId)
-
-
-getGroupUpdateR :: GroupId -> Handler Html
-getGroupUpdateR groupId = do
-    error $ "todo" ++ (show groupId)
-
-
 postGroupUpdateR :: GroupId -> Handler Html
-postGroupUpdateR groupId = do
-    error $ "todo" ++ (show groupId)
+postGroupUpdateR currentGroupId = do
+    ((res, _), _) <- runFormPost $ fGroup Nothing
+    case res of
+        FormSuccess entity -> do
+            mEntity <- runDB $ checkUnique entity
+
+            case mEntity of
+                Nothing -> do
+                    _ <- runDB $ replace currentGroupId entity
+
+                    setSuccessInformation $ (groupName entity) ++ " を更新しました"
+
+                    redirect $ HomeWithGroupIdR currentGroupId
+
+                (Just _) -> do
+                    currentGroup <- runDB $ get404 currentGroupId
+
+                    case (groupName currentGroup) == (groupName entity) of
+                        True -> do
+                            _ <- runDB $ replace currentGroupId entity
+
+                            setSuccessInformation $ (groupName entity) ++ " を更新しました"
+
+                            redirect $ HomeWithGroupIdR currentGroupId
+
+                        False -> do
+                            setWarningInformation $ (groupName entity) ++ " は同名の別グループが既に存在するため更新できませんでした"
+
+                            redirect $ HomeWithGroupIdR currentGroupId
+
+        _ -> do
+            setErrorInformation "不正な入力値のため作成できませんでした"
+
+            redirect $ HomeWithGroupIdR currentGroupId
 
 
 getGroupInvitedR :: GroupId -> Handler Html

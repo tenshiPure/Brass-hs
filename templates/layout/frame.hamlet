@@ -20,4 +20,5 @@
 
 <div #layout-modals>
     ^{modalGroupCreateWidget}
+    ^{modalGroupUpdateWidget}
     ^{modalInviteLinkWidget}

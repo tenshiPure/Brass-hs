@@ -1,0 +1,6 @@
+<div #modal-group-update>
+    <form method=post action=@{GroupUpdateR currentGroupId} enctype=#{groupUpdateEnctype}>
+        ^{groupUpdateWidget}
+
+    <a .anchor .blue-anchor #modal-close .button-link>
+        閉じる

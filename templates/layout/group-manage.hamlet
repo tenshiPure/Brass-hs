@@ -2,7 +2,7 @@
     <span .select-menu__label>
         ＋
     <div .select-menu__items>
-        <a .anchor .blue-anchor href="/項目1" .select-menu__item>
+        <a .anchor .blue-anchor #modal-group-update-open .select-menu__item>
             グループ情報を変更する
         <a .anchor .blue-anchor href="/項目2" .select-menu__item>
             このグループに招待する

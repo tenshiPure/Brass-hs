@@ -34,6 +34,14 @@ postGroupUpdateR groupId = do
     error $ "todo" ++ (show groupId)
 
 
+getGroupInvitedR :: GroupId -> Handler Html
+getGroupInvitedR groupId = do
+    authId <- requireAuthId
+    _ <- runDB $ insert $ Belong groupId authId
+
+    redirect $ HomeWithGroupIdR groupId
+
+
 getBelongDeleteR :: GroupId -> Handler Html
 getBelongDeleteR groupId = do
     authId <- requireAuthId

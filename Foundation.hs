@@ -241,14 +241,9 @@ createSettings id' attrs = FieldSettings {
 
 
 fGroup :: Maybe Group -> Html -> MForm Handler (FormResult Group, Widget)
-fGroup mGroup extra = do
-    (nameResult, nameView) <- mreq textField "" (groupName <$> mGroup)
-    (iconResult, iconView) <- mreq textField "" (groupIcon <$> mGroup)
-    let result = Group
-           <$> nameResult
-           <*> iconResult
-        widget = $(widgetFile "group/form/group")
-    return (result, widget)
+fGroup mGroup = renderDivs $ Group
+    <$> areq textField (createSettings "group-form__name" [("size", "40"), ("placeholder", "グループ名を入力")])             (groupName <$> mGroup)
+    <*> areq textField (createSettings "group-form__icon" [("size", "40"), ("placeholder", "アイコン画像名を入力（暫定）")]) (groupIcon <$> mGroup)
 
 
 toIntId :: ToBackendKey SqlBackend record => Key record -> Int64

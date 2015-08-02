@@ -1,6 +1,8 @@
 <div #modal-group-create>
     <form method=post action=@{GroupCreateR currentGroupId} enctype=#{groupCreateEnctype}>
         ^{groupCreateWidget}
+        <div #group-create-form__buttons>
+             <input .submit-button type=submit value=送信>
 
     <a .anchor .blue-anchor #modal-close .button-link>
         閉じる

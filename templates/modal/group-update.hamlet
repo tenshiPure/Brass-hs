@@ -1,6 +1,8 @@
 <div #modal-group-update>
     <form method=post action=@{GroupUpdateR currentGroupId} enctype=#{groupUpdateEnctype}>
         ^{groupUpdateWidget}
+        <div #group-update-form__buttons>
+             <input .submit-button type=submit value=送信>
 
     <a .anchor .blue-anchor #modal-close .button-link>
         閉じる

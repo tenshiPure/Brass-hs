@@ -166,10 +166,10 @@ data Page = PHome | PMessage | PSchedule | PLink deriving (Show, Eq)
 -- require login, title and current group id.
 renderWithGroups :: Widget -> Html -> Page -> GroupId -> [Widget] -> Handler Html
 renderWithGroups mainWidget title page currentGroupId widgets = do
-    loginPersonId <- requireAuthId
-    loginPerson <- runDB $ get404 loginPersonId
+    authId <- requireAuthId
+    loginPerson <- runDB $ get404 authId
 
-    belongs <- runDB $ selectList [BelongPersonId ==. loginPersonId] [Asc BelongId]
+    belongs <- runDB $ selectList [BelongPersonId ==. authId, BelongDeleted ==. False] [Asc BelongId]
     let belongGroupIds = map (belongGroupId . entityVal) belongs
     groups <- runDB $ selectList [GroupId <-. belongGroupIds] [Asc GroupId]
 

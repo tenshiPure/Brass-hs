@@ -4,11 +4,24 @@ module Model.Event where
 import Import
 
 
-data EventLog = MessageEventLog    { groupId :: GroupId, person :: Person, messageId :: MessageId, body  :: Text, created :: UTCTime }
-              | ScheduleEventLog   { groupId :: GroupId, person :: Person, scheduleId :: ScheduleId, day :: Text, created :: UTCTime }
-              | AttendanceEventLog { groupId :: GroupId, person :: Person, scheduleId :: ScheduleId, day :: Text, attendanceId :: AttendanceId, presence :: Int , created :: UTCTime }
-              | LinkEventLog       { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, created :: UTCTime }
-              | CommentEventLog    { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, commentId :: CommentId, body :: Text , created :: UTCTime }
+data EventLog = BelongEventLog     { person :: Person, icon :: Text, body :: Text, at :: UTCTime }
+              | MessageEventLog    { groupId :: GroupId, person :: Person, messageId :: MessageId, body :: Text, at :: UTCTime }
+              | ScheduleEventLog   { groupId :: GroupId, person :: Person, scheduleId :: ScheduleId, day :: Text, at :: UTCTime }
+              | AttendanceEventLog { groupId :: GroupId, person :: Person, scheduleId :: ScheduleId, day :: Text, attendanceId :: AttendanceId, presence :: Int , at :: UTCTime }
+              | LinkEventLog       { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, at :: UTCTime }
+              | CommentEventLog    { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, commentId :: CommentId, body :: Text , at :: UTCTime }
+
+
+belongToEventLog :: Entity Belong -> HandlerT App IO EventLog
+belongToEventLog belong = do
+    person <- runDB $ get404 (belongPersonId $ entityVal belong)
+
+    let created = belongCreated $ entityVal belong
+    let updated = belongUpdated $ entityVal belong
+
+    return $ case created == updated of
+        True  -> BelongEventLog person "chat_1.png" "追加" created
+        False -> BelongEventLog person "chat_2.png" "削除" updated
 
 
 messageToEventLog :: Entity Message -> HandlerT App IO EventLog

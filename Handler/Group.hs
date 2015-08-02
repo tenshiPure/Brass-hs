@@ -11,8 +11,9 @@ postGroupCreateR = do
         FormSuccess entity -> do
             groupId <- runDB $ insert entity
 
+            now <- liftIO getCurrentTime
             authId <- requireAuthId
-            _ <- runDB $ insert $ Belong groupId authId 
+            _ <- runDB $ insert $ Belong now now groupId authId False
 
             redirect $ HomeWithGroupIdR groupId
 
@@ -37,15 +38,26 @@ postGroupUpdateR groupId = do
 getGroupInvitedR :: GroupId -> Handler Html
 getGroupInvitedR groupId = do
     authId <- requireAuthId
-    _ <- runDB $ insert $ Belong groupId authId
 
-    redirect $ HomeWithGroupIdR groupId
+    mBelong <- runDB $ selectFirst [BelongGroupId ==. groupId, BelongPersonId ==. authId] [Asc BelongId]
+
+    now <- liftIO getCurrentTime
+
+    case mBelong of
+        (Just _) -> do
+            _ <- runDB $ updateWhere [BelongGroupId ==. groupId, BelongPersonId ==. authId] [BelongUpdated =. now, BelongDeleted =. False]
+            redirect $ HomeWithGroupIdR groupId
+
+        Nothing  -> do
+            _ <- runDB $ insert $ Belong now now groupId authId False
+            redirect $ HomeWithGroupIdR groupId
 
 
 getBelongDeleteR :: GroupId -> Handler Html
 getBelongDeleteR groupId = do
+    now <- liftIO getCurrentTime
     authId <- requireAuthId
-    _ <- runDB $ deleteWhere [BelongGroupId ==. groupId, BelongPersonId ==. authId]
+    _ <- runDB $ updateWhere [BelongGroupId ==. groupId, BelongPersonId ==. authId] [BelongUpdated =. now, BelongDeleted =. True]
     redirect $ HomeR
 
 

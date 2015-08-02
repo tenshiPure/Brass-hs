@@ -6,7 +6,7 @@
             グループ情報を変更する
         <a href="/項目2" .select-menu__item>
             このグループに招待する
-        <a href="/項目3" .select-menu__item>
+        <a #modal-invite-link-open .select-menu__item>
             招待リンク
         <a href=@{BelongDeleteR currentGroupId} .select-menu__item>
             このグループから抜ける

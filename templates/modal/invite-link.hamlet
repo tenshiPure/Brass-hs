@@ -1,0 +1,8 @@
+<div #modal-invite-link>
+    <p>
+        以下のリンクにアクセスしてもらうことで、このグループに招待することが出来ます
+    <p>
+        @{GroupInvitedR currentGroupId}
+
+    <a #modal-close .button-link>
+        閉じる

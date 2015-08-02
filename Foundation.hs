@@ -185,6 +185,7 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
         let groupManageWidget = $(widgetFile "layout/group-manage")
 
         let modalGroupCreateWidget = $(widgetFile "modal/group-create")
+        let modalInviteLinkWidget = $(widgetFile "modal/invite-link")
 
         setTitle title
         $(widgetFile "layout/frame")

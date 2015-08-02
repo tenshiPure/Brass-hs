@@ -17,5 +17,8 @@
         <a href=@{AdminInitR}>
             DB初期化
     <li>
+        <a href=/auth/logout>
+            ログアウト
+    <li>
         <a href=@{AdminWorkspaceR}>
             ワークスペース

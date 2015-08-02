@@ -11,10 +11,10 @@ postGroupCreateR = do
         FormSuccess entity -> do
             groupId <- runDB $ insert entity
 
-            personId <- requireAuthId
-            _ <- runDB $ insert $ Belong groupId personId 
+            authId <- requireAuthId
+            _ <- runDB $ insert $ Belong groupId authId 
 
-            redirect $ HomeR
+            redirect $ HomeWithGroupIdR groupId
 
         _ -> error "todo"
 
@@ -32,3 +32,10 @@ getGroupUpdateR groupId = do
 postGroupUpdateR :: GroupId -> Handler Html
 postGroupUpdateR groupId = do
     error $ "todo" ++ (show groupId)
+
+
+getBelongRemoveR :: GroupId -> Handler Html
+getBelongRemoveR groupId = do
+    authId <- requireAuthId
+    _ <- runDB $ deleteWhere [BelongGroupId ==. groupId, BelongPersonId ==. authId]
+    redirect $ HomeR

@@ -5,6 +5,7 @@ import Import
 
 import Model.Event
 import Handler.Schedule(fromInt)
+import Data.Time
 
 getHomeR :: Handler Html
 getHomeR = do
@@ -34,5 +35,7 @@ getHomeWithGroupIdR groupId = do
     commentEventLogs    <- mapM commentToEventLog    comments
 
     let contents = sortBy (\x y -> compare (created y) (created x)) $ messageEventLogs ++ scheduleEventLogs ++ attendanceEventLogs ++ linkEventLogs ++ commentEventLogs
+
+    tz <- liftIO getCurrentTimeZone
 
     renderWithGroups $(widgetFile "home/event") "ホーム" PHome groupId [$(widgetFile "widget/media")]

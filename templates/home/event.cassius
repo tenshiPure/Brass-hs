@@ -1,2 +1,15 @@
-img
-    width: 70px
+.event-content
+    height: 2em
+
+.event-content img
+    width: 2em
+    margin-right: 1em
+    float: left
+
+.event-content a
+    display: block
+    float: left
+    line-height: 2em
+
+.event-content + .event-content
+    margin-top: 0.5em

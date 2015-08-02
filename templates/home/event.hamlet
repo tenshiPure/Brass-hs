@@ -4,40 +4,77 @@
             現在このグループにはイベントが存在しません
     $else
         $forall eventLog <- contents
-            $case eventLog
-                $of MessageEventLog groupId person messageId body _
-                    <p>
-                        <img src=/static/image/icon/person/#{personIcon person}>
-                        <img src=/static/image/icon/event/chat_1.png>
-                        <a href=@{MessageListR groupId}#message-#{toIntId messageId}>
-                            #{body}
-                $of ScheduleEventLog groupId person scheduleId day _
-                    <p>
-                        <img src=/static/image/icon/person/#{personIcon person}>
-                        <img src=/static/image/icon/event/schedule.jpg>
-                        <a href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
-                            #{day}
-                $of AttendanceEventLog groupId person scheduleId day attendanceId presence _
-                    <p>
-                        <img src=/static/image/icon/person/#{personIcon person}>
-                        <img src=/static/image/icon/event/schedule.jpg>
-                        <a href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
-                            #{day}
-                        <img src=/static/image/icon/event/balloon.png>
-                        <a href=@{ScheduleDetailR groupId scheduleId}#attendance-#{toIntId attendanceId}>
-                            #{fromInt presence}
-                $of LinkEventLog groupId person linkId title _
-                    <p>
-                        <img src=/static/image/icon/person/#{personIcon person}>
-                        <img src=/static/image/icon/event/link.png>
-                        <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
-                            #{title}
-                $of CommentEventLog groupId person linkId title commentId body _
-                    <p>
-                        <img src=/static/image/icon/person/#{personIcon person}>
-                        <img src=/static/image/icon/event/link.png>
-                        <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
-                            #{title}
-                        <img src=/static/image/icon/event/balloon.png>
-                        <a href=@{LinkDetailR groupId linkId}#comment-#{toIntId commentId}>
-                            #{body}
+            <div .media>
+                $case eventLog
+                    $of MessageEventLog groupId person messageId body created
+                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
+                        <div .media__body>
+                            <span .media__body__by>
+                                #{personName person}
+                            <span .media__body__at>
+                                 #{format tz created}
+                            <div .media__body__text>
+                                <div .event-content>
+                                    <img src=/static/image/icon/event/chat_3.png>
+                                    <a href=@{MessageListR groupId}#message-#{toIntId messageId}>
+                                        #{body}
+
+                    $of ScheduleEventLog groupId person scheduleId day created
+                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
+                        <div .media__body>
+                            <span .media__body__by>
+                                #{personName person}
+                            <span .media__body__at>
+                                 #{format tz created}
+                            <div .media__body__text>
+                                <div .event-content>
+                                    <img src=/static/image/icon/event/schedule.jpg>
+                                    <a href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
+                                        #{day}
+
+                    $of AttendanceEventLog groupId person scheduleId day attendanceId presence created
+                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
+                        <div .media__body>
+                            <span .media__body__by>
+                                #{personName person}
+                            <span .media__body__at>
+                                 #{format tz created}
+                            <div .media__body__text>
+                                <div .event-content>
+                                    <img src=/static/image/icon/event/schedule.jpg>
+                                    <a href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
+                                        #{day}
+                                <div .event-content>
+                                    <img src=/static/image/icon/event/balloon.png>
+                                    <a href=@{ScheduleDetailR groupId scheduleId}#attendance-#{toIntId attendanceId}>
+                                        #{fromInt presence}
+
+                    $of LinkEventLog groupId person linkId title created
+                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
+                        <div .media__body>
+                            <span .media__body__by>
+                                #{personName person}
+                            <span .media__body__at>
+                                 #{format tz created}
+                            <div .media__body__text>
+                                <div .event-content>
+                                    <img src=/static/image/icon/event/link.png>
+                                    <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
+                                        #{title}
+
+                    $of CommentEventLog groupId person linkId title commentId body created
+                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
+                        <div .media__body>
+                            <span .media__body__by>
+                                #{personName person}
+                            <span .media__body__at>
+                                 #{format tz created}
+                            <div .media__body__text>
+                                <div .event-content>
+                                    <img src=/static/image/icon/event/link.png>
+                                    <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
+                                        #{title}
+                                <div .event-content>
+                                    <img src=/static/image/icon/event/balloon.png>
+                                    <a href=@{LinkDetailR groupId linkId}#comment-#{toIntId commentId}>
+                                        #{body}

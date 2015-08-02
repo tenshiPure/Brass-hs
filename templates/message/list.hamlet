@@ -11,8 +11,7 @@
     $else
         $forall (Entity messageId message, person) <- contents
             <div #message-#{toIntId messageId} .media>
-                <div .media__image>
-                    <img .message-image src=/static/image/icon/person/#{personIcon person}>
+                <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
                 <div .media__body>
                     <span .media__body__by>
                         #{personName person}

@@ -8,14 +8,12 @@
 .media:after
     clear: both
 
-.media img
-    display: block
-    height: 70px
-
 .media
     border-top: 1px solid #000
 
-.media__image
+.media__person-icon
+    display: block
+    height: 70px
     float: left
     margin-right: 2em
 
@@ -24,13 +22,12 @@
     min-height: 70px
 
 .media__body__by
-    //color: #FFF
+    color: #000
 
 .media__body__at
-    //color: #FFF
+    color: #000
     float: right
 
 .media__body__text
     margin-top: 0
     margin-bottom: 0
-    white-space: pre-wrap

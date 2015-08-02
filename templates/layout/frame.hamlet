@@ -2,9 +2,9 @@
     ^{headerWidget}
 
 <div #layout-message>
-    $maybe message <- mMessage
+    $maybe type <- mMessageType
         <span>
-            #{message}
+            #{type} - #{fromMaybe "" mMessageBody}
 
 <div #layout-selectors>
     ^{groupWidget}

@@ -192,13 +192,13 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
                 let modalGroupCreateWidget = $(widgetFile "modal/group-create")
                 let modalInviteLinkWidget = $(widgetFile "modal/invite-link")
 
-                mMessage <- getMessage
+                (mMessageType, mMessageBody) <- getMessageWithType
 
                 setTitle title
                 $(widgetFile "layout/frame")
 
         Nothing  -> do
-            setMessage "所属していないグループ、もしくは存在しないグループへアクセスしたため転送されました"
+            setErrorMessage "所属していないグループ、もしくは存在しないグループへアクセスしたため転送されました"
             redirect $ HomeR
 
 
@@ -267,3 +267,30 @@ deleteBelong groupId personId = do
     _ <- runDB $ insert $ BelongLog 1 now groupId personId
 
     return ()
+
+
+setSuccessMessage :: MonadHandler m => Text -> m ()
+setSuccessMessage message = do
+    setSession "message-type" "success"
+    setSession "message-body" message
+
+    return ()
+
+
+setErrorMessage :: MonadHandler m => Text -> m ()
+setErrorMessage message = do
+    setSession "message-type" "error"
+    setSession "message-body" message
+
+    return ()
+
+
+getMessageWithType :: MonadHandler m => m (Maybe Text, Maybe Text)
+getMessageWithType = do
+    mMessageType <- lookupSession "message-type"
+    mMessageBody <- lookupSession "message-body"
+
+    _ <- deleteSession "message-type"
+    _ <- deleteSession "message-body"
+
+    return (mMessageType, mMessageBody)

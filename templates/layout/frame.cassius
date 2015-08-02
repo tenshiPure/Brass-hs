@@ -12,10 +12,18 @@ html, body
     width: 100%
     line-height: 1em
 
+#layout-message
+    background-color: #FAF
+    position: fixed
+    top: 4em
+    height: 2em
+    left: 3em
+    right: 3em
+
 #layout-selectors
     background-color: #AAF
     position: fixed
-    top: 6em
+    top: 7em
     height: 3em
     left: 3em
     right: 3em
@@ -24,7 +32,7 @@ html, body
 #layout-main
     background-color: #AFA
     position: fixed
-    top: 9em
+    top: 10em
     bottom: 3em
     left: 3em
     right: 3em

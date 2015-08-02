@@ -1,6 +1,11 @@
 <div #layout-header>
     ^{headerWidget}
 
+<div #layout-message>
+    $maybe message <- mMessage
+        <span>
+            #{message}
+
 <div #layout-selectors>
     ^{groupWidget}
 

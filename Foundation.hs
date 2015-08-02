@@ -192,10 +192,13 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
                 let modalGroupCreateWidget = $(widgetFile "modal/group-create")
                 let modalInviteLinkWidget = $(widgetFile "modal/invite-link")
 
+                mMessage <- getMessage
+
                 setTitle title
                 $(widgetFile "layout/frame")
 
         Nothing  -> do
+            setMessage "所属していないグループ、もしくは存在しないグループへアクセスしたため転送されました"
             redirect $ HomeR
 
 

@@ -64,3 +64,42 @@
  */
 .anchored
     background-color: #CFF
+
+/*
+ * アンカー
+ */
+.anchor
+    cursor: pointer
+    text-decoration: none
+
+.anchor:hover
+    cursor: pointer
+    text-decoration: none
+
+.anchor:visited
+    cursor: pointer
+    text-decoration: none
+
+/*
+ * 基本文字色のアンカー
+ */
+.base-color-anchor
+    color: #000
+
+.base-color-anchor:hover
+    color: #000
+
+.base-color-anchor:visited
+    color: #000
+
+/*
+ * 青色のアンカー
+ */
+.blue-anchor
+    color: #00F
+
+.blue-anchor:hover
+    color: #00F
+
+.blue-anchor:visited
+    color: #00F

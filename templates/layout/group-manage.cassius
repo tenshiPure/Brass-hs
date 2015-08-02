@@ -29,14 +29,6 @@
     border-bottom: solid #bbb 1px
     padding: 5px 8px
     display: block
-    color: #00D
-    cursor: pointer
 
 .select-menu__item:hover
-    color: #00D
     background: #eee
-    cursor: pointer
-
-.select-menu__item:visited
-    color: #00D
-    cursor: pointer

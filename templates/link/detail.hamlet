@@ -11,7 +11,7 @@
             #{linkTitle link}
     <div .link-url>
         リンク先：
-        <a href=#{linkUrl link} target=_blank>
+        <a .anchor .blue-anchor href=#{linkUrl link} target=_blank>
             #{linkUrl link}
 
     $if null contents

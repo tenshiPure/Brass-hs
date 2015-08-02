@@ -4,5 +4,5 @@
     <p>
         @{GroupInvitedR currentGroupId}
 
-    <a #modal-close .button-link>
+    <a .anchor .blue-anchor #modal-close .button-link>
         閉じる

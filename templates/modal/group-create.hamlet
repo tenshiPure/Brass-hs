@@ -2,5 +2,5 @@
     <form method=post action=@{GroupCreateR currentGroupId} enctype=#{groupCreateEnctype}>
         ^{groupCreateWidget}
 
-    <a #modal-close .button-link>
+    <a .anchor .blue-anchor #modal-close .button-link>
         閉じる

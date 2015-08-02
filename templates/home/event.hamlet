@@ -30,7 +30,7 @@
                                 <div .event-content>
                                     <img src=/static/image/icon/event/chat_3.png>
                                     <span>
-                                        <a href=@{MessageListR groupId}#message-#{toIntId messageId}>
+                                        <a .anchor .blue-anchor href=@{MessageListR groupId}#message-#{toIntId messageId}>
                                             #{body}
 
                     $of ScheduleEventLog groupId person scheduleId day at
@@ -44,7 +44,7 @@
                                 <div .event-content>
                                     <img src=/static/image/icon/event/schedule.jpg>
                                     <span>
-                                        <a href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
+                                        <a .anchor .blue-anchor href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
                                             #{day}
 
                     $of AttendanceEventLog groupId person scheduleId day attendanceId presence at
@@ -58,12 +58,12 @@
                                 <div .event-content>
                                     <img src=/static/image/icon/event/schedule.jpg>
                                     <span>
-                                        <a href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
+                                        <a .anchor .blue-anchor href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
                                             #{day}
                                 <div .event-content>
                                     <img src=/static/image/icon/event/balloon.png>
                                     <span>
-                                        <a href=@{ScheduleDetailR groupId scheduleId}#attendance-#{toIntId attendanceId}>
+                                        <a .anchor .blue-anchor href=@{ScheduleDetailR groupId scheduleId}#attendance-#{toIntId attendanceId}>
                                             #{fromInt presence}
 
                     $of LinkEventLog groupId person linkId title at
@@ -77,7 +77,7 @@
                                 <div .event-content>
                                     <span>
                                         <img src=/static/image/icon/event/link.png>
-                                        <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
+                                        <a .anchor .blue-anchor href=@{LinkListR groupId}#link-#{toIntId linkId}>
                                             #{title}
 
                     $of CommentEventLog groupId person linkId title commentId body at
@@ -91,10 +91,10 @@
                                 <div .event-content>
                                     <span>
                                         <img src=/static/image/icon/event/link.png>
-                                        <a href=@{LinkListR groupId}#link-#{toIntId linkId}>
+                                        <a .anchor .blue-anchor href=@{LinkListR groupId}#link-#{toIntId linkId}>
                                             #{title}
                                 <div .event-content>
                                     <span>
                                         <img src=/static/image/icon/event/balloon.png>
-                                        <a href=@{LinkDetailR groupId linkId}#comment-#{toIntId commentId}>
+                                        <a .anchor .blue-anchor href=@{LinkDetailR groupId linkId}#comment-#{toIntId commentId}>
                                             #{body}

@@ -12,7 +12,7 @@
         <ul .image-list>
             $forall (Entity linkId link, commentNum) <- contents
                 <li #link-#{toIntId linkId} .image-list__item>
-                    <a href=@{LinkDetailR groupId linkId}>
+                    <a .anchor .base-color-anchor href=@{LinkDetailR groupId linkId}>
                         <img src=/static/image/icon/link/#{linkIcon link}>
                         <div>
                             #{linkTitle link}

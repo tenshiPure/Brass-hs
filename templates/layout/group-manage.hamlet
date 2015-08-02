@@ -2,13 +2,13 @@
     <span .select-menu__label>
         ＋
     <div .select-menu__items>
-        <a href="/項目1" .select-menu__item>
+        <a .anchor .blue-anchor href="/項目1" .select-menu__item>
             グループ情報を変更する
-        <a href="/項目2" .select-menu__item>
+        <a .anchor .blue-anchor href="/項目2" .select-menu__item>
             このグループに招待する
-        <a #modal-invite-link-open .select-menu__item>
+        <a .anchor .blue-anchor #modal-invite-link-open .select-menu__item>
             招待リンク
-        <a href=@{BelongDeleteR currentGroupId} .select-menu__item>
+        <a .anchor .blue-anchor href=@{BelongDeleteR currentGroupId} .select-menu__item>
             このグループから抜ける
-        <a href=@{GroupDeleteR currentGroupId} .select-menu__item>
+        <a .anchor .blue-anchor href=@{GroupDeleteR currentGroupId} .select-menu__item>
             このグループを削除する

@@ -22,6 +22,7 @@ getHomeR = do
 
 getHomeWithGroupIdR :: GroupId -> Handler Html
 getHomeWithGroupIdR groupId = do
+    groupLogs   <- runDB $ selectList [GroupLogGroupId ==. groupId]   [Desc GroupLogId]
     belongLogs  <- runDB $ selectList [BelongLogGroupId ==. groupId]  [Desc BelongLogId]
     messages    <- runDB $ selectList [MessageGroupId ==. groupId]    [Desc MessageId]
     schedules   <- runDB $ selectList [ScheduleGroupId ==. groupId]   [Desc ScheduleId]
@@ -29,6 +30,7 @@ getHomeWithGroupIdR groupId = do
     links       <- runDB $ selectList [LinkGroupId ==. groupId]       [Desc LinkId]
     comments    <- runDB $ selectList [CommentGroupId ==. groupId]    [Desc CommentId]
 
+    groupEventLogs      <- mapM groupToEventLog      groupLogs
     belongEventLogs     <- mapM belongToEventLog     belongLogs
     messageEventLogs    <- mapM messageToEventLog    messages
     scheduleEventLogs   <- mapM scheduleToEventLog   schedules
@@ -36,7 +38,7 @@ getHomeWithGroupIdR groupId = do
     linkEventLogs       <- mapM linkToEventLog       links
     commentEventLogs    <- mapM commentToEventLog    comments
 
-    let contents = sortBy (\x y -> compare (at y) (at x)) $ belongEventLogs ++ messageEventLogs ++ scheduleEventLogs ++ attendanceEventLogs ++ linkEventLogs ++ commentEventLogs
+    let contents = sortBy (\x y -> compare (at y) (at x)) $ groupEventLogs ++ belongEventLogs ++ messageEventLogs ++ scheduleEventLogs ++ attendanceEventLogs ++ linkEventLogs ++ commentEventLogs
 
     tz <- liftIO getCurrentTimeZone
 

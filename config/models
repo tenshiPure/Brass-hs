@@ -3,6 +3,13 @@ Group
     icon        Text
     UniqueGroup name
 
+GroupLog
+    name     Text
+    icon     Text
+    created  UTCTime
+    groupId  GroupId
+    personId PersonId
+
 Person
     mail         Text
     name         Text

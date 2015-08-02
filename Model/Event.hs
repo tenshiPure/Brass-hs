@@ -4,12 +4,20 @@ module Model.Event where
 import Import
 
 
-data EventLog = BelongEventLog     { person :: Person, icon :: Text, body :: Text, at :: UTCTime }
+data EventLog = GroupEventLog      { person :: Person, body :: Text, icon :: Text, at :: UTCTime }
+              | BelongEventLog     { person :: Person, icon :: Text, body :: Text, at :: UTCTime }
               | MessageEventLog    { groupId :: GroupId, person :: Person, messageId :: MessageId, body :: Text, at :: UTCTime }
               | ScheduleEventLog   { groupId :: GroupId, person :: Person, scheduleId :: ScheduleId, day :: Text, at :: UTCTime }
               | AttendanceEventLog { groupId :: GroupId, person :: Person, scheduleId :: ScheduleId, day :: Text, attendanceId :: AttendanceId, presence :: Int , at :: UTCTime }
               | LinkEventLog       { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, at :: UTCTime }
               | CommentEventLog    { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, commentId :: CommentId, body :: Text , at :: UTCTime }
+
+
+groupToEventLog :: Entity GroupLog -> HandlerT App IO EventLog
+groupToEventLog groupLog = do
+    person <- runDB $ get404 (groupLogPersonId $ entityVal groupLog)
+
+    return $ GroupEventLog person ((groupLogName $ entityVal groupLog) ++ " に変更しました") (groupLogIcon $ entityVal groupLog) (groupLogCreated $ entityVal groupLog)
 
 
 belongToEventLog :: Entity BelongLog -> HandlerT App IO EventLog

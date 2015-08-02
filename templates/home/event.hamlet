@@ -6,6 +6,19 @@
         $forall eventLog <- contents
             <div .media>
                 $case eventLog
+                    $of GroupEventLog person body icon at
+                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
+                        <div .media__body>
+                            <span .media__body__by>
+                                #{personName person}
+                            <span .media__body__at>
+                                 #{format tz at}
+                            <div .media__body__text>
+                                <div .event-content>
+                                    <img src=/static/image/icon/group/#{icon}>
+                                    <span>
+                                        #{body}
+
                     $of BelongEventLog person icon body at
                         <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
                         <div .media__body>

@@ -17,8 +17,8 @@ belongToEventLog belongLog = do
     person <- runDB $ get404 (belongLogPersonId $ entityVal belongLog)
 
     return $ case (belongLogAction $ entityVal belongLog) of
-        0 -> BelongEventLog person "chat_1.png" "追加" (belongLogCreated $ entityVal belongLog)
-        _ -> BelongEventLog person "chat_2.png" "削除" (belongLogCreated $ entityVal belongLog)
+        0 -> BelongEventLog person "in.png"  "グループに参加しました"   (belongLogCreated $ entityVal belongLog)
+        _ -> BelongEventLog person "out.png" "グループから退席しました" (belongLogCreated $ entityVal belongLog)
 
 
 messageToEventLog :: Entity Message -> HandlerT App IO EventLog

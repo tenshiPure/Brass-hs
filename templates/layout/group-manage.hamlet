@@ -8,5 +8,7 @@
             このグループに招待する
         <a href="/項目3" .select-menu__item>
             招待リンク
-        <a href=@{BelongRemoveR currentGroupId} .select-menu__item>
+        <a href=@{BelongDeleteR currentGroupId} .select-menu__item>
             このグループから抜ける
+        <a href=@{GroupDeleteR currentGroupId} .select-menu__item>
+            このグループを削除する

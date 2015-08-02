@@ -11,7 +11,8 @@
 /group/create                 GroupCreateR      POST
 /group/manage/#GroupId        GroupManageR  GET
 /group/update/#GroupId        GroupUpdateR  GET POST
-/group/belong/remove/#GroupId BelongRemoveR GET
+/group/delete/#GroupId        GroupDeleteR  GET
+/group/belong/delete/#GroupId BelongDeleteR GET
 
 /schedules/#GroupId                     ScheduleListR   GET
 /schedule/detail/#GroupId/#ScheduleId   ScheduleDetailR GET

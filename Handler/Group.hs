@@ -34,8 +34,16 @@ postGroupUpdateR groupId = do
     error $ "todo" ++ (show groupId)
 
 
-getBelongRemoveR :: GroupId -> Handler Html
-getBelongRemoveR groupId = do
+getBelongDeleteR :: GroupId -> Handler Html
+getBelongDeleteR groupId = do
     authId <- requireAuthId
     _ <- runDB $ deleteWhere [BelongGroupId ==. groupId, BelongPersonId ==. authId]
+    redirect $ HomeR
+
+
+getGroupDeleteR :: GroupId -> Handler Html
+getGroupDeleteR groupId = do
+    _ <- runDB $ deleteWhere [GroupId ==. groupId]
+    _ <- runDB $ deleteWhere [BelongGroupId ==. groupId]
+
     redirect $ HomeR

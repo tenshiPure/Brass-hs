@@ -4,74 +4,78 @@ module Model.Event where
 import Import
 
 
-data EventLog = GroupEventLog      { person :: Person, body :: Text, icon :: Text, at :: UTCTime }
-              | BelongEventLog     { person :: Person, icon :: Text, body :: Text, at :: UTCTime }
-              | MessageEventLog    { groupId :: GroupId, person :: Person, messageId :: MessageId, body :: Text, at :: UTCTime }
-              | ScheduleEventLog   { groupId :: GroupId, person :: Person, scheduleId :: ScheduleId, day :: Text, at :: UTCTime }
-              | AttendanceEventLog { groupId :: GroupId, person :: Person, scheduleId :: ScheduleId, day :: Text, attendanceId :: AttendanceId, presence :: Int , at :: UTCTime }
-              | LinkEventLog       { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, at :: UTCTime }
-              | CommentEventLog    { groupId :: GroupId, person :: Person, linkId :: LinkId, title :: Text, commentId :: CommentId, body :: Text , at :: UTCTime }
+data EventLog = GroupEventLog      { body :: Text, icon :: Text }
+              | BelongEventLog     { icon :: Text, body :: Text }
+              | MessageEventLog    { groupId :: GroupId, messageId :: MessageId, body :: Text }
+              | ScheduleEventLog   { groupId :: GroupId, scheduleId :: ScheduleId, day :: Text }
+              | AttendanceEventLog { groupId :: GroupId, scheduleId :: ScheduleId, day :: Text, attendanceId :: AttendanceId, presence :: Int }
+              | LinkEventLog       { groupId :: GroupId, linkId :: LinkId, title :: Text }
+              | CommentEventLog    { groupId :: GroupId, linkId :: LinkId, title :: Text, commentId :: CommentId, body :: Text }
 
 
-groupToEventLog :: Entity GroupLog -> HandlerT App IO EventLog
+groupToEventLog :: Entity GroupLog -> HandlerT App IO (Person, UTCTime, EventLog)
 groupToEventLog groupLog = do
-    person <- runDB $ get404 (groupLogPersonId $ entityVal groupLog)
+    person <- runDB $ get404 $ groupLogPersonId $ entityVal groupLog
 
-    return $ case (groupLogAction $ entityVal groupLog) of
-        0 -> GroupEventLog person ((groupLogName $ entityVal groupLog) ++ " を作成しました") (groupLogIcon $ entityVal groupLog) (groupLogCreated $ entityVal groupLog)
-        _ -> GroupEventLog person ((groupLogName $ entityVal groupLog) ++ " に変更しました") (groupLogIcon $ entityVal groupLog) (groupLogCreated $ entityVal groupLog)
-
-    
+    return $ case entityVal groupLog of
+        GroupLog name icon 0 created groupId _ -> (person, created, GroupEventLog (name ++ " を作成しました") icon)
+        GroupLog name icon 1 created groupId _ -> (person, created, GroupEventLog (name ++ " に変更しました") icon)
 
 
-belongToEventLog :: Entity BelongLog -> HandlerT App IO EventLog
+belongToEventLog :: Entity BelongLog -> HandlerT App IO (Person, UTCTime, EventLog)
 belongToEventLog belongLog = do
-    person <- runDB $ get404 (belongLogPersonId $ entityVal belongLog)
+    person <- runDB $ get404 $ belongLogPersonId $ entityVal belongLog
 
-    return $ case (belongLogAction $ entityVal belongLog) of
-        0 -> BelongEventLog person "in.png"  "グループに参加しました"   (belongLogCreated $ entityVal belongLog)
-        _ -> BelongEventLog person "out.png" "グループから退席しました" (belongLogCreated $ entityVal belongLog)
+    return $ case entityVal belongLog of
+        BelongLog 0 created groupId _ -> (person, created, BelongEventLog "in.png"  "グループに参加しました")
+        BelongLog 1 created groupId _ -> (person, created, BelongEventLog "out.png" "グループから退席しました")
 
 
-messageToEventLog :: Entity Message -> HandlerT App IO EventLog
+messageToEventLog :: Entity Message -> HandlerT App IO (Person, UTCTime, EventLog)
 messageToEventLog message = do
-    person <- runDB $ get404 (messagePersonId $ entityVal message)
+    let messageId = entityKey message
+    person <- runDB $ get404 $ messagePersonId $ entityVal message
 
-    return $ MessageEventLog (messageGroupId $ entityVal message) person (entityKey message) (cut 50 (messageBody $ entityVal message)) (messageCreated $ entityVal message)
-
-
-linkToEventLog :: Entity Link -> HandlerT App IO EventLog
-linkToEventLog link = do
-    person <- runDB $ get404 (linkPersonId $ entityVal link)
-
-    return $ LinkEventLog (linkGroupId $ entityVal link) person (entityKey link) (linkTitle $ entityVal link) (linkCreated $ entityVal link)
+    return $ case entityVal message of
+        Message body created groupId _ -> (person, created, MessageEventLog groupId messageId (cut 50 body))
 
 
-commentToEventLog :: Entity Comment -> HandlerT App IO EventLog
-commentToEventLog comment = do
-    person <- runDB $ get404 (commentPersonId $ entityVal comment)
-
-    let linkId = commentLinkId $ entityVal comment
-    link <- runDB $ get404 linkId
-
-    return $ CommentEventLog (commentGroupId $ entityVal comment) person linkId (linkTitle link) (entityKey comment) (cut 30 (commentBody $ entityVal comment)) (commentCreated $ entityVal comment)
-
-
-scheduleToEventLog :: Entity Schedule -> HandlerT App IO EventLog
+scheduleToEventLog :: Entity Schedule -> HandlerT App IO (Person, UTCTime, EventLog)
 scheduleToEventLog schedule = do
-    person <- runDB $ get404 (schedulePersonId $ entityVal schedule)
+    let scheduleId = entityKey schedule
+    person <- runDB $ get404 $ schedulePersonId $ entityVal schedule
 
-    return $ ScheduleEventLog (scheduleGroupId $ entityVal schedule) person (entityKey schedule) (scheduleDay $ entityVal schedule) (scheduleCreated $ entityVal schedule)
+    return $ case entityVal schedule of
+        Schedule day _ _ created groupId _-> (person, created, ScheduleEventLog groupId scheduleId day)
 
 
-attendanceToEventLog :: Entity Attendance -> HandlerT App IO EventLog
+attendanceToEventLog :: Entity Attendance -> HandlerT App IO (Person, UTCTime, EventLog)
 attendanceToEventLog attendance = do
-    person <- runDB $ get404 (attendancePersonId $ entityVal attendance)
+    let attendanceId = entityKey attendance
+    person <- runDB $ get404 $ attendancePersonId $ entityVal attendance
+    schedule <- runDB $ get404 $ attendanceScheduleId $ entityVal attendance
 
-    let scheduleId = attendanceScheduleId $ entityVal attendance
-    schedule <- runDB $ get404 scheduleId
+    return $ case entityVal attendance of
+        Attendance presence _ created scheduleId groupId _ ->  (person, created, AttendanceEventLog groupId scheduleId (scheduleDay $ schedule) attendanceId presence)
 
-    return $ AttendanceEventLog (attendanceGroupId $ entityVal attendance) person scheduleId (scheduleDay $ schedule) (entityKey attendance) (attendancePresence $ entityVal attendance) (attendanceCreated $ entityVal attendance)
+
+linkToEventLog :: Entity Link -> HandlerT App IO (Person, UTCTime, EventLog)
+linkToEventLog link = do
+    let linkId = entityKey link
+    person <- runDB $ get404 $ linkPersonId $ entityVal link
+
+    return $ case entityVal link of
+        Link title _ _ created groupId _ -> (person, created, LinkEventLog groupId linkId title)
+
+
+commentToEventLog :: Entity Comment -> HandlerT App IO (Person, UTCTime, EventLog)
+commentToEventLog comment = do
+    let commentId = entityKey comment
+    person <- runDB $ get404 (commentPersonId $ entityVal comment)
+    link <- runDB $ get404 $ commentLinkId $ entityVal comment
+
+    return $ case entityVal comment of
+        Comment body created linkId groupId _ -> (person, created, CommentEventLog groupId linkId (linkTitle link) commentId (cut 30 body))
 
 
 cut :: Int -> Textarea -> Text

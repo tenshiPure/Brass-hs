@@ -21,7 +21,6 @@ Person
 Belong
     groupId  GroupId
     personId PersonId
-    deriving Show
 
 BelongLog
     action   Int

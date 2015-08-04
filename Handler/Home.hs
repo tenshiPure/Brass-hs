@@ -38,8 +38,12 @@ getHomeWithGroupIdR groupId = do
     linkEventLogs       <- mapM linkToEventLog       links
     commentEventLogs    <- mapM commentToEventLog    comments
 
-    let contents = sortBy (\x y -> compare (at y) (at x)) $ groupEventLogs ++ belongEventLogs ++ messageEventLogs ++ scheduleEventLogs ++ attendanceEventLogs ++ linkEventLogs ++ commentEventLogs
+    let contents = sortBy (\x y -> compare (getAt y) (getAt x)) $ groupEventLogs ++ belongEventLogs ++ messageEventLogs ++ scheduleEventLogs ++ attendanceEventLogs ++ linkEventLogs ++ commentEventLogs
 
     tz <- liftIO getCurrentTimeZone
 
     renderWithGroups $(widgetFile "home/event") "ホーム" PHome groupId [$(widgetFile "widget/media")]
+
+
+getAt :: (Person, UTCTime, EventLog) -> UTCTime
+getAt (_, at, _) = at

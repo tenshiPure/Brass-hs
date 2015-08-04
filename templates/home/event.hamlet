@@ -3,111 +3,68 @@
         <span .no-contents>
             現在このグループにはイベントが存在しません
     $else
-        $forall eventLog <- contents
+        $forall (person, at, eventLog) <- contents
             <div .media>
-                $case eventLog
-                    $of GroupEventLog person body icon at
-                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
-                        <div .media__body>
-                            <span .media__body__by>
-                                #{personName person}
-                            <span .media__body__at>
-                                 #{format tz at}
-                            <div .media__body__text>
-                                <div .event-content>
-                                    <img src=/static/image/icon/group/#{icon}>
-                                    <span>
+                <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
+                <div .media__body>
+                    <span .media__body__by>
+                        #{personName person}
+                    <span .media__body__at>
+                         #{format tz at}
+                    $case eventLog
+                        $of GroupEventLog body icon
+                            <div .event-content>
+                                <img src=/static/image/icon/group/#{icon}>
+                                <span>
+                                    #{body}
+
+                        $of BelongEventLog icon body
+                            <div .event-content>
+                                <img src=/static/image/icon/event/#{icon}>
+                                <span>
+                                    #{body}
+
+                        $of MessageEventLog groupId messageId body
+                            <div .event-content>
+                                <img src=/static/image/icon/event/chat_3.png>
+                                <span>
+                                    <a .anchor .blue-anchor href=@{MessageListR groupId}#message-#{toIntId messageId}>
                                         #{body}
 
-                    $of BelongEventLog person icon body at
-                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
-                        <div .media__body>
-                            <span .media__body__by>
-                                #{personName person}
-                            <span .media__body__at>
-                                 #{format tz at}
-                            <div .media__body__text>
-                                <div .event-content>
-                                    <img src=/static/image/icon/event/#{icon}>
-                                    <span>
-                                        #{body}
+                        $of ScheduleEventLog groupId scheduleId day
+                            <div .event-content>
+                                <img src=/static/image/icon/event/schedule.jpg>
+                                <span>
+                                    <a .anchor .blue-anchor href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
+                                        #{day}
 
-                    $of MessageEventLog groupId person messageId body at
-                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
-                        <div .media__body>
-                            <span .media__body__by>
-                                #{personName person}
-                            <span .media__body__at>
-                                 #{format tz at}
-                            <div .media__body__text>
-                                <div .event-content>
-                                    <img src=/static/image/icon/event/chat_3.png>
-                                    <span>
-                                        <a .anchor .blue-anchor href=@{MessageListR groupId}#message-#{toIntId messageId}>
-                                            #{body}
+                        $of AttendanceEventLog groupId scheduleId day attendanceId presence
+                            <div .event-content>
+                                <img src=/static/image/icon/event/schedule.jpg>
+                                <span>
+                                    <a .anchor .blue-anchor href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
+                                        #{day}
+                            <div .event-content>
+                                <img src=/static/image/icon/event/balloon.png>
+                                <span>
+                                    <a .anchor .blue-anchor href=@{ScheduleDetailR groupId scheduleId}#attendance-#{toIntId attendanceId}>
+                                        #{fromInt presence}
 
-                    $of ScheduleEventLog groupId person scheduleId day at
-                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
-                        <div .media__body>
-                            <span .media__body__by>
-                                #{personName person}
-                            <span .media__body__at>
-                                 #{format tz at}
-                            <div .media__body__text>
-                                <div .event-content>
-                                    <img src=/static/image/icon/event/schedule.jpg>
-                                    <span>
-                                        <a .anchor .blue-anchor href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
-                                            #{day}
+                        $of LinkEventLog groupId linkId title
+                            <div .event-content>
+                                <span>
+                                    <img src=/static/image/icon/event/link.png>
+                                    <a .anchor .blue-anchor href=@{LinkListR groupId}#link-#{toIntId linkId}>
+                                        #{title}
 
-                    $of AttendanceEventLog groupId person scheduleId day attendanceId presence at
-                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
-                        <div .media__body>
-                            <span .media__body__by>
-                                #{personName person}
-                            <span .media__body__at>
-                                 #{format tz at}
-                            <div .media__body__text>
-                                <div .event-content>
-                                    <img src=/static/image/icon/event/schedule.jpg>
-                                    <span>
-                                        <a .anchor .blue-anchor href=@{ScheduleListR groupId}#schedule-#{toIntId scheduleId}>
-                                            #{day}
-                                <div .event-content>
+                        $of CommentEventLog groupId linkId title commentId body
+                            <div .event-content>
+                                <span>
+                                    <img src=/static/image/icon/event/link.png>
+                                    <a .anchor .blue-anchor href=@{LinkListR groupId}#link-#{toIntId linkId}>
+                                        #{title}
+                            <div .event-content>
+                                <span>
                                     <img src=/static/image/icon/event/balloon.png>
-                                    <span>
-                                        <a .anchor .blue-anchor href=@{ScheduleDetailR groupId scheduleId}#attendance-#{toIntId attendanceId}>
-                                            #{fromInt presence}
-
-                    $of LinkEventLog groupId person linkId title at
-                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
-                        <div .media__body>
-                            <span .media__body__by>
-                                #{personName person}
-                            <span .media__body__at>
-                                 #{format tz at}
-                            <div .media__body__text>
-                                <div .event-content>
-                                    <span>
-                                        <img src=/static/image/icon/event/link.png>
-                                        <a .anchor .blue-anchor href=@{LinkListR groupId}#link-#{toIntId linkId}>
-                                            #{title}
-
-                    $of CommentEventLog groupId person linkId title commentId body at
-                        <img .media__person-icon src=/static/image/icon/person/#{personIcon person}>
-                        <div .media__body>
-                            <span .media__body__by>
-                                #{personName person}
-                            <span .media__body__at>
-                                 #{format tz at}
-                            <div .media__body__text>
-                                <div .event-content>
-                                    <span>
-                                        <img src=/static/image/icon/event/link.png>
-                                        <a .anchor .blue-anchor href=@{LinkListR groupId}#link-#{toIntId linkId}>
-                                            #{title}
-                                <div .event-content>
-                                    <span>
-                                        <img src=/static/image/icon/event/balloon.png>
-                                        <a .anchor .blue-anchor href=@{LinkDetailR groupId linkId}#comment-#{toIntId commentId}>
-                                            #{body}
+                                    <a .anchor .blue-anchor href=@{LinkDetailR groupId linkId}#comment-#{toIntId commentId}>
+                                        #{body}

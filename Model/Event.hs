@@ -18,8 +18,8 @@ groupToEventLog groupLog = do
     person <- runDB $ get404 $ groupLogPersonId $ entityVal groupLog
 
     return $ case entityVal groupLog of
-        GroupLog name icon 0 created groupId _ -> (person, created, GroupEventLog (name ++ " を作成しました") icon)
-        GroupLog name icon 1 created groupId _ -> (person, created, GroupEventLog (name ++ " に変更しました") icon)
+        GroupLog name icon 0 created _ _ -> (person, created, GroupEventLog (name ++ " を作成しました") icon)
+        GroupLog name icon _ created _ _ -> (person, created, GroupEventLog (name ++ " に変更しました") icon)
 
 
 belongToEventLog :: Entity BelongLog -> HandlerT App IO (Person, UTCTime, EventLog)
@@ -27,8 +27,8 @@ belongToEventLog belongLog = do
     person <- runDB $ get404 $ belongLogPersonId $ entityVal belongLog
 
     return $ case entityVal belongLog of
-        BelongLog 0 created groupId _ -> (person, created, BelongEventLog "in.png"  "グループに参加しました")
-        BelongLog 1 created groupId _ -> (person, created, BelongEventLog "out.png" "グループから退席しました")
+        BelongLog 0 created _ _ -> (person, created, BelongEventLog "in.png"  "グループに参加しました")
+        BelongLog _ created _ _ -> (person, created, BelongEventLog "out.png" "グループから退席しました")
 
 
 messageToEventLog :: Entity Message -> HandlerT App IO (Person, UTCTime, EventLog)

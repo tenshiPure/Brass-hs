@@ -121,3 +121,8 @@ getGroupDeleteR groupId = do
     setSuccessInformation $ (groupName group') ++ " を削除しました"
 
     redirect $ HomeR
+
+
+postInviteR :: groupId -> Handler Html
+postInviteR groupId = do
+    error "todo"

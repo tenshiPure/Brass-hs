@@ -182,6 +182,10 @@ renderWithGroups mainWidget title page currentGroupId widgets = do
             (groupCreateWidget, groupCreateEnctype) <- generateFormPost $ fGroup Nothing
             (groupUpdateWidget, groupUpdateEnctype) <- generateFormPost $ fGroup (Just currentGroup)
 
+            _belongs <- runDB $ selectList [BelongGroupId ==. currentGroupId] [Asc BelongId]
+            let belongPersonIds = map (belongPersonId . entityVal) _belongs
+            persons <- runDB $ selectList [PersonId /<-. belongPersonIds] [Asc PersonId]
+
             defaultLayout $ do
                 (mInformationType, mInformationBody) <- getInformation
 

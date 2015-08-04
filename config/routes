@@ -14,6 +14,7 @@
 
 /group/belong/invited/#GroupId GroupInvitedR GET
 /group/belong/delete/#GroupId  BelongDeleteR GET
+/invite/#GroupId InviteR POST
 
 /schedules/#GroupId                     ScheduleListR   GET
 /schedule/detail/#GroupId/#ScheduleId   ScheduleDetailR GET

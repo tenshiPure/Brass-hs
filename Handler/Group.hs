@@ -2,6 +2,8 @@ module Handler.Group where
 
 
 import Import
+import Database.Persist.Sql(toSqlKey)
+import Prelude(read)
 
 
 postGroupCreateR :: GroupId -> Handler Html
@@ -123,6 +125,16 @@ getGroupDeleteR groupId = do
     redirect $ HomeR
 
 
-postInviteR :: groupId -> Handler Html
+postInviteR :: GroupId -> Handler Html
 postInviteR groupId = do
-    error "todo"
+    tPersonIds <- lookupPostParams "persons[]"
+
+    forM_ (map toKey tPersonIds) $ \personId -> createBelong groupId personId
+
+    redirect $ HomeWithGroupIdR groupId
+
+
+toKey :: Text -> PersonId 
+toKey tPersonId = toSqlKey (Prelude.read sPersonId :: Int64)
+    where
+        sPersonId = unpack tPersonId

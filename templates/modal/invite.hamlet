@@ -1,15 +1,19 @@
 <div #modal-invite>
-    <form method=post action=@{InviteR currentGroupId}>
-        <div #modal-invite-persons>
-            $forall Entity personId person <- persons
-                <div>
-                    <input #modal-invite-person-#{toIntId personId} type=checkbox name=persons[] value=#{toIntId personId}>
-                    <label for=modal-invite-person-#{toIntId personId}>
-                        <img src=/static/image/icon/person/#{personIcon person} for=#modal-invite-person-#{toIntId personId}>
-                            #{personName person}
+    $if null persons
+        <span .no-contents>
+            現在このグループに招待できる人がいません
+    $else
+        <form method=post action=@{InviteR currentGroupId}>
+            <div #modal-invite-persons>
+                $forall Entity personId person <- persons
+                    <div>
+                        <input #modal-invite-person-#{toIntId personId} type=checkbox name=persons[] value=#{toIntId personId}>
+                        <label for=modal-invite-person-#{toIntId personId}>
+                            <img src=/static/image/icon/person/#{personIcon person} for=#modal-invite-person-#{toIntId personId}>
+                                #{personName person}
 
-        <div #group-create-form__buttons>
-             <input .submit-button type=submit value=送信>
+            <div #group-create-form__buttons>
+                 <input .submit-button type=submit value=送信>
 
     <a .anchor .blue-anchor #modal-close .button-link>
         閉じる

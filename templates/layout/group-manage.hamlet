@@ -4,7 +4,7 @@
     <div .select-menu__items>
         <a .anchor .blue-anchor #modal-group-update-open .select-menu__item>
             グループ情報を変更する
-        <a .anchor .blue-anchor href="/項目2" .select-menu__item>
+        <a .anchor .blue-anchor #modal-invite-open .select-menu__item>
             このグループに招待する
         <a .anchor .blue-anchor #modal-invite-link-open .select-menu__item>
             招待リンク

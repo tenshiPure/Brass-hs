@@ -1,0 +1,6 @@
+<div #modal-invite>
+    <p>
+        あばばばば
+
+    <a .anchor .blue-anchor #modal-close .button-link>
+        閉じる

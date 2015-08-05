@@ -17,7 +17,7 @@ getHomeR = do
 
     case mGroup of
         (Just topGroup) -> redirect $ HomeWithGroupIdR (entityKey topGroup)
-        Nothing      -> error "no join group"
+        Nothing      -> redirect $ HomeWelcomeR
 
 
 getHomeWithGroupIdR :: GroupId -> Handler Html
@@ -47,3 +47,10 @@ getHomeWithGroupIdR groupId = do
 
 getAt :: (Person, UTCTime, EventLog) -> UTCTime
 getAt (_, at, _) = at
+
+
+getHomeWelcomeR :: Handler Html
+getHomeWelcomeR = do
+    defaultLayout $ do
+        setTitle "ようこそ"
+        $(widgetFile "home/welcome")

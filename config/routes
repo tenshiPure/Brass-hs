@@ -7,6 +7,7 @@
 
 /home             HomeR            GET
 /home/#GroupId    HomeWithGroupIdR GET
+/welcome          HomeWelcomeR     GET
 
 /group/create/#GroupId         GroupCreateR      POST
 /group/update/#GroupId         GroupUpdateR      POST
